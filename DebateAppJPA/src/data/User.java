@@ -6,7 +6,7 @@ package data;
 //| id         | int(11)      | NO   | PRI | NULL    | auto_increment |
 //| password   | varchar(256) | NO   |     | NULL    |                |
 //| username   | varchar(42)  | NO   |     | NULL    |                |
-//| goodness   | int(11)      | YES  |     | 0       |                |
+//| goodevil   | int(11)      | YES  |     | 0       |                |
 //| lawfulness | int(11)      | YES  |     | 0       |                |
 //| type       | varchar(6)   | YES  |     | NULL    |                |
 //+------------+--------------+------+-----+---------+----------------+
@@ -20,18 +20,8 @@ public class User {
 	private int id;
 	private String password;
 	private String username;
-	private int goodness;
-	private int lawfulness;
-	
-	public User(){}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
+	private int goodevil;
+	private int lawfulchaotic;
 
 	public String getPassword() {
 		return password;
@@ -49,20 +39,24 @@ public class User {
 		this.username = username;
 	}
 
-	public int getGoodness() {
-		return goodness;
+	public int getGoodevil() {
+		return goodevil;
 	}
 
-	public void setGoodness(int goodness) {
-		this.goodness = goodness;
+	public void setGoodevil(int goodevil) {
+		this.goodevil = goodevil;
 	}
 
-	public int getLawfulness() {
-		return lawfulness;
+	public int getLawfulchaotic() {
+		return lawfulchaotic;
 	}
 
-	public void setLawfulness(int lawfulness) {
-		this.lawfulness = lawfulness;
+	public void setLawfulchaotic(int lawfulchaotic) {
+		this.lawfulchaotic = lawfulchaotic;
+	}
+
+	public int getId() {
+		return id;
 	}
 
 	@Override
