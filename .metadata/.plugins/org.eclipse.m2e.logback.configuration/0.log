@@ -1,0 +1,18 @@
+2017-01-10 09:09:22,119 [Worker-7] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: DebateAppJPA:DebateAppJPA:0.0.1-SNAPSHOT @ /Users/Jolteon/SD/DebateApp/DebateAppJPA/pom.xml.
+2017-01-10 09:09:23,279 [Worker-18] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-10 09:09:23,303 [Worker-18] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2017-01-10 09:09:23,313 [Worker-18] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-10 09:09:23,314 [Worker-18] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/Jolteon/SD/DebateApp/DebateAppJPA/src/test/resources
+2017-01-10 09:09:23,413 [Worker-7] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /DebateAppJPA/src
+2017-01-10 09:09:23,414 [Worker-7] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Resources folder /DebateAppJPA/src overlaps with sources folder /DebateAppJPA/src
+2017-01-10 09:09:23,414 [Worker-7] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Not adding source folder /DebateAppJPA/src/test/java because it overlaps with /DebateAppJPA/src
+2017-01-10 09:09:23,495 [Worker-7] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Update started
+2017-01-10 09:09:24,004 [Worker-7] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: DebateAppJPA:DebateAppJPA:0.0.1-SNAPSHOT @ /Users/Jolteon/SD/DebateApp/DebateAppJPA/pom.xml.
+2017-01-10 09:09:24,316 [Worker-7] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /DebateAppJPA/src
+2017-01-10 09:09:24,317 [Worker-7] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Resources folder /DebateAppJPA/src overlaps with sources folder /DebateAppJPA/src
+2017-01-10 09:09:24,317 [Worker-7] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Not adding source folder /DebateAppJPA/src/test/java because it overlaps with /DebateAppJPA/src
+2017-01-10 09:09:24,403 [Worker-7] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Update completed: 0 sec
+2017-01-10 09:09:24,583 [Worker-1] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-10 09:09:24,585 [Worker-1] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2017-01-10 09:09:24,594 [Worker-1] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-01-10 09:09:24,595 [Worker-1] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/Jolteon/SD/DebateApp/DebateAppJPA/src/test/resources
