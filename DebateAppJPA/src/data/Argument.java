@@ -28,8 +28,8 @@ public class Argument {
 	private Team team1;
 	private Team team2;
 	private int time;
-	private int side1time;
-	private int side2time;
+	private int time1;
+	private int time2;
 	private int points1;
 	private int points2;
 	private Team winteam;
@@ -69,20 +69,21 @@ public class Argument {
 		this.time = time;
 	}
 
-	public int getSide1time() {
-		return side1time;
+
+	public int getTime1() {
+		return time1;
 	}
 
-	public void setSide1time(int side1time) {
-		this.side1time = side1time;
+	public void setTime1(int time1) {
+		this.time1 = time1;
 	}
 
-	public int getSide2time() {
-		return side2time;
+	public int getTime2() {
+		return time2;
 	}
 
-	public void setSide2time(int side2time) {
-		this.side2time = side2time;
+	public void setTime2(int time2) {
+		this.time2 = time2;
 	}
 
 	public int getPoints1() {
@@ -119,9 +120,9 @@ public class Argument {
 
 	@Override
 	public String toString() {
-		return "Argument [id=" + id + ", team1=" + team1 + ", team2=" + team2 + ", time=" + time + ", side1time="
-				+ side1time + ", side2time=" + side2time + ", points1=" + points1 + ", points2=" + points2
-				+ ", winteam=" + winteam + ", loseteam=" + loseteam + "]";
+		return "Argument [id=" + id + ", team1=" + team1 + ", team2=" + team2 + ", time=" + time + ", time1=" + time1
+				+ ", time2=" + time2 + ", points1=" + points1 + ", points2=" + points2 + ", winteam=" + winteam
+				+ ", loseteam=" + loseteam + "]";
 	}
 	
 	
