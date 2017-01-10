@@ -32,15 +32,14 @@ public class Debate {
 	int id;
 	int topic;
 	String title;
-	String user1stance;
-	String user2stance;
+	String stance1;
+	String stance2;
 	int rules_id;
 	int result_id;
 	ArrayList<User> users; 
 	@ManyToMany
 	@JoinTable(name = "team_debate", joinColumns = @JoinColumn(name = "debate_id"), inverseJoinColumns = @JoinColumn(name = "team_id"))
-	HashSet<Team> team1; 
-	HashSet<Team> team2; 
+	HashSet<Team> teams; 
 	
 	
 	
