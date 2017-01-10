@@ -27,5 +27,102 @@ public class Argument {
 	private int id;
 	private Team team1;
 	private Team team2;
-	a
+	private int time;
+	private int side1time;
+	private int side2time;
+	private int points1;
+	private int points2;
+	private Team winteam;
+	private Team loseteam;
+	
+	public Argument(){}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public Team getTeam1() {
+		return team1;
+	}
+
+	public void setTeam1(Team team1) {
+		this.team1 = team1;
+	}
+
+	public Team getTeam2() {
+		return team2;
+	}
+
+	public void setTeam2(Team team2) {
+		this.team2 = team2;
+	}
+
+	public int getTime() {
+		return time;
+	}
+
+	public void setTime(int time) {
+		this.time = time;
+	}
+
+	public int getSide1time() {
+		return side1time;
+	}
+
+	public void setSide1time(int side1time) {
+		this.side1time = side1time;
+	}
+
+	public int getSide2time() {
+		return side2time;
+	}
+
+	public void setSide2time(int side2time) {
+		this.side2time = side2time;
+	}
+
+	public int getPoints1() {
+		return points1;
+	}
+
+	public void setPoints1(int points1) {
+		this.points1 = points1;
+	}
+
+	public int getPoints2() {
+		return points2;
+	}
+
+	public void setPoints2(int points2) {
+		this.points2 = points2;
+	}
+
+	public Team getWinteam() {
+		return winteam;
+	}
+
+	public void setWinteam(Team winteam) {
+		this.winteam = winteam;
+	}
+
+	public Team getLoseteam() {
+		return loseteam;
+	}
+
+	public void setLoseteam(Team loseteam) {
+		this.loseteam = loseteam;
+	}
+
+	@Override
+	public String toString() {
+		return "Argument [id=" + id + ", team1=" + team1 + ", team2=" + team2 + ", time=" + time + ", side1time="
+				+ side1time + ", side2time=" + side2time + ", points1=" + points1 + ", points2=" + points2
+				+ ", winteam=" + winteam + ", loseteam=" + loseteam + "]";
+	}
+	
+	
 }

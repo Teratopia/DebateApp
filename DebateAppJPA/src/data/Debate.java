@@ -30,14 +30,18 @@ public class Debate {
 	int id;
 	int topic;
 	String title;
-	String user1stance;
-	String user2stance;
+	String stance1;
+	String stance2;
 	int rules_id;
 	int result_id;
 	ArrayList<User> users; 
 	@ManyToMany
 	@JoinTable(name = "team_debate", joinColumns = @JoinColumn(name = "debate_id"), inverseJoinColumns = @JoinColumn(name = "team_id"))
 	HashSet<Team> teams; 
+//<<<<<<< HEAD
+//=======
+//	
+//>>>>>>> 4613a044b6808ef00b2b4ee2bc5e7e3a293a7555
 	
 	public Debate(){}
 
@@ -65,20 +69,20 @@ public class Debate {
 		this.title = title;
 	}
 
-	public String getUser1stance() {
-		return user1stance;
+	public String getStance1() {
+		return stance1;
 	}
 
-	public void setUser1stance(String user1stance) {
-		this.user1stance = user1stance;
+	public void setStance1(String user1stance) {
+		this.stance1 = user1stance;
 	}
 
-	public String getUser2stance() {
-		return user2stance;
+	public String getStance2() {
+		return stance2;
 	}
 
-	public void setUser2stance(String user2stance) {
-		this.user2stance = user2stance;
+	public void setStance2(String user2stance) {
+		this.stance2 = user2stance;
 	}
 
 	public int getRules_id() {
@@ -115,9 +119,7 @@ public class Debate {
 
 	@Override
 	public String toString() {
-		return "Debate [id=" + id + ", topic=" + topic + ", title=" + title + ", user1stance=" + user1stance
-				+ ", user2stance=" + user2stance + ", rules_id=" + rules_id + ", result_id=" + result_id + ", users="
-				+ users + ", teams=" + teams + "]";
+		return "Debate [id=" + id + ", title=" + title + "]";
 	}
 	
 }
