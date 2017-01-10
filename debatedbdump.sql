@@ -111,10 +111,9 @@ CREATE TABLE `debate` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `topic` int(11) NOT NULL,
   `title` varchar(256) NOT NULL,
-  `user1stance` varchar(500) NOT NULL,
-  `user2stance` varchar(500) NOT NULL,
+  `stance1` varchar(256) NOT NULL,
+  `stance2` varchar(256) NOT NULL,
   `rules_id` int(11) NOT NULL,
-  `winner` varchar(43) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `topic` (`topic`),
   KEY `rules_id` (`rules_id`),
@@ -162,6 +161,55 @@ CREATE TABLE `rules` (
 LOCK TABLES `rules` WRITE;
 /*!40000 ALTER TABLE `rules` DISABLE KEYS */;
 /*!40000 ALTER TABLE `rules` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `team`
+--
+
+DROP TABLE IF EXISTS `team`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `team` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(48) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `team`
+--
+
+LOCK TABLES `team` WRITE;
+/*!40000 ALTER TABLE `team` DISABLE KEYS */;
+/*!40000 ALTER TABLE `team` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `team_debate`
+--
+
+DROP TABLE IF EXISTS `team_debate`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `team_debate` (
+  `team_id` int(11) NOT NULL,
+  `debate_id` int(11) NOT NULL,
+  PRIMARY KEY (`team_id`,`debate_id`),
+  KEY `debate_id` (`debate_id`),
+  CONSTRAINT `team_debate_ibfk_1` FOREIGN KEY (`team_id`) REFERENCES `team` (`id`),
+  CONSTRAINT `team_debate_ibfk_2` FOREIGN KEY (`debate_id`) REFERENCES `debate` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `team_debate`
+--
+
+LOCK TABLES `team_debate` WRITE;
+/*!40000 ALTER TABLE `team_debate` DISABLE KEYS */;
+/*!40000 ALTER TABLE `team_debate` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -218,29 +266,29 @@ LOCK TABLES `user` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `user_has_debate`
+-- Table structure for table `user_team`
 --
 
-DROP TABLE IF EXISTS `user_has_debate`;
+DROP TABLE IF EXISTS `user_team`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `user_has_debate` (
+CREATE TABLE `user_team` (
   `user_id` int(11) NOT NULL,
-  `debate_id` int(11) NOT NULL,
-  PRIMARY KEY (`user_id`,`debate_id`),
-  KEY `debate_id` (`debate_id`),
-  CONSTRAINT `user_has_debate_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
-  CONSTRAINT `user_has_debate_ibfk_2` FOREIGN KEY (`debate_id`) REFERENCES `debate` (`id`)
+  `team_id` int(11) NOT NULL,
+  PRIMARY KEY (`user_id`,`team_id`),
+  KEY `team_id` (`team_id`),
+  CONSTRAINT `user_team_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+  CONSTRAINT `user_team_ibfk_2` FOREIGN KEY (`team_id`) REFERENCES `team` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `user_has_debate`
+-- Dumping data for table `user_team`
 --
 
-LOCK TABLES `user_has_debate` WRITE;
-/*!40000 ALTER TABLE `user_has_debate` DISABLE KEYS */;
-/*!40000 ALTER TABLE `user_has_debate` ENABLE KEYS */;
+LOCK TABLES `user_team` WRITE;
+/*!40000 ALTER TABLE `user_team` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user_team` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -252,4 +300,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-01-10  9:41:27
+-- Dump completed on 2017-01-10 11:44:37
