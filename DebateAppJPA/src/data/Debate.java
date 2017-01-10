@@ -21,6 +21,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Debate {
@@ -34,6 +37,8 @@ public class Debate {
 	int rules_id;
 	int result_id;
 	ArrayList<User> users; 
+	@ManyToMany
+	@JoinTable(name = "team_debate", joinColumns = @JoinColumn(name = "debate_id"), inverseJoinColumns = @JoinColumn(name = "team_id"))
 	HashSet<Team> team1; 
 	HashSet<Team> team2; 
 	
