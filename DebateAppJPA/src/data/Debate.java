@@ -38,10 +38,6 @@ public class Debate {
 	@ManyToMany
 	@JoinTable(name = "team_debate", joinColumns = @JoinColumn(name = "debate_id"), inverseJoinColumns = @JoinColumn(name = "team_id"))
 	HashSet<Team> teams; 
-//<<<<<<< HEAD
-//=======
-//	
-//>>>>>>> 4613a044b6808ef00b2b4ee2bc5e7e3a293a7555
 	
 	public Debate(){}
 
