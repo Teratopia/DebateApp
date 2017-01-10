@@ -6,8 +6,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Argument {
+public class Team {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	int id;
+
 }
