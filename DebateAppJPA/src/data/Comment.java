@@ -25,4 +25,52 @@ public class Comment {
 	private String text;
 	private Date time;
 	
+	public Comment(){}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Debate getDebate() {
+		return debate;
+	}
+
+	public void setDebate(Debate debate) {
+		this.debate = debate;
+	}
+
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
+
+	public Date getTime() {
+		return time;
+	}
+
+	public void setTime(Date time) {
+		this.time = time;
+	}
+
+	@Override
+	public String toString() {
+		return "Comment [id=" + id + ", user=" + user + ", debate=" + debate + ", text=" + text + ", time=" + time
+				+ "]";
+	}
+	
 }

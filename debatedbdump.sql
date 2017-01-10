@@ -114,11 +114,14 @@ CREATE TABLE `debate` (
   `stance1` varchar(256) NOT NULL,
   `stance2` varchar(256) NOT NULL,
   `rules_id` int(11) NOT NULL,
+  `result_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `topic` (`topic`),
   KEY `rules_id` (`rules_id`),
+  KEY `result_id` (`result_id`),
   CONSTRAINT `debate_ibfk_3` FOREIGN KEY (`topic`) REFERENCES `topic` (`id`),
-  CONSTRAINT `debate_ibfk_4` FOREIGN KEY (`rules_id`) REFERENCES `rules` (`id`)
+  CONSTRAINT `debate_ibfk_4` FOREIGN KEY (`rules_id`) REFERENCES `rules` (`id`),
+  CONSTRAINT `debate_ibfk_5` FOREIGN KEY (`result_id`) REFERENCES `result` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -129,6 +132,45 @@ CREATE TABLE `debate` (
 LOCK TABLES `debate` WRITE;
 /*!40000 ALTER TABLE `debate` DISABLE KEYS */;
 /*!40000 ALTER TABLE `debate` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `result`
+--
+
+DROP TABLE IF EXISTS `result`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `result` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `team1id` int(11) NOT NULL,
+  `team2id` int(11) NOT NULL,
+  `time` int(11) NOT NULL,
+  `side1time` int(11) NOT NULL,
+  `side2time` int(11) DEFAULT NULL,
+  `points1` int(11) NOT NULL DEFAULT '0',
+  `points2` int(11) NOT NULL DEFAULT '0',
+  `winteam` int(11) NOT NULL,
+  `loseteam` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `team1id` (`team1id`),
+  KEY `team2id` (`team2id`),
+  KEY `winteam` (`winteam`),
+  KEY `loseteam` (`loseteam`),
+  CONSTRAINT `result_ibfk_1` FOREIGN KEY (`team1id`) REFERENCES `team` (`id`),
+  CONSTRAINT `result_ibfk_2` FOREIGN KEY (`team2id`) REFERENCES `team` (`id`),
+  CONSTRAINT `result_ibfk_3` FOREIGN KEY (`winteam`) REFERENCES `team` (`id`),
+  CONSTRAINT `result_ibfk_4` FOREIGN KEY (`loseteam`) REFERENCES `team` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `result`
+--
+
+LOCK TABLES `result` WRITE;
+/*!40000 ALTER TABLE `result` DISABLE KEYS */;
+/*!40000 ALTER TABLE `result` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -300,4 +342,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-01-10 11:44:37
+-- Dump completed on 2017-01-10 12:17:06
