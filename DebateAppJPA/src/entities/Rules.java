@@ -1,4 +1,4 @@
-package data;
+package entities;
 
 //+--------------------+------------+------+-----+---------+----------------+
 //| Field              | Type       | Null | Key | Default | Extra          |
@@ -26,41 +26,22 @@ public class Rules {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private int apt;
-	private int cpa;
+	private int argPerTurn;
+	private int charsPerArg;
 	private int timeLimit;
-	private boolean oStatements;
+	private boolean openStatements;
 	private boolean references;
 	private int winValue;
 	private boolean publicFlag;
 	private boolean viewersFlag;
 	private boolean commentsView;
 	private boolean privateDebate;
-	
-	public Rules(){}
+
+	public Rules() {
+	}
 
 	public int getId() {
 		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public int getApt() {
-		return apt;
-	}
-
-	public void setApt(int apt) {
-		this.apt = apt;
-	}
-
-	public int getCpa() {
-		return cpa;
-	}
-
-	public void setCpa(int cpa) {
-		this.cpa = cpa;
 	}
 
 	public int getTimeLimit() {
@@ -69,14 +50,6 @@ public class Rules {
 
 	public void setTimeLimit(int timeLimit) {
 		this.timeLimit = timeLimit;
-	}
-
-	public boolean isoStatements() {
-		return oStatements;
-	}
-
-	public void setoStatements(boolean oStatements) {
-		this.oStatements = oStatements;
 	}
 
 	public boolean isReferences() {
@@ -127,10 +100,27 @@ public class Rules {
 		this.privateDebate = privateDebate;
 	}
 
-	@Override
-	public String toString() {
-		return "Rules [id=" + id + ", apt=" + apt + ", cpa=" + cpa + ", winValue=" + winValue + ", privateDebate="
-				+ privateDebate + "]";
+	public int getArgPerTurn() {
+		return argPerTurn;
 	}
-	
+
+	public void setArgPerTurn(int argPerTurn) {
+		this.argPerTurn = argPerTurn;
+	}
+
+	public int getCharsPerArg() {
+		return charsPerArg;
+	}
+
+	public void setCharsPerArg(int charsPerArg) {
+		this.charsPerArg = charsPerArg;
+	}
+
+	public boolean isOpenStatements() {
+		return openStatements;
+	}
+
+	public void setOpenStatements(boolean openStatements) {
+		this.openStatements = openStatements;
+	}
 }

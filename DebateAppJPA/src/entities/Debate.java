@@ -10,7 +10,7 @@
 //| result_id | int(11)      | NO   | MUL | NULL    |                |
 //+-----------+--------------+------+-----+---------+----------------+
 
-package data;
+package entities;
 
 import java.util.ArrayList;
 import java.util.HashSet;

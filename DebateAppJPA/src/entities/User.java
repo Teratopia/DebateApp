@@ -1,4 +1,4 @@
-package data;
+package entities;
 
 //+------------+--------------+------+-----+---------+----------------+
 //| Field      | Type         | Null | Key | Default | Extra          |
