@@ -28,8 +28,8 @@ public class Argument {
 	private Team team1;
 	private Team team2;
 	private int time;
-	private int side1time;
-	private int side2time;
+	private int time1;
+	private int time2;
 	private int points1;
 	private int points2;
 	private Team winteam;
@@ -69,21 +69,6 @@ public class Argument {
 		this.time = time;
 	}
 
-	public int getSide1time() {
-		return side1time;
-	}
-
-	public void setSide1time(int side1time) {
-		this.side1time = side1time;
-	}
-
-	public int getSide2time() {
-		return side2time;
-	}
-
-	public void setSide2time(int side2time) {
-		this.side2time = side2time;
-	}
 
 	public int getPoints1() {
 		return points1;
