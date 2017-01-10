@@ -70,6 +70,22 @@ public class Argument {
 	}
 
 
+	public int getTime1() {
+		return time1;
+	}
+
+	public void setTime1(int time1) {
+		this.time1 = time1;
+	}
+
+	public int getTime2() {
+		return time2;
+	}
+
+	public void setTime2(int time2) {
+		this.time2 = time2;
+	}
+
 	public int getPoints1() {
 		return points1;
 	}
@@ -104,9 +120,9 @@ public class Argument {
 
 	@Override
 	public String toString() {
-		return "Argument [id=" + id + ", team1=" + team1 + ", team2=" + team2 + ", time=" + time + ", side1time="
-				+ side1time + ", side2time=" + side2time + ", points1=" + points1 + ", points2=" + points2
-				+ ", winteam=" + winteam + ", loseteam=" + loseteam + "]";
+		return "Argument [id=" + id + ", team1=" + team1 + ", team2=" + team2 + ", time=" + time + ", time1=" + time1
+				+ ", time2=" + time2 + ", points1=" + points1 + ", points2=" + points2 + ", winteam=" + winteam
+				+ ", loseteam=" + loseteam + "]";
 	}
 	
 	
