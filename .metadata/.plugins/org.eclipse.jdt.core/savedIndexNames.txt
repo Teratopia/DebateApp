@@ -1,3 +1,0 @@
-INDEX VERSION 1.129+/Users/Jolteon/SD/DebateApp/.metadata/.plugins/org.eclipse.jdt.core
-1988521707.index
-3435456870.index
