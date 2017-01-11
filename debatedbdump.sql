@@ -115,6 +115,7 @@ CREATE TABLE `debate` (
   `topic_id` int(11) NOT NULL,
   `title` varchar(256) NOT NULL,
   `debateRef` varchar(400) DEFAULT NULL,
+  `instanceCount` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `topic` (`topic_id`),
   CONSTRAINT `debate_ibfk_3` FOREIGN KEY (`topic_id`) REFERENCES `topic` (`id`)
@@ -127,7 +128,7 @@ CREATE TABLE `debate` (
 
 LOCK TABLES `debate` WRITE;
 /*!40000 ALTER TABLE `debate` DISABLE KEYS */;
-INSERT INTO `debate` VALUES (1,1,'TestDebate',NULL),(2,2,'Tupac vs Biggie',NULL);
+INSERT INTO `debate` VALUES (1,1,'TestDebate',NULL,0),(2,2,'Tupac vs Biggie',NULL,0);
 /*!40000 ALTER TABLE `debate` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -145,6 +146,9 @@ CREATE TABLE `result` (
   `teamTime` int(11) NOT NULL,
   `teamPoints` int(11) DEFAULT '0',
   `rules_id` int(11) NOT NULL,
+  `instanceNum` int(11) NOT NULL DEFAULT '0',
+  `stance` varchar(256) DEFAULT NULL,
+  `winner` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `team_id` (`team_id`),
   KEY `debate_id` (`debate_id`),
@@ -161,7 +165,7 @@ CREATE TABLE `result` (
 
 LOCK TABLES `result` WRITE;
 /*!40000 ALTER TABLE `result` DISABLE KEYS */;
-INSERT INTO `result` VALUES (1,1,1,86125,9,1),(2,2,1,86125,1,1),(3,1,2,86125,1,1),(4,2,2,86125,1,1);
+INSERT INTO `result` VALUES (1,1,1,86125,9,1,0,NULL,0),(2,2,1,86125,1,1,0,NULL,0),(3,1,2,86125,1,1,0,NULL,0),(4,2,2,86125,1,1,0,NULL,0);
 /*!40000 ALTER TABLE `result` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -304,6 +308,39 @@ LOCK TABLES `user_team` WRITE;
 INSERT INTO `user_team` VALUES (1,1),(1,2),(2,2);
 /*!40000 ALTER TABLE `user_team` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `vote`
+--
+
+DROP TABLE IF EXISTS `vote`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `vote` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `debate_id` int(11) NOT NULL,
+  `team_id` int(11) NOT NULL,
+  `instance_number` int(11) NOT NULL,
+  `timestamp` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `debate_id` (`debate_id`),
+  KEY `team_id` (`team_id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `vote_ibfk_1` FOREIGN KEY (`debate_id`) REFERENCES `debate` (`id`),
+  CONSTRAINT `vote_ibfk_2` FOREIGN KEY (`team_id`) REFERENCES `team` (`id`),
+  CONSTRAINT `vote_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `vote`
+--
+
+LOCK TABLES `vote` WRITE;
+/*!40000 ALTER TABLE `vote` DISABLE KEYS */;
+/*!40000 ALTER TABLE `vote` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -314,4 +351,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-01-11 11:23:48
+-- Dump completed on 2017-01-11 15:25:47
