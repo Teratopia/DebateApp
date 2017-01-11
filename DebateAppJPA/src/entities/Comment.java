@@ -1,9 +1,12 @@
 package entities;
 
-import java.sql.Date;
+import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 //+-----------+--------------+------+-----+-------------------+----------------+
 //| Field     | Type         | Null | Key | Default           | Extra          |
@@ -20,10 +23,15 @@ import javax.persistence.Id;
 public class Comment {
 	@Id
 	private int id;
+	@ManyToOne
+	@JoinColumn(name = "user_id")
 	private User user;
+	@ManyToOne
+	@JoinColumn(name = "debate_id")
 	private Debate debate;
 	private String text;
-	private Date time;
+	@Column(name = "time")
+	private Date timeStamp;
 	
 	public Comment(){}
 
@@ -59,17 +67,17 @@ public class Comment {
 		this.text = text;
 	}
 
-	public Date getTime() {
-		return time;
+	public Date getTimeStamp() {
+		return timeStamp;
 	}
 
-	public void setTime(Date time) {
-		this.time = time;
+	public void setTimeStamp(Date timeStamp) {
+		this.timeStamp = timeStamp;
 	}
 
 	@Override
 	public String toString() {
-		return "Comment [id=" + id + ", user=" + user + ", debate=" + debate + ", text=" + text + ", time=" + time
+		return "Comment [id=" + id + ", user=" + user + ", debate=" + debate + ", text=" + text + ", timeStamp=" + timeStamp
 				+ "]";
 	}
 	

@@ -1,5 +1,7 @@
 package entities;
 
+import javax.persistence.Column;
+
 //+--------------------+------------+------+-----+---------+----------------+
 //| Field              | Type       | Null | Key | Default | Extra          |
 //+--------------------+------------+------+-----+---------+----------------+
@@ -26,22 +28,44 @@ public class Rules {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	@Column(name = "args_per_turn")
 	private int argPerTurn;
+	@Column(name = "chars_per_arg")
 	private int charsPerArg;
+	@Column(name = "limit_seconds")
 	private int timeLimit;
-	private boolean openStatements;
-	private boolean references;
+	@Column(name = "opening_statements")
+	private boolean openingStatements;
+	@Column(name = "references_on")
+	private boolean referencesOn;
+	@Column(name = "win_value")
 	private int winValue;
+	@Column(name = "users_public_flag")
 	private boolean publicFlag;
+	@Column(name = "viewers_flag")
 	private boolean viewersFlag;
+	@Column(name = "comments_view")
 	private boolean commentsView;
+	@Column(name = "private_debate")
 	private boolean privateDebate;
 
 	public Rules() {
 	}
 
-	public int getId() {
-		return id;
+	public int getArgPerTurn() {
+		return argPerTurn;
+	}
+
+	public void setArgPerTurn(int argPerTurn) {
+		this.argPerTurn = argPerTurn;
+	}
+
+	public int getCharsPerArg() {
+		return charsPerArg;
+	}
+
+	public void setCharsPerArg(int charsPerArg) {
+		this.charsPerArg = charsPerArg;
 	}
 
 	public int getTimeLimit() {
@@ -52,12 +76,20 @@ public class Rules {
 		this.timeLimit = timeLimit;
 	}
 
-	public boolean isReferences() {
-		return references;
+	public boolean isOpeningStatements() {
+		return openingStatements;
 	}
 
-	public void setReferences(boolean references) {
-		this.references = references;
+	public void setOpeningStatements(boolean openingStatements) {
+		this.openingStatements = openingStatements;
+	}
+
+	public boolean isReferencesOn() {
+		return referencesOn;
+	}
+
+	public void setReferencesOn(boolean referencesOn) {
+		this.referencesOn = referencesOn;
 	}
 
 	public int getWinValue() {
@@ -100,27 +132,8 @@ public class Rules {
 		this.privateDebate = privateDebate;
 	}
 
-	public int getArgPerTurn() {
-		return argPerTurn;
+	public int getId() {
+		return id;
 	}
 
-	public void setArgPerTurn(int argPerTurn) {
-		this.argPerTurn = argPerTurn;
-	}
-
-	public int getCharsPerArg() {
-		return charsPerArg;
-	}
-
-	public void setCharsPerArg(int charsPerArg) {
-		this.charsPerArg = charsPerArg;
-	}
-
-	public boolean isOpenStatements() {
-		return openStatements;
-	}
-
-	public void setOpenStatements(boolean openStatements) {
-		this.openStatements = openStatements;
-	}
 }
