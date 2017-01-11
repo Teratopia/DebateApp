@@ -12,48 +12,39 @@
 
 package entities;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Debate {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	int id;
-	int topic;
-	String title;
-	String stance1;
-	String stance2;
-	int rules_id;
-	int result_id;
-	ArrayList<User> users; 
-	@ManyToMany
-	@JoinTable(name = "team_debate", joinColumns = @JoinColumn(name = "debate_id"), inverseJoinColumns = @JoinColumn(name = "team_id"))
-	HashSet<Team> teams; 
-	
-	public Debate(){}
+	private int id;
+	@OneToOne
+	@JoinColumn(name = "topic_id")
+	private Topic topic;
+	private String title;
+	private String debateRef;
+	@OneToMany(mappedBy = "debate", fetch = FetchType.EAGER)
+	private HashSet<Result> results;
+	private int instanceCount;
 
-	public int getId() {
-		return id;
+	public Debate() {
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public int getTopic() {
+	public Topic getTopic() {
 		return topic;
 	}
 
-	public void setTopic(int topic) {
+	public void setTopic(Topic topic) {
 		this.topic = topic;
 	}
 
@@ -65,57 +56,32 @@ public class Debate {
 		this.title = title;
 	}
 
-	public String getStance1() {
-		return stance1;
+	public String getDebateRef() {
+		return debateRef;
 	}
 
-	public void setStance1(String user1stance) {
-		this.stance1 = user1stance;
+	public void setDebateRef(String debateRef) {
+		this.debateRef = debateRef;
 	}
 
-	public String getStance2() {
-		return stance2;
+	public HashSet<Result> getResults() {
+		return results;
 	}
 
-	public void setStance2(String user2stance) {
-		this.stance2 = user2stance;
+	public void setResults(HashSet<Result> results) {
+		this.results = results;
 	}
 
-	public int getRules_id() {
-		return rules_id;
+	public int getInstanceCount() {
+		return instanceCount;
 	}
 
-	public void setRules_id(int rules_id) {
-		this.rules_id = rules_id;
+	public void setInstanceCount(int instanceCount) {
+		this.instanceCount = instanceCount;
 	}
 
-	public int getResult_id() {
-		return result_id;
+	public int getId() {
+		return id;
 	}
 
-	public void setResult_id(int result_id) {
-		this.result_id = result_id;
-	}
-
-	public ArrayList<User> getUsers() {
-		return users;
-	}
-
-	public void setUsers(ArrayList<User> users) {
-		this.users = users;
-	}
-
-	public HashSet<Team> getTeams() {
-		return teams;
-	}
-
-	public void setTeams(HashSet<Team> teams) {
-		this.teams = teams;
-	}
-
-	@Override
-	public String toString() {
-		return "Debate [id=" + id + ", title=" + title + "]";
-	}
-	
 }

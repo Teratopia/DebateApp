@@ -1,5 +1,8 @@
 package entities;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+
 //+------------+--------------+------+-----+---------+----------------+
 //| Field      | Type         | Null | Key | Default | Extra          |
 //+------------+--------------+------+-----+---------+----------------+
@@ -13,6 +16,10 @@ package entities;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 @Entity
 public class User {
@@ -22,9 +29,52 @@ public class User {
 	private String username;
 	private int goodevil;
 	private int lawfulchaotic;
+	@OneToMany(mappedBy = "user")
+	private ArrayList<Argument> arguments;
+	@ManyToMany
+	@JoinTable(name = "user_team", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "team_id"))
+	private HashSet<Team> teams;
+	@OneToMany(mappedBy = "user")
+	private ArrayList<Comment> comments;
+	private String type;
+
+	public User() {
+	}
 
 	public String getPassword() {
 		return password;
+	}
+
+	public ArrayList<Argument> getArguments() {
+		return arguments;
+	}
+
+	public void setArguments(ArrayList<Argument> arguments) {
+		this.arguments = arguments;
+	}
+
+	public HashSet<Team> getTeams() {
+		return teams;
+	}
+
+	public void setTeams(HashSet<Team> teams) {
+		this.teams = teams;
+	}
+
+	public ArrayList<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(ArrayList<Comment> comments) {
+		this.comments = comments;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public void setPassword(String password) {
@@ -63,5 +113,5 @@ public class User {
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + "]";
 	}
-	
+
 }
