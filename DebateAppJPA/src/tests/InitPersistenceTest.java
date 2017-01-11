@@ -19,6 +19,7 @@ import entities.Rules;
 import entities.Team;
 import entities.Topic;
 import entities.User;
+import entities.Vote;
 
 public class InitPersistenceTest {
 
@@ -39,6 +40,9 @@ public class InitPersistenceTest {
 
 	@Test
 	public void testEntitiesPersistence() {
+		Vote v = em.find(Vote.class, 2);
+		assertEquals(v.getInstanceNum(), 1);
+		
 		User u = em.find(User.class, 1);
 		assertEquals(u.getUsername(), "testu1");
 		
