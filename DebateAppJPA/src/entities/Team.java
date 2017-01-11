@@ -1,6 +1,7 @@
 package entities;
 
 import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Team {
 	@Id
@@ -16,9 +19,10 @@ public class Team {
 	private int id;
 	private String name;
 	@OneToMany(mappedBy = "team")
-	private HashSet<Result> results;
+	private Set<Result> results;
 	@ManyToMany(mappedBy="teams")
-	private HashSet<User> users;
+	@JsonIgnore
+	private Set<User> users;
 
 	public Team() {
 	}
@@ -31,11 +35,11 @@ public class Team {
 		this.name = name;
 	}
 
-	public HashSet<Result> getResults() {
+	public Set<Result> getResults() {
 		return results;
 	}
 
-	public void setResults(HashSet<Result> results) {
+	public void setResults(Set<Result> results) {
 		this.results = results;
 	}
 

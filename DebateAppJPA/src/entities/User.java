@@ -1,7 +1,8 @@
 package entities;
 
-import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.Column;
 
 //+------------+--------------+------+-----+---------+----------------+
 //| Field      | Type         | Null | Key | Default | Extra          |
@@ -21,21 +22,27 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class User {
 	@Id
 	private int id;
 	private String password;
 	private String username;
+	@Column(name="lawfulness")
 	private int goodevil;
+	@Column(name="goodness")
 	private int lawfulchaotic;
 	@OneToMany(mappedBy = "user")
-	private ArrayList<Argument> arguments;
+	@JsonIgnore
+	private Set<Argument> arguments;
 	@ManyToMany
 	@JoinTable(name = "user_team", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "team_id"))
-	private HashSet<Team> teams;
+	private Set<Team> teams;
 	@OneToMany(mappedBy = "user")
-	private ArrayList<Comment> comments;
+	@JsonIgnore
+	private Set<Comment> comments;
 	private String type;
 
 	public User() {
@@ -45,27 +52,27 @@ public class User {
 		return password;
 	}
 
-	public ArrayList<Argument> getArguments() {
+	public Set<Argument> getArguments() {
 		return arguments;
 	}
 
-	public void setArguments(ArrayList<Argument> arguments) {
+	public void setArguments(Set<Argument> arguments) {
 		this.arguments = arguments;
 	}
 
-	public HashSet<Team> getTeams() {
+	public Set<Team> getTeams() {
 		return teams;
 	}
 
-	public void setTeams(HashSet<Team> teams) {
+	public void setTeams(Set<Team> teams) {
 		this.teams = teams;
 	}
 
-	public ArrayList<Comment> getComments() {
+	public Set<Comment> getComments() {
 		return comments;
 	}
 
-	public void setComments(ArrayList<Comment> comments) {
+	public void setComments(Set<Comment> comments) {
 		this.comments = comments;
 	}
 

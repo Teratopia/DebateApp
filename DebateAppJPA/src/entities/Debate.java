@@ -12,7 +12,7 @@
 
 package entities;
 
-import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -22,6 +22,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Debate {
@@ -34,7 +36,8 @@ public class Debate {
 	private String title;
 	private String debateRef;
 	@OneToMany(mappedBy = "debate", fetch = FetchType.EAGER)
-	private HashSet<Result> results;
+	@JsonIgnore
+	private Set<Result> results;
 	private int instanceCount;
 
 	public Debate() {
@@ -64,11 +67,11 @@ public class Debate {
 		this.debateRef = debateRef;
 	}
 
-	public HashSet<Result> getResults() {
+	public Set<Result> getResults() {
 		return results;
 	}
 
-	public void setResults(HashSet<Result> results) {
+	public void setResults(Set<Result> results) {
 		this.results = results;
 	}
 
