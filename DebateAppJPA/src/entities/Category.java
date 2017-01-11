@@ -1,5 +1,6 @@
 package entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -16,15 +17,40 @@ public class Category {
 	private String name;
 	@OneToMany(mappedBy = "category")
 	private List<Topic> topics;
-	
-	public Category(){}
+
+	public Category() {
+	}
+
+	public void addTopic(Topic topic) {
+		if (topics == null) {
+			topics = new ArrayList<>();
+		}
+		if (!topics.contains(topic)) {
+			topics.add(topic);
+			if (topic.getCategory() != null) {
+				topic.getCategory().getTopics().remove(topic);
+			}
+			topic.setCategory(this);
+		}
+	}
+
+	public void removeTopic(Topic topic) {
+		topic.setCategory(null);
+		if (topics != null) {
+			topics.remove(topic);
+		}
+	}
+
+	public List<Topic> getTopics() {
+		return topics;
+	}
+
+	public void setTopics(List<Topic> topics) {
+		this.topics = topics;
+	}
 
 	public int getId() {
 		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getName() {
@@ -39,5 +65,5 @@ public class Category {
 	public String toString() {
 		return "Category [id=" + id + ", name=" + name + "]";
 	}
-	
+
 }

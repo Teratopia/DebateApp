@@ -1,5 +1,6 @@
 package entities;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -23,15 +24,52 @@ public class Team {
 	@JsonIgnore
 	private Set<User> users;
 
+	public Team() {
+	}
+
+	public void addResult(Result result) {
+		if (results == null) {
+			results = new HashSet<>();
+		}
+		if (!results.contains(result)) {
+			results.add(result);
+			if (result.getTeam() != null) {
+				result.getTeam().getResults().remove(result);
+			}
+			result.setTeam(this);
+		}
+	}
+
+	public void removeResult(Result result) {
+		result.setTeam(null);
+		if (results != null) {
+			results.remove(result);
+		}
+	}
+
+	public void addUser(User user) {
+		if (users == null) {
+			users = new HashSet<>();
+		}
+		if (!users.contains(user)) {
+			users.add(user);
+			user.addTeam(this);
+		}
+	}
+
+	public void removeUser(User user) {
+		if (users != null && users.contains(user)) {
+			users.remove(user);
+			user.removeTeam(this);
+		}
+	}
+
 	public Set<User> getUsers() {
 		return users;
 	}
 
 	public void setUsers(Set<User> users) {
 		this.users = users;
-	}
-
-	public Team() {
 	}
 
 	public String getName() {

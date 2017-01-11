@@ -1,5 +1,6 @@
 package entities;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -30,9 +31,9 @@ public class User {
 	private int id;
 	private String password;
 	private String username;
-	@Column(name="lawfulness")
+	@Column(name = "lawfulness")
 	private int goodevil;
-	@Column(name="goodness")
+	@Column(name = "goodness")
 	private int lawfulchaotic;
 	@OneToMany(mappedBy = "user")
 	@JsonIgnore
@@ -46,6 +47,23 @@ public class User {
 	private String type;
 
 	public User() {
+	}
+
+	public void addTeam(Team team) {
+		if (teams == null) {
+			teams = new HashSet<>();
+		}
+		if (!teams.contains(team)) {
+			teams.add(team);
+			team.addUser(this);
+		}
+	}
+
+	public void removeTeam(Team team) {
+		if (teams != null && teams.contains(team)) {
+			teams.remove(team);
+			team.removeUser(this);
+		}
 	}
 
 	public String getPassword() {
