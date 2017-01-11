@@ -5,15 +5,14 @@ import java.util.Collection;
 import entities.Comment;
 
 public interface CommentDAOI {
-	
-  public Collection<Comment> index();
 
-  public Comment show(int id);
+	public Collection<Comment> index();
 
-  public Comment update(int id, String commentJson);
+	public Comment show(int id);
 
-  public Comment create(String commentJson);
+	public Comment update(int id, String commentJson);
 
-  public Comment destroy(int id);
+	public Comment create(String commentJson);
 
+	public Comment destroy(int id);
 }

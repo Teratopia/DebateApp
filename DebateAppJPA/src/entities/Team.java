@@ -17,8 +17,16 @@ public class Team {
 	private String name;
 	@OneToMany(mappedBy = "team")
 	private HashSet<Result> results;
-	@ManyToMany(mappedBy="teams")
+	@ManyToMany(mappedBy = "teams")
 	private HashSet<User> users;
+
+	public HashSet<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(HashSet<User> users) {
+		this.users = users;
+	}
 
 	public Team() {
 	}
