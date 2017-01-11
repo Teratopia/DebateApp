@@ -24,6 +24,7 @@ public class Argument {
 	private String text;
 	@Column(name = "time")
 	private Date timeStamp;
+	@Column(name = "linkref")
 	private String linkRef;
 	
 	public Argument() {

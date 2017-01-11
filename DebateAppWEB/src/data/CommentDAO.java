@@ -1,12 +1,8 @@
 package data;
 
 import java.util.Collection;
-import java.util.Date;
 
-import javax.persistence.Column;
 import javax.persistence.EntityManager;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Repository;
@@ -15,19 +11,21 @@ import org.springframework.transaction.annotation.Transactional;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import entities.Comment;
-import entities.Debate;
-import entities.User;
 
 @Repository
 @Transactional
 public class CommentDAO implements CommentDAOI {
 	@PersistenceContext
 	private EntityManager em;
-	
 
 	public Collection<Comment> index() {
 		String query = "Select c from Comment c";
 		return em.createQuery(query, Comment.class).getResultList();
+	}
+
+	public Collection<Comment> index_result(int resultId) {
+		String query = "Select c from Comment c JOIN Result r ON r.debate_id = c.debate_id WHERE r.instanceNum = ?1";
+		return em.createQuery(query, Comment.class).setParameter(1, resultId).getResultList();
 	}
 
 	public Comment show(int id) {
@@ -44,7 +42,7 @@ public class CommentDAO implements CommentDAOI {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		Comment oldComment = em.find(Comment.class, id);
 		oldComment.setUser(updatedComment.getUser());
 		oldComment.setDebate(updatedComment.getDebate());
@@ -73,7 +71,6 @@ public class CommentDAO implements CommentDAOI {
 	}
 
 	public Comment destroy(int id) {
-		
 		Comment deletedComment = em.find(Comment.class, id);
 		try {
 			em.remove(deletedComment);

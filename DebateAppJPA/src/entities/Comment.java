@@ -32,8 +32,20 @@ public class Comment {
 	private String text;
 	@Column(name = "time")
 	private Date timeStamp;
-	
-	public Comment(){}
+	@Column(name = "linkref")
+	private String linkRef;
+
+	public Comment() {
+	}
+
+	public String getLinkRef() {
+		return linkRef;
+	}
+
+	public void setLinkRef(String linkRef) {
+		this.linkRef = linkRef;
+	}
+
 
 	public int getId() {
 		return id;
@@ -77,8 +89,8 @@ public class Comment {
 
 	@Override
 	public String toString() {
-		return "Comment [id=" + id + ", user=" + user + ", debate=" + debate + ", text=" + text + ", timeStamp=" + timeStamp
-				+ "]";
+		return "Comment [id=" + id + ", user=" + user + ", debate=" + debate + ", text=" + text + ", timeStamp="
+				+ timeStamp + "]";
 	}
-	
+
 }

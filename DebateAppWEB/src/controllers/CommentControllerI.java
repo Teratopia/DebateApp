@@ -13,11 +13,12 @@ import entities.Comment;
 public interface CommentControllerI {
 	public Collection<Comment> index(HttpServletRequest req, HttpServletResponse res);
 
-	public Comment show(HttpServletRequest req, HttpServletResponse res, @PathVariable ("id") int id);
+	public Comment show(HttpServletRequest req, HttpServletResponse res, @PathVariable("id") int id);
 
-	public Comment update(HttpServletRequest req, HttpServletResponse res, @PathVariable ("id") int id, @RequestBody String commentJson);
+	public Comment update(HttpServletRequest req, HttpServletResponse res, @PathVariable("id") int id,
+			@RequestBody String commentJson);
 
 	public Comment create(HttpServletRequest req, HttpServletResponse res, @RequestBody String commentJson);
 
-	public Comment destroy(HttpServletRequest req, HttpServletResponse res, @PathVariable ("id") int id);
+	public Comment destroy(HttpServletRequest req, HttpServletResponse res, @PathVariable("id") int id);
 }

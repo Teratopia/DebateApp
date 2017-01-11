@@ -1,6 +1,5 @@
 package entities;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -20,9 +19,17 @@ public class Team {
 	private String name;
 	@OneToMany(mappedBy = "team")
 	private Set<Result> results;
-	@ManyToMany(mappedBy="teams")
+	@ManyToMany(mappedBy = "teams")
 	@JsonIgnore
 	private Set<User> users;
+
+	public Set<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(Set<User> users) {
+		this.users = users;
+	}
 
 	public Team() {
 	}
