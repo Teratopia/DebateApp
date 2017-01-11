@@ -13,11 +13,11 @@ import entities.Argument;
 public interface ArgumentControllerI {
 	public Collection<Argument> index(HttpServletRequest req, HttpServletResponse res);
 
-	public Argument show(HttpServletRequest req, HttpServletResponse res, @PathVariable ("id") int id);
+	public Argument show(HttpServletRequest req, HttpServletResponse res, @PathVariable("id") int id);
 
-	public Argument update(HttpServletRequest req, HttpServletResponse res, @PathVariable ("id") int id, @RequestBody String argumentJson);
+	public Argument update(HttpServletRequest req, HttpServletResponse res, @PathVariable("id") int id, @RequestBody String argumentJson);
 
 	public Argument create(HttpServletRequest req, HttpServletResponse res, @RequestBody String argumentJson);
 
-	public Argument destroy(HttpServletRequest req, HttpServletResponse res, @PathVariable ("id") int id);
+	public Argument destroy(HttpServletRequest req, HttpServletResponse res, @PathVariable("id") int id);
 }

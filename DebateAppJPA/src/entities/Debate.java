@@ -12,6 +12,7 @@
 
 package entities;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -41,6 +42,26 @@ public class Debate {
 	private int instanceCount;
 
 	public Debate() {
+	}
+
+	public void addResult(Result result) {
+		if (results == null) {
+			results = new HashSet<>();
+		}
+		if (!results.contains(result)) {
+			results.add(result);
+			if (result.getDebate() != null) {
+				result.getDebate().getResults().remove(result);
+			}
+			result.setDebate(this);
+		}
+	}
+
+	public void removeResult(Result result) {
+		result.setDebate(null);
+		if (results != null) {
+			results.remove(result);
+		}
 	}
 
 	public Topic getTopic() {
