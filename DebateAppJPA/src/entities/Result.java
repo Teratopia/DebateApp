@@ -1,11 +1,15 @@
 package entities;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 //+-----------+---------+------+-----+---------+----------------+
@@ -35,7 +39,8 @@ public class Result {
 	@JoinColumn(name = "debate_id")
 	private Debate debate;
 	private int teamTime;
-	private int teamPoints;
+	@OneToMany
+	private Set<Vote> votes;
 	private String stance;
 	@OneToOne
 	@JoinColumn(name = "rules_id")
@@ -44,6 +49,34 @@ public class Result {
 	private int instanceNum;
 
 	public Result() {
+	}
+
+	public void addVote(Vote vote) {
+		if (votes == null) {
+			votes = new HashSet<>();
+		}
+		if (!votes.contains(vote)) {
+			votes.add(vote);
+			if (vote.getResult() != null) {
+				vote.getResult().getVotes().remove(vote);
+			}
+			vote.setResult(this);
+		}
+	}
+
+	public void removeVote(Vote vote) {
+		vote.setResult(null);
+		if (votes != null) {
+			votes.remove(vote);
+		}
+	}
+
+	public Set<Vote> getVotes() {
+		return votes;
+	}
+
+	public void setVotes(Set<Vote> votes) {
+		this.votes = votes;
 	}
 
 	public Team getTeam() {
@@ -68,14 +101,6 @@ public class Result {
 
 	public void setTeamTime(int teamTime) {
 		this.teamTime = teamTime;
-	}
-
-	public int getTeamPoints() {
-		return teamPoints;
-	}
-
-	public void setTeamPoints(int teamPoints) {
-		this.teamPoints = teamPoints;
 	}
 
 	public String getStance() {
