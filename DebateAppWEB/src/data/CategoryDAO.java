@@ -18,8 +18,8 @@ public class CategoryDAO implements CategoryDAOI{
 	@Override
 	public Collection<Category> index() {
 		String query = "select c from Category c where c.id > 0";
-		List<Category> todos = em.createQuery(query, Category.class).getResultList();
-		return todos;
+		List<Category> cats = em.createQuery(query, Category.class).getResultList();
+		return cats;
 	}
 
 	@Override
@@ -68,9 +68,15 @@ public class CategoryDAO implements CategoryDAOI{
 		
 		Category c = em.find(Category.class, id);
 		
-		em.remove(c);
-				
-		return c;
+		try {
+			em.remove(c);
+			em.flush();
+			return c;
+		} catch (IllegalArgumentException iae) {
+			iae.printStackTrace();
+			return null;
+		}
+		
 	}
 
 }
