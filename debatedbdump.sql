@@ -34,7 +34,7 @@ CREATE TABLE `argument` (
   KEY `debate_id` (`debate_id`),
   CONSTRAINT `argument_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
   CONSTRAINT `argument_ibfk_2` FOREIGN KEY (`debate_id`) REFERENCES `debate` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,6 +43,7 @@ CREATE TABLE `argument` (
 
 LOCK TABLES `argument` WRITE;
 /*!40000 ALTER TABLE `argument` DISABLE KEYS */;
+INSERT INTO `argument` VALUES (1,1,1,'The govt dont need no ethics committee','2017-01-11 11:09:31',NULL),(2,2,1,'Yea it does, cus people do bad stuff and thats bad mkay','2017-01-11 11:11:52',NULL),(3,1,2,'East coast > West coast. End of story.','2017-01-11 11:12:50',NULL),(4,2,2,'Between the two, whos still alive?','2017-01-11 11:15:07',NULL);
 /*!40000 ALTER TABLE `argument` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -57,7 +58,7 @@ CREATE TABLE `category` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(124) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -66,6 +67,7 @@ CREATE TABLE `category` (
 
 LOCK TABLES `category` WRITE;
 /*!40000 ALTER TABLE `category` DISABLE KEYS */;
+INSERT INTO `category` VALUES (1,'Politics'),(2,'Music');
 /*!40000 ALTER TABLE `category` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -88,7 +90,7 @@ CREATE TABLE `comment` (
   KEY `debate_id` (`debate_id`),
   CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
   CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`debate_id`) REFERENCES `debate` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -97,6 +99,7 @@ CREATE TABLE `comment` (
 
 LOCK TABLES `comment` WRITE;
 /*!40000 ALTER TABLE `comment` DISABLE KEYS */;
+INSERT INTO `comment` VALUES (1,1,1,'illogical.','2017-01-11 11:16:33',NULL),(2,1,2,'nuh uh','2017-01-11 11:16:43',NULL),(3,2,1,'clearly a post hoc ergo propter hoc blunder','2017-01-11 11:17:45',NULL),(4,2,2,'im batman','2017-01-11 11:18:02',NULL);
 /*!40000 ALTER TABLE `comment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -109,20 +112,13 @@ DROP TABLE IF EXISTS `debate`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `debate` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `topic` int(11) NOT NULL,
+  `topic_id` int(11) NOT NULL,
   `title` varchar(256) NOT NULL,
-  `stance1` varchar(256) NOT NULL,
-  `stance2` varchar(256) NOT NULL,
-  `rules_id` int(11) NOT NULL,
-  `result_id` int(11) NOT NULL,
+  `debateRef` varchar(400) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `topic` (`topic`),
-  KEY `rules_id` (`rules_id`),
-  KEY `result_id` (`result_id`),
-  CONSTRAINT `debate_ibfk_3` FOREIGN KEY (`topic`) REFERENCES `topic` (`id`),
-  CONSTRAINT `debate_ibfk_4` FOREIGN KEY (`rules_id`) REFERENCES `rules` (`id`),
-  CONSTRAINT `debate_ibfk_5` FOREIGN KEY (`result_id`) REFERENCES `result` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  KEY `topic` (`topic_id`),
+  CONSTRAINT `debate_ibfk_3` FOREIGN KEY (`topic_id`) REFERENCES `topic` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -131,6 +127,7 @@ CREATE TABLE `debate` (
 
 LOCK TABLES `debate` WRITE;
 /*!40000 ALTER TABLE `debate` DISABLE KEYS */;
+INSERT INTO `debate` VALUES (1,1,'TestDebate',NULL),(2,2,'Tupac vs Biggie',NULL);
 /*!40000 ALTER TABLE `debate` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -143,25 +140,19 @@ DROP TABLE IF EXISTS `result`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `result` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `team1id` int(11) NOT NULL,
-  `team2id` int(11) NOT NULL,
-  `time` int(11) NOT NULL,
-  `side1time` int(11) NOT NULL,
-  `side2time` int(11) DEFAULT NULL,
-  `points1` int(11) NOT NULL DEFAULT '0',
-  `points2` int(11) NOT NULL DEFAULT '0',
-  `winteam` int(11) NOT NULL,
-  `loseteam` int(11) NOT NULL,
+  `team_id` int(11) NOT NULL,
+  `debate_id` int(11) NOT NULL,
+  `teamTime` int(11) NOT NULL,
+  `teamPoints` int(11) DEFAULT '0',
+  `rules_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `team1id` (`team1id`),
-  KEY `team2id` (`team2id`),
-  KEY `winteam` (`winteam`),
-  KEY `loseteam` (`loseteam`),
-  CONSTRAINT `result_ibfk_1` FOREIGN KEY (`team1id`) REFERENCES `team` (`id`),
-  CONSTRAINT `result_ibfk_2` FOREIGN KEY (`team2id`) REFERENCES `team` (`id`),
-  CONSTRAINT `result_ibfk_3` FOREIGN KEY (`winteam`) REFERENCES `team` (`id`),
-  CONSTRAINT `result_ibfk_4` FOREIGN KEY (`loseteam`) REFERENCES `team` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  KEY `team_id` (`team_id`),
+  KEY `debate_id` (`debate_id`),
+  KEY `rules_id` (`rules_id`),
+  CONSTRAINT `result_ibfk_1` FOREIGN KEY (`team_id`) REFERENCES `team` (`id`),
+  CONSTRAINT `result_ibfk_2` FOREIGN KEY (`debate_id`) REFERENCES `debate` (`id`),
+  CONSTRAINT `result_ibfk_3` FOREIGN KEY (`rules_id`) REFERENCES `rules` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -170,6 +161,7 @@ CREATE TABLE `result` (
 
 LOCK TABLES `result` WRITE;
 /*!40000 ALTER TABLE `result` DISABLE KEYS */;
+INSERT INTO `result` VALUES (1,1,1,86125,9,1),(2,2,1,86125,1,1),(3,1,2,86125,1,1),(4,2,2,86125,1,1);
 /*!40000 ALTER TABLE `result` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -193,7 +185,7 @@ CREATE TABLE `rules` (
   `comments_view` tinyint(1) NOT NULL DEFAULT '0',
   `private_debate` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -202,6 +194,7 @@ CREATE TABLE `rules` (
 
 LOCK TABLES `rules` WRITE;
 /*!40000 ALTER TABLE `rules` DISABLE KEYS */;
+INSERT INTO `rules` VALUES (1,2,280,172250,0,0,10,0,0,0,0),(2,2,256,86165,0,0,100,0,0,0,0);
 /*!40000 ALTER TABLE `rules` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -216,7 +209,7 @@ CREATE TABLE `team` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(48) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -225,33 +218,8 @@ CREATE TABLE `team` (
 
 LOCK TABLES `team` WRITE;
 /*!40000 ALTER TABLE `team` DISABLE KEYS */;
+INSERT INTO `team` VALUES (1,'testTeam1'),(2,'testTeam2');
 /*!40000 ALTER TABLE `team` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `team_debate`
---
-
-DROP TABLE IF EXISTS `team_debate`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `team_debate` (
-  `team_id` int(11) NOT NULL,
-  `debate_id` int(11) NOT NULL,
-  PRIMARY KEY (`team_id`,`debate_id`),
-  KEY `debate_id` (`debate_id`),
-  CONSTRAINT `team_debate_ibfk_1` FOREIGN KEY (`team_id`) REFERENCES `team` (`id`),
-  CONSTRAINT `team_debate_ibfk_2` FOREIGN KEY (`debate_id`) REFERENCES `debate` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `team_debate`
---
-
-LOCK TABLES `team_debate` WRITE;
-/*!40000 ALTER TABLE `team_debate` DISABLE KEYS */;
-/*!40000 ALTER TABLE `team_debate` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -268,7 +236,7 @@ CREATE TABLE `topic` (
   PRIMARY KEY (`id`),
   KEY `category_id` (`category_id`),
   CONSTRAINT `topic_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -277,6 +245,7 @@ CREATE TABLE `topic` (
 
 LOCK TABLES `topic` WRITE;
 /*!40000 ALTER TABLE `topic` DISABLE KEYS */;
+INSERT INTO `topic` VALUES (1,'Hip Hop',2),(2,'Government Oversight',1);
 /*!40000 ALTER TABLE `topic` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -294,8 +263,9 @@ CREATE TABLE `user` (
   `goodness` int(11) DEFAULT '0',
   `lawfulness` int(11) DEFAULT '0',
   `type` varchar(6) DEFAULT NULL,
+  `isLogged` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -304,6 +274,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES (1,'testpass','testu1',5,5,'ADMIN',0),(2,'testpass2','testu2',5,5,'USER',0);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -330,6 +301,7 @@ CREATE TABLE `user_team` (
 
 LOCK TABLES `user_team` WRITE;
 /*!40000 ALTER TABLE `user_team` DISABLE KEYS */;
+INSERT INTO `user_team` VALUES (1,1),(1,2),(2,2);
 /*!40000 ALTER TABLE `user_team` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -342,4 +314,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-01-10 12:17:06
+-- Dump completed on 2017-01-11 11:23:48
