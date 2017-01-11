@@ -48,12 +48,12 @@ public class TopicDAO implements TopicDAOI{
 	}
 
 	@Override
-	public Topic create(String catJson) {
+	public Topic create(String topicJson) {
 		
 		ObjectMapper mapper = new ObjectMapper();
 		Topic t = null;
 		try{
-			t = mapper.readValue(catJson, Topic.class);
+			t = mapper.readValue(topicJson, Topic.class);
 		}catch(Exception e){
 			System.out.println(e);
 		}
