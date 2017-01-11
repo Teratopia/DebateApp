@@ -323,14 +323,17 @@ CREATE TABLE `vote` (
   `team_id` int(11) NOT NULL,
   `instance_number` int(11) NOT NULL,
   `timestamp` datetime NOT NULL,
+  `result_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `debate_id` (`debate_id`),
   KEY `team_id` (`team_id`),
   KEY `user_id` (`user_id`),
+  KEY `result_id` (`result_id`),
   CONSTRAINT `vote_ibfk_1` FOREIGN KEY (`debate_id`) REFERENCES `debate` (`id`),
   CONSTRAINT `vote_ibfk_2` FOREIGN KEY (`team_id`) REFERENCES `team` (`id`),
-  CONSTRAINT `vote_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  CONSTRAINT `vote_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+  CONSTRAINT `vote_ibfk_4` FOREIGN KEY (`result_id`) REFERENCES `result` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -339,6 +342,7 @@ CREATE TABLE `vote` (
 
 LOCK TABLES `vote` WRITE;
 /*!40000 ALTER TABLE `vote` DISABLE KEYS */;
+INSERT INTO `vote` VALUES (2,1,1,1,1,'2017-01-11 15:48:58',1);
 /*!40000 ALTER TABLE `vote` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -351,4 +355,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-01-11 15:25:47
+-- Dump completed on 2017-01-11 16:18:39
