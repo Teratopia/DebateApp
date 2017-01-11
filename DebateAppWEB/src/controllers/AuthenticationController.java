@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import data.UserDAOI;
+import data.UserDAO;
 import entities.User;
 import security.JsonWebTokenGenerator;
 
@@ -26,7 +26,7 @@ public class AuthenticationController implements AuthenticationControllerI{
 	  
 	  // inject autowired UserDao: this DAO handles the creation and authentication requests to the mySQL DB
 	  @Autowired
-	  UserDAOI userDao;  // Instantiate userDAO
+	  UserDAO userDao;  // Instantiate userDAO
 
 	  // 
 	  @RequestMapping(value = "/login", method = RequestMethod.POST) // tell Spring to route request coming from 'api/login' via a POST request method
@@ -73,7 +73,7 @@ public class AuthenticationController implements AuthenticationControllerI{
 	  }
 
 	  // 
-	  @RequestMapping(value = "/logout", method = RequestMethod.POST) // tell Spring to route request coming from 'api/registration' via a POST request method
+	  @RequestMapping(value = "/logout/{id}", method = RequestMethod.POST) // tell Spring to route request coming from 'api/registration' via a POST request method
 	  public User logout(HttpServletRequest req, HttpServletResponse res, @RequestBody String userJson) { // 
 	    ObjectMapper mapper = new ObjectMapper(); // Instantiate a new request mapper for the conversion from user JSON String into user java object
 	    User user = null; // Instantiate a new null user object to hold mapped JSON data

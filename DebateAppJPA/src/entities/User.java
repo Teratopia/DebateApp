@@ -45,6 +45,15 @@ public class User {
 	@JsonIgnore
 	private Set<Comment> comments;
 	private String type;
+	private Boolean logged;
+
+	public Boolean getLogged() {
+		return logged;
+	}
+
+	public void setLogged(Boolean logged) {
+		this.logged = logged;
+	}
 
 	public User() {
 	}
