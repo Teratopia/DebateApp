@@ -57,4 +57,5 @@ public class DebateController {
 		return debateDAO.destroy(id);
 	}
 	
+	
 }

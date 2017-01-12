@@ -1,111 +1,129 @@
-//+-----------+--------------+------+-----+---------+----------------+
-//| Field     | Type         | Null | Key | Default | Extra          |
-//+-----------+--------------+------+-----+---------+----------------+
-//| id        | int(11)      | NO   | PRI | NULL    | auto_increment |
-//| topic     | int(11)      | NO   | MUL | NULL    |                |
-//| title     | varchar(256) | NO   |     | NULL    |                |
-//| stance1   | varchar(256) | NO   |     | NULL    |                |
-//| stance2   | varchar(256) | NO   |     | NULL    |                |
-//| rules_id  | int(11)      | NO   | MUL | NULL    |                |
-//| result_id | int(11)      | NO   | MUL | NULL    |                |
-//+-----------+--------------+------+-----+---------+----------------+
-
 package entities;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+//+-----------+---------+------+-----+---------+----------------+
+//| Field     | Type    | Null | Key | Default | Extra          |
+//+-----------+---------+------+-----+---------+----------------+
+//| id        | int(11) | NO   | PRI | NULL    | auto_increment |
+//| team1id   | int(11) | NO   | MUL | NULL    |                |
+//| team2id   | int(11) | NO   | MUL | NULL    |                |
+//| time      | int(11) | NO   |     | NULL    |                |
+//| side1time | int(11) | NO   |     | NULL    |                |
+//| side2time | int(11) | YES  |     | NULL    |                |
+//| points1   | int(11) | NO   |     | 0       |                |
+//| points2   | int(11) | NO   |     | 0       |                |
+//| winteam   | int(11) | NO   | MUL | NULL    |                |
+//| loseteam  | int(11) | NO   | MUL | NULL    |                |
+//+-----------+---------+------+-----+---------+----------------+
 
 @Entity
+@Table(name = "debate_instance")
 public class Debate {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	@OneToMany(mappedBy = "debate")
+	private Set<Performance> performances;
+	@OneToMany(mappedBy = "debate")
+	private Set<Vote> votes;
+	@OneToMany(mappedBy = "debate")
+	private Set<Comment> comments;
 	@OneToOne
-	@JoinColumn(name = "topic_id")
-	private Topic topic;
-	private String title;
-	private String debateRef;
-	@OneToMany(mappedBy = "debate", fetch = FetchType.EAGER)
-	@JsonIgnore
-	private Set<Result> results;
-	private int instanceCount;
+	@JoinColumn(name = "rules_id")
+	private Rules rules;
+	@ManyToOne
+	@JoinColumn(name = "issue_id")
+	private Issue issue;
+	@Column(name = "winner_id")
+	private boolean winnerId;
+	private Date timeStamp;
+
+	public Date getTimeStamp() {
+		return timeStamp;
+	}
+
+	public void setTimeStamp(Date timeStamp) {
+		this.timeStamp = timeStamp;
+	}
 
 	public Debate() {
 	}
 
-	public void addResult(Result result) {
-		if (results == null) {
-			results = new HashSet<>();
+	public void addVote(Vote vote) {
+		if (votes == null) {
+			votes = new HashSet<>();
 		}
-		if (!results.contains(result)) {
-			results.add(result);
-			if (result.getDebate() != null) {
-				result.getDebate().getResults().remove(result);
+		if (!votes.contains(vote)) {
+			votes.add(vote);
+			if (vote.getDebate() != null) {
+				vote.getDebate().getVotes().remove(vote);
 			}
-			result.setDebate(this);
+			vote.setDebate(this);
 		}
 	}
 
-	public void removeResult(Result result) {
-		result.setDebate(null);
-		if (results != null) {
-			results.remove(result);
+	public Set<Performance> getPerformances() {
+		return performances;
+	}
+
+	public void setPerformances(Set<Performance> performances) {
+		this.performances = performances;
+	}
+
+	public Issue getIssue() {
+		return issue;
+	}
+
+	public void setIssue(Issue issue) {
+		this.issue = issue;
+	}
+
+	public void removeVote(Vote vote) {
+		vote.setDebate(null);
+		if (votes != null) {
+			votes.remove(vote);
 		}
 	}
 
-	public Topic getTopic() {
-		return topic;
+	public Set<Vote> getVotes() {
+		return votes;
 	}
 
-	public void setTopic(Topic topic) {
-		this.topic = topic;
+	public void setVotes(Set<Vote> votes) {
+		this.votes = votes;
 	}
 
-	public String getTitle() {
-		return title;
+	public Rules getRules() {
+		return rules;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setRules(Rules rules) {
+		this.rules = rules;
 	}
 
-	public String getDebateRef() {
-		return debateRef;
+	public boolean isWinnerId() {
+		return winnerId;
 	}
 
-	public void setDebateRef(String debateRef) {
-		this.debateRef = debateRef;
-	}
-
-	public Set<Result> getResults() {
-		return results;
-	}
-
-	public void setResults(Set<Result> results) {
-		this.results = results;
-	}
-
-	public int getInstanceCount() {
-		return instanceCount;
-	}
-
-	public void setInstanceCount(int instanceCount) {
-		this.instanceCount = instanceCount;
+	public void setWinnerId(boolean winnerId) {
+		this.winnerId = winnerId;
 	}
 
 	public int getId() {
 		return id;
 	}
-
 }

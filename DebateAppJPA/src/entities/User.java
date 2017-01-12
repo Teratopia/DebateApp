@@ -38,24 +38,26 @@ public class User {
 	@OneToMany(mappedBy = "user")
 	@JsonIgnore
 	private Set<Argument> arguments;
+	@OneToMany(mappedBy = "user")
+	@JsonIgnore
+	private Set<PerformanceMember> perfMember;
 	@ManyToMany
-	@JoinTable(name = "user_team", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "team_id"))
+	@JoinTable(name = "team_roster", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "team_id"))
 	private Set<Team> teams;
 	@OneToMany(mappedBy = "user")
 	@JsonIgnore
 	private Set<Comment> comments;
 	private String type;
-	private Boolean logged;
-
-	public Boolean getLogged() {
-		return logged;
-	}
-
-	public void setLogged(Boolean logged) {
-		this.logged = logged;
-	}
 
 	public User() {
+	}
+
+	public Set<PerformanceMember> getPerfMember() {
+		return perfMember;
+	}
+
+	public void setPerfMember(Set<PerformanceMember> perfMember) {
+		this.perfMember = perfMember;
 	}
 
 	public void addTeam(Team team) {
