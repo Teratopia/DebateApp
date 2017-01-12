@@ -45,7 +45,7 @@ public class TeamDAO implements TeamDAOI {
 
 		Team oldTeam = em.find(Team.class, id);
 		oldTeam.setName(updatedTeam.getName());
-		oldTeam.setResults(updatedTeam.getResults());
+		oldTeam.setPerformances(updatedTeam.getPerformances());
 		oldTeam.setUsers(updatedTeam.getUsers());
 
 		em.flush();

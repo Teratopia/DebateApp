@@ -24,25 +24,27 @@ public class CategoryDAO implements CategoryDAOI{
 
 	@Override
 	public Category show(int id) {
-		Category c = em.find(Category.class, id);
-		return c;
+		Category category= em.find(Category.class, id);
+		return category;
 	}
 
 	@Override
 	public Category update(int id, String catJson) {
 		
 		ObjectMapper mapper = new ObjectMapper();
-		Category c = null;
+		Category updateCategory= null;
 		try{
-			c = mapper.readValue(catJson, Category.class);
+			updateCategory = mapper.readValue(catJson, Category.class);
 		}catch(Exception e){
 			System.out.println(e);
 		}
+
+		Category oldCategory = show(id);
+		oldCategory.setTitle(updateCategory.getTitle());
+		oldCategory.setDescription(updateCategory.getDescription());
+		oldCategory.setIssues(updateCategory.getIssues());
 		
-		Category c2 = show(id);
-		c2.setName(c.getName());
 		em.flush();
-		
 		return em.find(Category.class, id);
 	}
 
@@ -50,28 +52,28 @@ public class CategoryDAO implements CategoryDAOI{
 	public Category create(String catJson) {
 		
 		ObjectMapper mapper = new ObjectMapper();
-		Category c = null;
+		Category newCategory= null;
 		try{
-			c = mapper.readValue(catJson, Category.class);
+			newCategory = mapper.readValue(catJson, Category.class);
 		}catch(Exception e){
 			System.out.println(e);
 		}
 		
-		em.persist(c);
+		em.persist(newCategory);
 		em.flush();
 		
-		return c;
+		return newCategory;
 	}
 
 	@Override
 	public Category destroy(int id) {
 		
-		Category c = em.find(Category.class, id);
+		Category deleteCategory= em.find(Category.class, id);
 		
 		try {
-			em.remove(c);
+			em.remove(deleteCategory);
 			em.flush();
-			return c;
+			return deleteCategory;
 		} catch (IllegalArgumentException iae) {
 			iae.printStackTrace();
 			return null;

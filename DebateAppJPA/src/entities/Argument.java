@@ -29,6 +29,14 @@ public class Argument {
 	private Date timeStamp;
 	@Column(name = "linkref")
 	private String linkRef;
+
+	public PerformanceMember getPerfMember() {
+		return perfMember;
+	}
+
+	public void setPerfMember(PerformanceMember perfMember) {
+		this.perfMember = perfMember;
+	}
 	
 	public Argument() {
 	}

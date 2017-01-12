@@ -46,6 +46,7 @@ public class ArgumentDAO implements ArgumentDAOI {
 		Argument oldArgument = em.find(Argument.class, id);
 		oldArgument.setUser(updatedArgument.getUser());
 		oldArgument.setDebate(updatedArgument.getDebate());
+		oldArgument.setPerfMember(updatedArgument.getPerfMember());
 		oldArgument.setText(updatedArgument.getText());
 		oldArgument.setTimeStamp(updatedArgument.getTimeStamp());
 		oldArgument.setLinkRef(updatedArgument.getLinkRef());

@@ -36,6 +36,7 @@ public class Debate {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+
 	@OneToMany(mappedBy = "debate")
 	private Set<Performance> performances;
 	@OneToMany(mappedBy = "debate")
@@ -49,8 +50,16 @@ public class Debate {
 	@JoinColumn(name = "issue_id")
 	private Issue issue;
 	@Column(name = "winner_id")
-	private boolean winnerId;
+	private Performance winner;
 	private Date timeStamp;
+
+	public Set<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(Set<Comment> comments) {
+		this.comments = comments;
+	}
 
 	public Date getTimeStamp() {
 		return timeStamp;
@@ -76,6 +85,13 @@ public class Debate {
 		}
 	}
 
+	public void removeVote(Vote vote) {
+		vote.setDebate(null);
+		if (votes != null) {
+			votes.remove(vote);
+		}
+	}
+
 	public Set<Performance> getPerformances() {
 		return performances;
 	}
@@ -90,13 +106,6 @@ public class Debate {
 
 	public void setIssue(Issue issue) {
 		this.issue = issue;
-	}
-
-	public void removeVote(Vote vote) {
-		vote.setDebate(null);
-		if (votes != null) {
-			votes.remove(vote);
-		}
 	}
 
 	public Set<Vote> getVotes() {
@@ -115,12 +124,12 @@ public class Debate {
 		this.rules = rules;
 	}
 
-	public boolean isWinnerId() {
-		return winnerId;
+	public Performance getWinner() {
+		return winner;
 	}
 
-	public void setWinnerId(boolean winnerId) {
-		this.winnerId = winnerId;
+	public void setWinner(Performance winner) {
+		this.winner = winner;
 	}
 
 	public int getId() {

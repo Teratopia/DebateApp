@@ -22,18 +22,12 @@ public class UserDAO implements UserDAOI {
   BCryptPasswordEncoder passwordEncoder;
 
   public User create(User user) {
-    // extract raw password
-    String rawPassword = user.getPassword();
-    // encode raw password
-    String encodedPassword = passwordEncoder.encode(rawPassword);
-    // reset the user's password to the encoded one
-    user.setPassword(encodedPassword);
-    // persist the user
-    em.persist(user);
-    // force EntityManager to persist immediately
-    em.flush();
-    // return the persisted user
-    return user;
+    String rawPassword = user.getPassword();     // extract raw password
+    String encodedPassword = passwordEncoder.encode(rawPassword);   // encode raw password
+    user.setPassword(encodedPassword); // reset the user's password to the encoded one
+    em.persist(user); // persist the user
+    em.flush(); // force EntityManager to persist immediately
+    return user; // return the persisted user
   }
 
   public User authenticateUser(User user) throws NoResultException { // NoResultException can be caught front end and handled to present error message.
