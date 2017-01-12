@@ -44,7 +44,7 @@ public class ResultDAO implements ResultDAOI{
 		r2.setRules(r.getRules());
 		r2.setStance(r.getStance());
 		r2.setTeam(r.getTeam());
-		r2.setTeamPoints(r.getTeamPoints());
+		r2.setVotes(r.getVotes());
 		r2.setTeamTime(r.getTeamTime());
 		r2.setWinner(r.isWinner());
 		

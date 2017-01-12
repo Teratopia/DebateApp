@@ -29,14 +29,14 @@ public class ResultController {
 	}
 
 	// Respond to request by returning single, specific Result
-	@RequestMapping(path = "Result/{id}", method = RequestMethod.GET)
+	@RequestMapping(path = "/result/{id}", method = RequestMethod.GET)
 	public Result show(HttpServletRequest req, HttpServletResponse res, @PathVariable("id") int id) {
 		return resultDAO.show(id);
 	}
 
 	// Respond to request by passing updates to DAO from HSP res in JSON format
 	// and returning updated Result from DAO
-	@RequestMapping(path = "Result/{id}", method = RequestMethod.PUT)
+	@RequestMapping(path = "/result/{id}", method = RequestMethod.PUT)
 	public Result update(HttpServletRequest req, HttpServletResponse res, @PathVariable("id") int id,
 			@RequestBody String resultJson) {
 		return resultDAO.update(id, resultJson);
@@ -44,7 +44,7 @@ public class ResultController {
 
 	// Respond to request by passing JSON for new Result to DAO and returning
 	// successfully saved Result
-	@RequestMapping(path = "Result", method = RequestMethod.POST)
+	@RequestMapping(path = "/result", method = RequestMethod.POST)
 	public Result create(HttpServletRequest req, HttpServletResponse res, @RequestBody String resultJson) {
 		return resultDAO.create(resultJson);
 	}
@@ -52,7 +52,7 @@ public class ResultController {
 	// Respond to request by destroying/deleting specific Result and returning
 	// deleted Result information back to front end's angular asynchronous
 	// service
-	@RequestMapping(path = "Result/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(path = "/result/{id}", method = RequestMethod.DELETE)
 	public Result destroy(HttpServletRequest req, HttpServletResponse res, @PathVariable("id") int id) {
 		return resultDAO.destroy(id);
 	}

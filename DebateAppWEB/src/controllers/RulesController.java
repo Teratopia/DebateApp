@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import data.RulesDAO;
+import data.RulesDAOI;
 import entities.Rules;
 
 @RestController
 public class RulesController {
 	@Autowired
-	private RulesDAO rulesDAO; // Create Data Access Object for managed CRUD
+	private RulesDAOI rulesDAO; // Create Data Access Object for managed CRUD
 									// with mySQL database
 
 	// Respond to request by returning all Rules
