@@ -23,30 +23,28 @@ public class VoteDAO implements VoteDAOI{
 
 	@Override
 	public Vote show(int id) {
-		Vote t = em.find(Vote.class, id);
-		return t;
+		Vote vote = em.find(Vote.class, id);
+		return vote;
 	}
 
 	@Override
 	public Vote update(int id, String voteJson) {
 		
 		ObjectMapper mapper = new ObjectMapper();
-		Vote v = null;
+		Vote updateVote = null;
 		try{
-			v = mapper.readValue(voteJson, Vote.class);
+			updateVote = mapper.readValue(voteJson, Vote.class);
 		}catch(Exception e){
 			System.out.println(e);
 		}
 		
-		Vote v2 = show(id);
-		v2.setInstanceNum(v.getInstanceNum());
-		v2.setResult(v.getResult());
-		v2.setTeam(v.getTeam());
-		v2.setTimeStamp(v.getTimeStamp());
-		v2.setUser(v.getUser());
+		Vote oldVote = show(id);
+		oldVote.setUser(updateVote.getUser());
+		oldVote.setDebate(updateVote.getDebate());
+		oldVote.setPerformance(updateVote.getPerformance());
+		oldVote.setTimeStamp(updateVote.getTimeStamp());
 		
 		em.flush();
-		
 		return em.find(Vote.class, id);
 	}
 
@@ -54,17 +52,17 @@ public class VoteDAO implements VoteDAOI{
 	public Vote create(String catJson) {
 		
 		ObjectMapper mapper = new ObjectMapper();
-		Vote t = null;
+		Vote newVote = null;
 		try{
-			t = mapper.readValue(catJson, Vote.class);
+			newVote = mapper.readValue(catJson, Vote.class);
 		}catch(Exception e){
 			System.out.println(e);
 		}
 		
-		em.persist(t);
+		em.persist(newVote);
 		em.flush();
 		
-		return t;
+		return newVote;
 	}
 
 	@Override

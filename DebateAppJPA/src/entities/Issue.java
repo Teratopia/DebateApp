@@ -35,7 +35,7 @@ public class Issue {
 	private int id;
 	@ManyToMany
 	@JoinTable(name = "issue_category", joinColumns = @JoinColumn(name = "issue_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
-	List<Category> categories;
+	private Set<Category> categories;
 	private String title;
 	private String description;
 	private String linkRef;
@@ -43,11 +43,11 @@ public class Issue {
 	@JsonIgnore
 	private Set<Debate> debates;
 
-	public List<Category> getCategories() {
+	public Set<Category> getCategories() {
 		return categories;
 	}
 
-	public void setCategories(List<Category> categories) {
+	public void setCategories(Set<Category> categories) {
 		this.categories = categories;
 	}
 
@@ -112,7 +112,7 @@ public class Issue {
 
 	public void addCategory(Category category) {
 		if (categories == null) {
-			categories = new ArrayList<>();
+			categories = new HashSet<>();
 		}
 		if (!categories.contains(category)) {
 			categories.add(category);

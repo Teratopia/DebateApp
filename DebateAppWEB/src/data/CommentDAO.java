@@ -48,6 +48,7 @@ public class CommentDAO implements CommentDAOI {
 		oldComment.setDebate(updatedComment.getDebate());
 		oldComment.setText(updatedComment.getText());
 		oldComment.setTimeStamp(updatedComment.getTimeStamp());
+		oldComment.setLinkRef(updatedComment.getLinkRef());
 
 		em.flush();
 		return em.find(Comment.class, oldComment.getId());

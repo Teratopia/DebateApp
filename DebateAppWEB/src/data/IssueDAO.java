@@ -9,7 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import entities.Issue;
 
-public class IssueDAO implements IssueDAOI{
+public class IssueDAO implements IssueDAOI {
 
 	@PersistenceContext
 	EntityManager em;
@@ -23,65 +23,63 @@ public class IssueDAO implements IssueDAOI{
 
 	@Override
 	public Issue show(int id) {
-		Issue d = em.find(Issue.class, id);
-		return d;
+		Issue issue = em.find(Issue.class, id);
+		return issue;
 	}
 
 	@Override
 	public Issue update(int id, String issueJson) {
-		
+
 		ObjectMapper mapper = new ObjectMapper();
-		Issue t = null;
-		try{
-			t = mapper.readValue(issueJson, Issue.class);
-		}catch(Exception e){
+		Issue updateIssue = null;
+		try {
+			updateIssue = mapper.readValue(issueJson, Issue.class);
+		} catch (Exception e) {
 			System.out.println(e);
 		}
-		
-		Issue t2 = em.find(Issue.class, id);
-		t2.setIssueRef(t.getIssueRef());
-		t2.setInstanceCount(t.getInstanceCount());
-		t2.setResults(t.getResults());
-		t2.setTitle(t.getTitle());
-		t2.setTopic(t.getTopic());
-		
+
+		Issue oldIssue = em.find(Issue.class, id);
+		oldIssue.setCategories(updateIssue.getCategories());
+		oldIssue.setTitle(updateIssue.getTitle());
+		oldIssue.setDescription(updateIssue.getDescription());
+		oldIssue.setLinkRef(updateIssue.getLinkRef());
+
 		em.flush();
-		
+
 		return em.find(Issue.class, id);
 	}
 
 	@Override
 	public Issue create(String catJson) {
-		
+
 		ObjectMapper mapper = new ObjectMapper();
-		Issue t = null;
-		try{
-			t = mapper.readValue(catJson, Issue.class);
-		}catch(Exception e){
+		Issue newIssue = null;
+		try {
+			newIssue = mapper.readValue(catJson, Issue.class);
+		} catch (Exception e) {
 			System.out.println(e);
 		}
-		
-		em.persist(t);
+
+		em.persist(newIssue);
 		em.flush();
-		
-		return t;
+
+		return newIssue;
 	}
 
 	@Override
 	public Issue destroy(int id) {
-		
-		Issue t = em.find(Issue.class, id);
-		
+
+		Issue deleteIssue = em.find(Issue.class, id);
+
 		try {
-			em.remove(t);
+			em.remove(deleteIssue);
 			em.flush();
-			return t;
+			return deleteIssue;
 		} catch (IllegalArgumentException iae) {
 			iae.printStackTrace();
 			return null;
 		}
-		
+
 	}
 
-	
 }

@@ -37,16 +37,15 @@ public class DebateDAO implements DebateDAOI{
 		}catch(Exception e){
 			System.out.println(e);
 		}
-		
+
 		Debate oldDebate = em.find(Debate.class, id);
-		oldDebate.setDebate(updateDebate.getDebate());
-		oldDebate.setInstanceNum(updateDebate.getInstanceNum());
-		oldDebate.setRules(updateDebate.getRules());
-		oldDebate.setStance(updateDebate.getStance());
-		oldDebate.setTeam(updateDebate.getTeam());
+		oldDebate.setPerformances(updateDebate.getPerformances());
 		oldDebate.setVotes(updateDebate.getVotes());
-		oldDebate.setTeamTime(updateDebate.getTeamTime());
-		oldDebate.setWinner(updateDebate.isWinner());
+		oldDebate.setComments(updateDebate.getComments());
+		oldDebate.setRules(updateDebate.getRules());
+		oldDebate.setIssue(updateDebate.getIssue());
+		oldDebate.setWinner(updateDebate.getWinner());
+		oldDebate.setTimeStamp(updateDebate.getTimeStamp());
 		
 		em.flush();
 		

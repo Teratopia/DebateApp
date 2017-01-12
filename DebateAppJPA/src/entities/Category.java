@@ -1,7 +1,7 @@
 package entities;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,8 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Category {
@@ -22,7 +20,7 @@ public class Category {
 	private String description;
 	@ManyToMany
 	@JoinTable(name = "issue_category", joinColumns = @JoinColumn(name = "category_id"), inverseJoinColumns = @JoinColumn(name = "issue_id"))
-	List<Issue> issues;
+	private Set<Issue> issues;
 
 	public Category() {
 	}
@@ -43,11 +41,11 @@ public class Category {
 		this.description = description;
 	}
 
-	public List<Issue> getIssues() {
+	public Set<Issue> getIssues() {
 		return issues;
 	}
 
-	public void setIssues(List<Issue> issues) {
+	public void setIssues(Set<Issue> issues) {
 		this.issues = issues;
 	}
 
@@ -57,7 +55,7 @@ public class Category {
 
 	public void addIssue(Issue issue) {
 		if (issues == null) {
-			issues = new ArrayList<>();
+			issues = new HashSet<>();
 		}
 		if (!issues.contains(issue)) {
 			issues.add(issue);
