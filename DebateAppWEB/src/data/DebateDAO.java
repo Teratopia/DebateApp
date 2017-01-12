@@ -16,34 +16,37 @@ public class DebateDAO implements DebateDAOI{
 
 	@Override
 	public Collection<Debate> index() {
-		String query = "select t from Debate t where t.id > 0";
-		Collection<Debate> debates = em.createQuery(query, Debate.class).getResultList();
-		return debates;
+		String query = "select r from Debate r where r.id > 0";
+		Collection<Debate> Debates = em.createQuery(query, Debate.class).getResultList();
+		return Debates;
 	}
 
 	@Override
 	public Debate show(int id) {
-		Debate d = em.find(Debate.class, id);
-		return d;
+		Debate r = em.find(Debate.class, id);
+		return r;
 	}
 
 	@Override
 	public Debate update(int id, String debateJson) {
 		
 		ObjectMapper mapper = new ObjectMapper();
-		Debate t = null;
+		Debate updateDebate = null;
 		try{
-			t = mapper.readValue(debateJson, Debate.class);
+			updateDebate = mapper.readValue(debateJson, Debate.class);
 		}catch(Exception e){
 			System.out.println(e);
 		}
 		
-		Debate t2 = em.find(Debate.class, id);
-		t2.setDebateRef(t.getDebateRef());
-		t2.setInstanceCount(t.getInstanceCount());
-		t2.setResults(t.getResults());
-		t2.setTitle(t.getTitle());
-		t2.setTopic(t.getTopic());
+		Debate oldDebate = em.find(Debate.class, id);
+		oldDebate.setDebate(updateDebate.getDebate());
+		oldDebate.setInstanceNum(updateDebate.getInstanceNum());
+		oldDebate.setRules(updateDebate.getRules());
+		oldDebate.setStance(updateDebate.getStance());
+		oldDebate.setTeam(updateDebate.getTeam());
+		oldDebate.setVotes(updateDebate.getVotes());
+		oldDebate.setTeamTime(updateDebate.getTeamTime());
+		oldDebate.setWinner(updateDebate.isWinner());
 		
 		em.flush();
 		
@@ -51,31 +54,31 @@ public class DebateDAO implements DebateDAOI{
 	}
 
 	@Override
-	public Debate create(String catJson) {
+	public Debate create(String ruleJson) {
 		
 		ObjectMapper mapper = new ObjectMapper();
-		Debate t = null;
+		Debate r = null;
 		try{
-			t = mapper.readValue(catJson, Debate.class);
+			r = mapper.readValue(ruleJson, Debate.class);
 		}catch(Exception e){
 			System.out.println(e);
 		}
 		
-		em.persist(t);
+		em.persist(r);
 		em.flush();
 		
-		return t;
+		return r;
 	}
 
 	@Override
 	public Debate destroy(int id) {
 		
-		Debate t = em.find(Debate.class, id);
+		Debate r = em.find(Debate.class, id);
 		
 		try {
-			em.remove(t);
+			em.remove(r);
 			em.flush();
-			return t;
+			return r;
 		} catch (IllegalArgumentException iae) {
 			iae.printStackTrace();
 			return null;

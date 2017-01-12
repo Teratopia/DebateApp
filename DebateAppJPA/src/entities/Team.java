@@ -19,7 +19,7 @@ public class Team {
 	private int id;
 	private String name;
 	@OneToMany(mappedBy = "team")
-	private Set<Result> results;
+	private Set<Performance> performances;
 	@ManyToMany(mappedBy = "teams")
 	@JsonIgnore
 	private Set<User> users;
@@ -27,23 +27,20 @@ public class Team {
 	public Team() {
 	}
 
-	public void addResult(Result result) {
-		if (results == null) {
-			results = new HashSet<>();
+	public void addPerformance(Performance performance) {
+		if (performances == null) {
+			performances = new HashSet<>();
 		}
-		if (!results.contains(result)) {
-			results.add(result);
-			if (result.getTeam() != null) {
-				result.getTeam().getResults().remove(result);
-			}
-			result.setTeam(this);
+		if (!performances.contains(performance)) {
+			performances.add(performance);
+			performance.setTeam(this);
 		}
 	}
 
-	public void removeResult(Result result) {
-		result.setTeam(null);
-		if (results != null) {
-			results.remove(result);
+	public void removePerformance(Performance performance) {
+		if (performances != null && performances.contains(performance)) {
+			performances.remove(performance);
+			performance.setTeam(null);
 		}
 	}
 
@@ -80,12 +77,12 @@ public class Team {
 		this.name = name;
 	}
 
-	public Set<Result> getResults() {
-		return results;
+	public Set<Performance> getPerformances() {
+		return performances;
 	}
 
-	public void setResults(Set<Result> results) {
-		this.results = results;
+	public void setPerformances(Set<Performance> performances) {
+		this.performances = performances;
 	}
 
 	public int getId() {

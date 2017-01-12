@@ -1,33 +1,33 @@
 package entities;
 
-import java.util.Date;
+import java.util.Set;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class Vote {
+public class PerformanceMember {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	@ManyToOne
-	@JoinColumn(name = "user_id")
-	private User user;
-	@ManyToOne
-	@JoinColumn(name = "debate_id")
-	private Debate debate;
-	@ManyToOne
 	@JoinColumn(name = "performance_id")
 	private Performance performance;
-	@Column(name = "time")
-	private Date timeStamp;
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;
+	@OneToMany(mappedBy = "perfMember")
+	@JsonIgnore
+	private Set<Argument> arguments;
 
-	public Vote() {
+	public PerformanceMember() {
 	}
 
 	public Performance getPerformance() {
@@ -46,23 +46,26 @@ public class Vote {
 		this.user = user;
 	}
 
-	public Debate getDebate() {
-		return debate;
+	public Set<Argument> getArguments() {
+		return arguments;
 	}
 
-	public void setDebate(Debate debate) {
-		this.debate = debate;
+	public void setArguments(Set<Argument> arguments) {
+		this.arguments = arguments;
 	}
 
-	public Date getTimeStamp() {
-		return timeStamp;
+	public String getRole() {
+		return role;
 	}
 
-	public void setTimeStamp(Date timeStamp) {
-		this.timeStamp = timeStamp;
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 	public int getId() {
 		return id;
 	}
+
+	private String role;
+
 }

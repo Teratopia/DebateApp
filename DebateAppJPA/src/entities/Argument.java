@@ -21,6 +21,9 @@ public class Argument {
 	@ManyToOne
 	@JoinColumn(name = "debate_id")
 	private Debate debate;
+	@ManyToOne
+	@JoinColumn(name = "pm_id")
+	private PerformanceMember perfMember;
 	private String text;
 	@Column(name = "time")
 	private Date timeStamp;

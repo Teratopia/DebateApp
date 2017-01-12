@@ -5,7 +5,7 @@ import java.util.Collection;
 import entities.Debate;
 
 public interface DebateDAOI {
-	
+
 	public Collection<Debate> index();
 
 	public Debate show(int id);
@@ -15,5 +15,5 @@ public interface DebateDAOI {
 	public Debate create(String todoJson);
 
 	public Debate destroy(int id);
-
+	
 }

@@ -8,17 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-//+-----------+--------------+------+-----+-------------------+----------------+
-//| Field     | Type         | Null | Key | Default           | Extra          |
-//+-----------+--------------+------+-----+-------------------+----------------+
-//| id        | int(11)      | NO   | PRI | NULL              | auto_increment |
-//| user_id   | int(11)      | NO   | MUL | NULL              |                |
-//| debate_id | int(11)      | NO   | MUL | NULL              |                |
-//| text      | varchar(256) | YES  |     | NULL              |                |
-//| time      | datetime     | YES  |     | CURRENT_TIMESTAMP |                |
-//| linkref   | varchar(500) | YES  |     | NULL              |                |
-//+-----------+--------------+------+-----+-------------------+----------------+
-
 @Entity
 public class Comment {
 	@Id
@@ -30,7 +19,7 @@ public class Comment {
 	@JoinColumn(name = "debate_id")
 	private Debate debate;
 	private String text;
-	@Column(name = "time")
+	@Column(name = "time_stamp")
 	private Date timeStamp;
 	@Column(name = "linkref")
 	private String linkRef;
@@ -45,7 +34,6 @@ public class Comment {
 	public void setLinkRef(String linkRef) {
 		this.linkRef = linkRef;
 	}
-
 
 	public int getId() {
 		return id;

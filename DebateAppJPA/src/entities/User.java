@@ -38,16 +38,19 @@ public class User {
 	@OneToMany(mappedBy = "user")
 	@JsonIgnore
 	private Set<Argument> arguments;
-	@ManyToMany
-	@JoinTable(name = "user_team", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "team_id"))
+	@OneToMany(mappedBy = "user")
 	@JsonIgnore
+	private Set<PerformanceMember> perfMember;
+	@ManyToMany
+	@JoinTable(name = "team_roster", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "team_id"))
 	private Set<Team> teams;
 	@OneToMany(mappedBy = "user")
 	@JsonIgnore
 	private Set<Comment> comments;
 	private String type;
 
-	public User() {
+	public void setPerfMember(Set<PerformanceMember> perfMember) {
+		this.perfMember = perfMember;
 	}
 
 	public void addTeam(Team team) {
