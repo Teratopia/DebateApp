@@ -40,6 +40,7 @@ public class User {
 	private Set<Argument> arguments;
 	@ManyToMany
 	@JoinTable(name = "user_team", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "team_id"))
+	@JsonIgnore
 	private Set<Team> teams;
 	@OneToMany(mappedBy = "user")
 	@JsonIgnore

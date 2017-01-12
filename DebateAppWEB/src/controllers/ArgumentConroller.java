@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import data.ArgumentDAO;
+import data.ArgumentDAOI;
 import entities.Argument;
 
 
@@ -20,7 +21,7 @@ import entities.Argument;
 public class ArgumentConroller implements ArgumentControllerI{
 
 	@Autowired
-	private ArgumentDAO argumentDAO; // Create Data Access Object for managed CRUD with mySQL database
+	private ArgumentDAOI argumentDAO; // Create Data Access Object for managed CRUD with mySQL database
 
 	// Respond to request by returning all arguments 
 	@RequestMapping(path = "/argument", method = RequestMethod.GET)

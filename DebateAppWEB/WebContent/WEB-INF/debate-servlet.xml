@@ -46,12 +46,12 @@
 		<property name="entityManagerFactory" ref="myEntityManagerFactory" />
 	</bean>
 
-	<mvc:interceptors>
+<!-- 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/quib/**" />
 			<bean id="DataSecurityInterceptor" class="security.DataSecurityInterceptor" />
 		</mvc:interceptor>
-	</mvc:interceptors>
+	</mvc:interceptors> -->
 
 	<tx:annotation-driven transaction-manager="myTransactionManager" />
 </beans>

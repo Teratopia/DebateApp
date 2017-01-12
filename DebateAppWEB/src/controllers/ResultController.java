@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import data.ResultDAO;
+import data.ResultDAOI;
 import entities.Result;
 
 @RestController
 public class ResultController {
 
 	@Autowired
-	private ResultDAO resultDAO; // Create Data Access Object for managed CRUD
+	private ResultDAOI resultDAO; // Create Data Access Object for managed CRUD
 									// with mySQL database
 
 	// Respond to request by returning all Results

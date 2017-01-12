@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import data.VoteDAO;
+import data.VoteDAOI;
 import entities.Vote;
 
 @RestController
 public class VoteController {
 
 	@Autowired
-	private VoteDAO voteDAO; // Create Data Access Object for managed CRUD with
+	private VoteDAOI voteDAO; // Create Data Access Object for managed CRUD with
 								// mySQL database
 
 	// Respond to request by returning all Votes

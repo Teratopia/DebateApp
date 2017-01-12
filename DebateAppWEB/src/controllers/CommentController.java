@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import data.CommentDAO;
+import data.CommentDAOI;
 import entities.Comment;
 
 //Create     		PUT			/comment/
@@ -25,7 +25,7 @@ import entities.Comment;
 public class CommentController implements CommentControllerI {
 
 	@Autowired
-	private CommentDAO commentDAO; // Create Data Access Object for managed CRUD
+	private CommentDAOI commentDAO; // Create Data Access Object for managed CRUD
 									// with mySQL database
 
 	// Respond to request by returning all comments
@@ -35,7 +35,7 @@ public class CommentController implements CommentControllerI {
 	}
 
 	// Respond to request by returning single, specific comment
-	@RequestMapping(path = "comment/{id}", method = RequestMethod.GET)
+	@RequestMapping(path = "/comment/{id}", method = RequestMethod.GET)
 	public Comment show(HttpServletRequest req, HttpServletResponse res, @PathVariable("id") int id) {
 		return commentDAO.show(id);
 	}

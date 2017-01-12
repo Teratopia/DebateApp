@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import data.TopicDAO;
+import data.TopicDAOI;
 import entities.Topic;
 
 @RestController
 public class TopicController implements TopicControllerI{
 	
 	@Autowired
-	private TopicDAO topicDAO; // Create Data Access Object for managed CRUD with
+	private TopicDAOI topicDAO; // Create Data Access Object for managed CRUD with
 								// mySQL database
 
 	// Respond to request by returning all Topics

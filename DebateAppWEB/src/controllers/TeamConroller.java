@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import data.TeamDAO;
+import data.TeamDAOI;
 import entities.Team;
 
 @RestController
 public class TeamConroller implements TeamControllerI {
 
 	@Autowired
-	private TeamDAO teamDAO; // Create Data Access Object for managed CRUD with
+	private TeamDAOI teamDAO; // Create Data Access Object for managed CRUD with
 								// mySQL database
 
 	// Respond to request by returning all teams

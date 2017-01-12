@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import data.DebateDAO;
+import data.DebateDAOI;
 import entities.Debate;
 
 @RestController
 public class DebateController {
 
 	@Autowired
-	private DebateDAO debateDAO; // Create Data Access Object for managed CRUD
+	private DebateDAOI debateDAO; // Create Data Access Object for managed CRUD
 									// with mySQL database
 
 	// Respond to request by returning all Debates
