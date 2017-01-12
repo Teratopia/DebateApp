@@ -71,20 +71,4 @@ public class AuthenticationController implements AuthenticationControllerI{
 	    res.setStatus(201); // Set status to 201 for success
 	    return userDao.create(user); // return persisted User object with encrypted password
 	  }
-
-	  // 
-	  @RequestMapping(value = "/logout/{id}", method = RequestMethod.POST) // tell Spring to route request coming from 'api/registration' via a POST request method
-	  public User logout(HttpServletRequest req, HttpServletResponse res, @RequestBody String userJson) { // 
-	    ObjectMapper mapper = new ObjectMapper(); // Instantiate a new request mapper for the conversion from user JSON String into user java object
-	    User user = null; // Instantiate a new null user object to hold mapped JSON data
-	    try {
-	      user = mapper.readValue(userJson, User.class); // Convert JSON String user data to user object
-	    } catch (IOException ie) {
-	      ie.printStackTrace();
-	      res.setStatus(422); // Set to status 422 in event of failure
-	      return null;
-	    }
-	    res.setStatus(201); // Set status to 201 for success
-	    return userDao.create(user); // return persisted User object with encrypted password
-	  }
 }
