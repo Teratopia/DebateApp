@@ -21,6 +21,8 @@
 	<bean id="comDao" class="data.CommentDAO" />
 	<bean id="debDao" class="data.DebateDAO" />
 	<bean id="issDao" class="data.IssueDAO" />
+	<bean id="perDao" class="data.PerformanceDAO" />
+	<bean id="pmDao" class="data.PerformanceMemberDAO" />
 	<bean id="rulDao" class="data.RulesDAO" />
 	<bean id="teamDao" class="data.TeamDAO" />
 	<bean id="userDao" class="data.UserDAO" />

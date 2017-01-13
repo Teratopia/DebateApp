@@ -48,6 +48,10 @@ public class User {
 	@OneToMany(mappedBy = "user")
 	@JsonIgnore
 	private Set<Comment> comments;
+	public Set<PerformanceMember> getPerfMember() {
+		return perfMember;
+	}
+
 	private String type;
 
 	public void setPerfMember(Set<PerformanceMember> perfMember) {
