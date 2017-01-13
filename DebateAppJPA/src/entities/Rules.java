@@ -48,6 +48,9 @@ public class Rules {
 	private boolean commentsView;
 	@Column(name = "private_debate")
 	private boolean privateDebate;
+	
+	//add time limit/turn
+	//add canViewVotesAsDebater
 
 	public Rules() {
 	}

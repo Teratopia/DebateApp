@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 //+-----------+---------+------+-----+---------+----------------+
 //| Field     | Type    | Null | Key | Default | Extra          |
@@ -31,17 +32,20 @@ import javax.persistence.Table;
 //+-----------+---------+------+-----+---------+----------------+
 
 @Entity
-@Table(name = "debate_instance")
+@Table(name = "debate")
 public class Debate {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
 	@OneToMany(mappedBy = "debate")
+	@JsonIgnore
 	private Set<Performance> performances;
 	@OneToMany(mappedBy = "debate")
+	@JsonIgnore
 	private Set<Vote> votes;
 	@OneToMany(mappedBy = "debate")
+	@JsonIgnore
 	private Set<Comment> comments;
 	@OneToOne
 	@JoinColumn(name = "rules_id")
@@ -49,8 +53,9 @@ public class Debate {
 	@ManyToOne
 	@JoinColumn(name = "issue_id")
 	private Issue issue;
-	@Column(name = "winner_id")
-	private Performance winner;
+//	commented b/c persistence error caused by one to many above
+//	@Column(name = "winner_id")
+//	private Performance winner;
 	private Date timeStamp;
 
 	public Set<Comment> getComments() {
@@ -124,13 +129,13 @@ public class Debate {
 		this.rules = rules;
 	}
 
-	public Performance getWinner() {
-		return winner;
-	}
-
-	public void setWinner(Performance winner) {
-		this.winner = winner;
-	}
+//	public Performance getWinner() {
+//		return winner;
+//	}
+//
+//	public void setWinner(Performance winner) {
+//		this.winner = winner;
+//	}
 
 	public int getId() {
 		return id;

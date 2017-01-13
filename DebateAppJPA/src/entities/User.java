@@ -43,6 +43,7 @@ public class User {
 	private Set<PerformanceMember> perfMember;
 	@ManyToMany
 	@JoinTable(name = "team_roster", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "team_id"))
+	@JsonIgnore
 	private Set<Team> teams;
 	@OneToMany(mappedBy = "user")
 	@JsonIgnore

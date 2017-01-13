@@ -6,6 +6,8 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import entities.Category;
@@ -29,6 +31,7 @@ public class CategoryDAO implements CategoryDAOI{
 	}
 
 	@Override
+	@Transactional
 	public Category update(int id, String catJson) {
 		
 		ObjectMapper mapper = new ObjectMapper();
@@ -49,6 +52,7 @@ public class CategoryDAO implements CategoryDAOI{
 	}
 
 	@Override
+	@Transactional
 	public Category create(String catJson) {
 		
 		ObjectMapper mapper = new ObjectMapper();
@@ -66,6 +70,7 @@ public class CategoryDAO implements CategoryDAOI{
 	}
 
 	@Override
+	@Transactional
 	public Category destroy(int id) {
 		
 		Category deleteCategory= em.find(Category.class, id);

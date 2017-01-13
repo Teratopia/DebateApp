@@ -5,6 +5,8 @@ import java.util.Collection;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import entities.Debate;
@@ -28,6 +30,7 @@ public class DebateDAO implements DebateDAOI{
 	}
 
 	@Override
+	@Transactional
 	public Debate update(int id, String debateJson) {
 		
 		ObjectMapper mapper = new ObjectMapper();
@@ -44,7 +47,7 @@ public class DebateDAO implements DebateDAOI{
 		oldDebate.setComments(updateDebate.getComments());
 		oldDebate.setRules(updateDebate.getRules());
 		oldDebate.setIssue(updateDebate.getIssue());
-		oldDebate.setWinner(updateDebate.getWinner());
+//		oldDebate.setWinner(updateDebate.getWinner());
 		oldDebate.setTimeStamp(updateDebate.getTimeStamp());
 		
 		em.flush();
@@ -53,6 +56,7 @@ public class DebateDAO implements DebateDAOI{
 	}
 
 	@Override
+	@Transactional
 	public Debate create(String ruleJson) {
 		
 		ObjectMapper mapper = new ObjectMapper();
@@ -70,6 +74,7 @@ public class DebateDAO implements DebateDAOI{
 	}
 
 	@Override
+	@Transactional
 	public Debate destroy(int id) {
 		
 		Debate r = em.find(Debate.class, id);

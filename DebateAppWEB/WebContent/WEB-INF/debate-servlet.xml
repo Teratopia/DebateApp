@@ -20,10 +20,9 @@
 	<bean id="catDao" class="data.CategoryDAO" />
 	<bean id="comDao" class="data.CommentDAO" />
 	<bean id="debDao" class="data.DebateDAO" />
-	<bean id="resDao" class="data.ResultDAO" />
+	<bean id="issDao" class="data.IssueDAO" />
 	<bean id="rulDao" class="data.RulesDAO" />
 	<bean id="teamDao" class="data.TeamDAO" />
-	<bean id="topDao" class="data.TopicDAO" />
 	<bean id="userDao" class="data.UserDAO" />
 	<bean id="voteDao" class="data.VoteDAO" />
 

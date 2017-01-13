@@ -19,6 +19,7 @@ public class Team {
 	private int id;
 	private String name;
 	@OneToMany(mappedBy = "team")
+	@JsonIgnore
 	private Set<Performance> performances;
 	@ManyToMany(mappedBy = "teams")
 	@JsonIgnore

@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Category {
 	@Id
@@ -20,6 +22,7 @@ public class Category {
 	private String description;
 	@ManyToMany
 	@JoinTable(name = "issue_category", joinColumns = @JoinColumn(name = "category_id"), inverseJoinColumns = @JoinColumn(name = "issue_id"))
+	@JsonIgnore
 	private Set<Issue> issues;
 
 	public Category() {

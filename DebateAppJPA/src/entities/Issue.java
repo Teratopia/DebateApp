@@ -12,9 +12,7 @@
 
 package entities;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -35,11 +33,12 @@ public class Issue {
 	private int id;
 	@ManyToMany
 	@JoinTable(name = "issue_category", joinColumns = @JoinColumn(name = "issue_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
+	@JsonIgnore
 	private Set<Category> categories;
 	private String title;
 	private String description;
 	private String linkRef;
-	@OneToMany
+	@OneToMany(mappedBy = "issue")
 	@JsonIgnore
 	private Set<Debate> debates;
 

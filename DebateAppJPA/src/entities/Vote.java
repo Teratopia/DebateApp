@@ -24,7 +24,7 @@ public class Vote {
 	@ManyToOne
 	@JoinColumn(name = "performance_id")
 	private Performance performance;
-	@Column(name = "time")
+	@Column(name = "time_stamp")
 	private Date timeStamp;
 
 	public Vote() {

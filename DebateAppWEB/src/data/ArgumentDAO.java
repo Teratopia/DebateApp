@@ -31,7 +31,9 @@ public class ArgumentDAO implements ArgumentDAOI {
 	public Argument show(int id) {
 		return em.find(Argument.class, id);
 	}
-
+	
+	@Override
+	@Transactional
 	public Argument update(int id, String argumentJson) {
 		ObjectMapper mapper = new ObjectMapper();
 		Argument updatedArgument = null;
@@ -45,7 +47,7 @@ public class ArgumentDAO implements ArgumentDAOI {
 
 		Argument oldArgument = em.find(Argument.class, id);
 		oldArgument.setUser(updatedArgument.getUser());
-		oldArgument.setDebate(updatedArgument.getDebate());
+//		oldArgument.setDebate(updatedArgument.getDebate());
 		oldArgument.setPerfMember(updatedArgument.getPerfMember());
 		oldArgument.setText(updatedArgument.getText());
 		oldArgument.setTimeStamp(updatedArgument.getTimeStamp());
@@ -55,6 +57,8 @@ public class ArgumentDAO implements ArgumentDAOI {
 		return em.find(Argument.class, oldArgument.getId());
 	}
 
+	@Override
+	@Transactional
 	public Argument create(String argumentJson) {
 		ObjectMapper mapper = new ObjectMapper();
 		Argument newArgument = null;
@@ -72,6 +76,8 @@ public class ArgumentDAO implements ArgumentDAOI {
 		return em.find(Argument.class, newArgument.getId());
 	}
 
+	@Override
+	@Transactional
 	public Argument destroy(int id) {
 		Argument deletedArgument = em.find(Argument.class, id);
 		try {

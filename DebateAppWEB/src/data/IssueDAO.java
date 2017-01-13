@@ -5,6 +5,8 @@ import java.util.Collection;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import entities.Issue;
@@ -28,6 +30,7 @@ public class IssueDAO implements IssueDAOI {
 	}
 
 	@Override
+	@Transactional
 	public Issue update(int id, String issueJson) {
 
 		ObjectMapper mapper = new ObjectMapper();
@@ -50,6 +53,7 @@ public class IssueDAO implements IssueDAOI {
 	}
 
 	@Override
+	@Transactional
 	public Issue create(String catJson) {
 
 		ObjectMapper mapper = new ObjectMapper();
@@ -67,6 +71,7 @@ public class IssueDAO implements IssueDAOI {
 	}
 
 	@Override
+	@Transactional
 	public Issue destroy(int id) {
 
 		Issue deleteIssue = em.find(Issue.class, id);
