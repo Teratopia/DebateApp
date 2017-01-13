@@ -25,14 +25,14 @@ public class UserDAO implements UserDAOI {
   @Autowired
   BCryptPasswordEncoder passwordEncoder;
 
-  public User create(User user) {
-    String rawPassword = user.getPassword();     // extract raw password
-    String encodedPassword = passwordEncoder.encode(rawPassword);   // encode raw password
-    user.setPassword(encodedPassword); // reset the user's password to the encoded one
-    em.persist(user); // persist the user
-    em.flush(); // force EntityManager to persist immediately
-    return user; // return the persisted user
-  }
+//  public User create(User user) {
+//    String rawPassword = user.getPassword();     // extract raw password
+//    String encodedPassword = passwordEncoder.encode(rawPassword);   // encode raw password
+//    user.setPassword(encodedPassword); // reset the user's password to the encoded one
+//    em.persist(user); // persist the user
+//    em.flush(); // force EntityManager to persist immediately
+//    return user; // return the persisted user
+//  }
 
   public User authenticateUser(User user) throws NoResultException { // NoResultException can be caught front end and handled to present error message.
     // Find the managed user by its username
@@ -100,20 +100,35 @@ public class UserDAO implements UserDAOI {
 	
 	@Override
 	@Transactional
-	public User create(String catJson) {
+	public User create(String userJson) {
 		
-		ObjectMapper mapper = new ObjectMapper();
 		User newUser = null;
+		ObjectMapper mapper = new ObjectMapper();
 		try{
-			newUser = mapper.readValue(catJson, User.class);
+			newUser = mapper.readValue(userJson, User.class);
 		}catch(Exception e){
 			System.out.println(e);
 		}
-		
-		em.persist(newUser);
-		em.flush();
-		
-		return newUser;
+
+	    String rawPassword = newUser.getPassword();
+	    String encodedPassword = passwordEncoder.encode(rawPassword);
+	    newUser.setPassword(encodedPassword);
+	    em.persist(newUser);
+	    em.flush();
+
+	    return newUser;
+	  }
+	
+	@Override
+	public User login(User user) throws NoResultException {
+		 User u = em.createQuery("SELECT u FROM User u where username = :username", User.class)
+			        .setParameter("username", user.getUsername())
+			        .getSingleResult();
+			    // One-way encrypt the provided password, see if the result matches the persisted password value
+			    if (passwordEncoder.matches(user.getPassword(), u.getPassword())) {
+			      return u;
+			    }
+		return new User();
 	}
 
 	@Override
