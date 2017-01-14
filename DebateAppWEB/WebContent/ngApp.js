@@ -5,24 +5,6 @@ app.config(function($routeProvider){ // $routeProvider is an Angular service
         .when('/', {
             template: `<todos-component></todos-component>` // use templateURL to reference a different file
         })
-        .when('/todos', {
-            template : `<todos-component></todos-component>` // loads all todos and contains table format loading of todo-table-component IF user is logged in and authorized. Routes to 'api/todo' on SpringREST
-        })
-        .when('/registration', {
-            template : `<registration-component></registration-component>` // register form for new user. Does not load todos. Routes to 'api/registration' on SpringREST
-        })
-        .when('/login', {
-            template : `<login-component></login-component>` // login form for existing users. Does not load todos. Routes to 'api/login' on SpringREST
-        })
-        .when('/_404', {
-          template : '<not-found></not-found>' // STILL TO BE BUILD OUT. FORWARD FOR ERROR CASES
-        })
-        .when('/about', {
-            template : `<h1>ABOUT</h1>` // STILL TO BE BUILD OUT. DESCRIPTION OF PROJECT AND TECHONOLOGIES USED
-        })
-        .when('/contact', {
-            template : `<h1>CONTACT</h1>` // STILL TO BE BUILT OUT. DETAILS FOR CONTACT INFORMATION FOR JONATHAN BORGIA, DEVELOPER
-        })
         .when('/todo/:id', { // Directs user to page displaying details of specific todo. Todo is fetched from 'api/todo/{id}' on SpringREST
           template : `<detail-component todo="$resolve.myData"></detail-component>`,
           resolve : {
