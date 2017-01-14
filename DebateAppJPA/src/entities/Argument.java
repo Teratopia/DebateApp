@@ -18,17 +18,29 @@ public class Argument {
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
-	@ManyToOne
-	@JoinColumn(name = "debate_id")
-	private Debate debate;
+//	commented b/c persistence errors and accessable via perfMember
+//	@ManyToOne
+//	@JoinColumn(name = "debate_id")
+//	private Debate debate;
 	@ManyToOne
 	@JoinColumn(name = "pm_id")
 	private PerformanceMember perfMember;
 	private String text;
-	@Column(name = "time")
+	@Column(name = "time_stamp")
 	private Date timeStamp;
 	@Column(name = "linkref")
 	private String linkRef;
+	@ManyToOne
+	@JoinColumn(name = "team_id")
+	private Team team;
+
+	public Team getTeam() {
+		return team;
+	}
+
+	public void setTeam(Team team) {
+		this.team = team;
+	}
 
 	public PerformanceMember getPerfMember() {
 		return perfMember;
@@ -48,14 +60,14 @@ public class Argument {
 	public void setUser(User user) {
 		this.user = user;
 	}
-
-	public Debate getDebate() {
-		return debate;
-	}
-
-	public void setDebate(Debate debate) {
-		this.debate = debate;
-	}
+//
+//	public Debate getDebate() {
+//		return debate;
+//	}
+//
+//	public void setDebate(Debate debate) {
+//		this.debate = debate;
+//	}
 
 	public String getText() {
 		return text;

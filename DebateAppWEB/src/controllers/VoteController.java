@@ -23,20 +23,20 @@ public class VoteController {
 								// mySQL database
 
 	// Respond to request by returning all Votes
-	@RequestMapping(path = "Vote", method = RequestMethod.GET)
+	@RequestMapping(path = "vote", method = RequestMethod.GET)
 	public Collection<Vote> index(HttpServletRequest req, HttpServletResponse res) {
 		return voteDAO.index();
 	}
 
 	// Respond to request by returning single, specific Vote
-	@RequestMapping(path = "Vote/{id}", method = RequestMethod.GET)
+	@RequestMapping(path = "vote/{id}", method = RequestMethod.GET)
 	public Vote show(HttpServletRequest req, HttpServletResponse res, @PathVariable("id") int id) {
 		return voteDAO.show(id);
 	}
 
 	// Respond to request by passing updates to DAO from HSP res in JSON format
 	// and returning updated Vote from DAO
-	@RequestMapping(path = "Vote/{id}", method = RequestMethod.PUT)
+	@RequestMapping(path = "vote/{id}", method = RequestMethod.PUT)
 	public Vote update(HttpServletRequest req, HttpServletResponse res, @PathVariable("id") int id,
 			@RequestBody String voteJson) {
 		return voteDAO.update(id, voteJson);
@@ -44,14 +44,14 @@ public class VoteController {
 
 	// Respond to request by passing JSON for new Vote to DAO and returning
 	// successfully saved Vote
-	@RequestMapping(path = "Vote", method = RequestMethod.POST)
+	@RequestMapping(path = "vote", method = RequestMethod.POST)
 	public Vote create(HttpServletRequest req, HttpServletResponse res, @RequestBody String voteJson) {
 		return voteDAO.create(voteJson);
 	}
 
 	// Respond to request by destroying/deleting specific Vote and returning
 	// deleted Vote information back to front end's angular asynchronous service
-	@RequestMapping(path = "Vote/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(path = "vote/{id}", method = RequestMethod.DELETE)
 	public Vote destroy(HttpServletRequest req, HttpServletResponse res, @PathVariable("id") int id) {
 		return voteDAO.destroy(id);
 	}

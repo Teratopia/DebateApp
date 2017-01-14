@@ -20,55 +20,108 @@ import entities.User;
 import security.JsonWebTokenGenerator;
 
 @RestController
-public class AuthenticationController implements AuthenticationControllerI{
-	  @Autowired
-	  JsonWebTokenGenerator jwtGen;
-	  
-	  // inject autowired UserDao: this DAO handles the creation and authentication requests to the mySQL DB
-	  @Autowired
-	  UserDAOI userDao;  // Instantiate userDAO
+public class AuthenticationController implements AuthenticationControllerI {
+	@Autowired
+	JsonWebTokenGenerator jwtGen;
 
-	  // 
-	  @RequestMapping(value = "/login", method = RequestMethod.POST) // tell Spring to route request coming from 'api/login' via a POST request method
-	  public Map<String,String> login(HttpServletRequest req, HttpServletResponse res, @RequestBody String userJsonString) { // instantiate a String 'userJsonString' containing JSON information from request body
-	    ObjectMapper mapper = new ObjectMapper(); // Instantiate a new request mapper for the conversion from user JSON String into user java object
-	    User user = null; // Instantiate a new null user object to hold mapped JSON data
-	    // Parse User from JSON
-	    try {
-	      System.out.println("USER JSON STRING: " + userJsonString); // print user JSON string for testing and confirmation purposes
-	      user = mapper.readValue(userJsonString, User.class); // Convert JSON String user data to user object
-	    } catch (Exception e) {
-	      e.printStackTrace(); // Print stack trace in case of mapping failure
-	    }
-	    try {
-	      user = userDao.authenticateUser(user);  // Find managed User, return it if password is correct. authenticateUser throws error if nothing is found.
-	    } catch (Exception e) {
-	      // User not authenticated. Return 401
-	      e.printStackTrace();
-	      res.setStatus(401);
-	      return null;
-	    }
+	@Autowired
+	UserDAOI userDao;
 
-	    // Create encoded JavaWebToken for User
-	    String jws = jwtGen.generateUserJwt(user); // Assign WebToken to JWS (As a String)
-	    Map<String, String> responseJson = new HashMap<>(); // Create a new HashMap for passing back to $Http request
-	    responseJson.put("jwt", jws); // Put String JWS into responseJson HashMap
-	    return responseJson; //Return case fur successful authentication
-	  }
+//	@Override
+//	@RequestMapping(value = "/login", method = RequestMethod.POST)
+//	public Map<String, String> login(HttpServletRequest req, HttpServletResponse res,
+//			@RequestBody String userJsonString) {
+//		ObjectMapper mapper = new ObjectMapper();
+//		User user = null;
+//		try {
+//			System.out.println("USER JSON STRING: " + userJsonString);
+//			user = mapper.readValue(userJsonString, User.class);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//
+//		try {
+//			user = userDao.authenticateUser(user);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			res.setStatus(401);
+//			return null;
+//		}
+//
+//		String jws = jwtGen.generateUserJwt(user);
+//		Map<String, String> responseJson = new HashMap<>();
+//		responseJson.put("jwt", jws);
+//		return responseJson;
+//	}
 
-	  // 
-	  @RequestMapping(value = "/register", method = RequestMethod.POST) // tell Spring to route request coming from 'api/registration' via a POST request method
-	  public User signup(HttpServletRequest req, HttpServletResponse res, @RequestBody String userJson) { // 
-	    ObjectMapper mapper = new ObjectMapper(); // Instantiate a new request mapper for the conversion from user JSON String into user java object
-	    User user = null; // Instantiate a new null user object to hold mapped JSON data
-	    try {
-	      user = mapper.readValue(userJson, User.class); // Convert JSON String user data to user object
-	    } catch (IOException ie) {
-	      ie.printStackTrace();
-	      res.setStatus(422); // Set to status 422 in event of failure
-	      return null;
-	    }
-	    res.setStatus(201); // Set status to 201 for success
-	    return userDao.create(user); // return persisted User object with encrypted password
-	  }
+	// @RequestMapping(value = "/register", method = RequestMethod.POST)
+	// public User signup(HttpServletRequest req, HttpServletResponse res,
+	// @RequestBody String userJson) { //
+	// ObjectMapper mapper = new ObjectMapper(); // Instantiate a new request
+	// // mapper for the conversion
+	// // from user JSON String
+	// // into user java object
+	// User user = null; // Instantiate a new null user object to hold mapped
+	// // JSON data
+	// try {
+	// user = mapper.readValue(userJson, User.class); // Convert JSON
+	// // String user data
+	// // to user object
+	// } catch (IOException ie) {
+	// ie.printStackTrace();
+	// res.setStatus(422); // Set to status 422 in event of failure
+	// return null;
+	// }
+	// res.setStatus(201); // Set status to 201 for success
+	// return userDao.create(user); // return persisted User object with
+	// // encrypted password
+	// }
+
+	@Override
+	@RequestMapping(path = "/auth", method = RequestMethod.POST)
+	public Map<String, String> login(HttpServletRequest req, HttpServletResponse res, @RequestBody String userJson) {
+
+		ObjectMapper mapper = new ObjectMapper();
+		User u = null;
+
+		try {
+			u = mapper.readValue(userJson, User.class);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+
+		try {
+			u = userDao.login(u);
+		} catch (Exception e) {
+			e.printStackTrace();
+			res.setStatus(401);
+			return null;
+		}
+
+		String jws = jwtGen.generateUserJwt(u);
+		Map<String, String> responseJson = new HashMap<>();
+		responseJson.put("jwt", jws);
+		return responseJson;
+	}
+
+	@Override
+	@RequestMapping(value = "/signup", method = RequestMethod.POST)
+	public Map<String, String> signup(HttpServletRequest req, HttpServletResponse res, @RequestBody String userJson) {
+
+		User user = userDao.create(userJson);
+		String jws = jwtGen.generateUserJwt(user);
+		Map<String, String> responseJson = new HashMap<>();
+		responseJson.put("jwt", jws);
+		return responseJson;
+	}
+
+	@Override
+	@RequestMapping("/unauthorized")
+	public Map<String, String> unauthorized(HttpServletRequest req, HttpServletResponse res) {
+		res.setStatus(401);
+		Map<String, String> errorJson = new HashMap<>();
+		errorJson.put("error", "your request lacks the proper authorization");
+		return errorJson;
+	}
+
 }

@@ -5,6 +5,8 @@ import java.util.Collection;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import entities.Vote;
@@ -28,6 +30,7 @@ public class VoteDAO implements VoteDAOI{
 	}
 
 	@Override
+	@Transactional
 	public Vote update(int id, String voteJson) {
 		
 		ObjectMapper mapper = new ObjectMapper();
@@ -49,6 +52,7 @@ public class VoteDAO implements VoteDAOI{
 	}
 
 	@Override
+	@Transactional
 	public Vote create(String catJson) {
 		
 		ObjectMapper mapper = new ObjectMapper();
@@ -66,6 +70,7 @@ public class VoteDAO implements VoteDAOI{
 	}
 
 	@Override
+	@Transactional
 	public Vote destroy(int id) {
 		
 		Vote t = em.find(Vote.class, id);

@@ -27,11 +27,13 @@ public class TeamDAO implements TeamDAOI {
 		String query = "Select c from Team c JOIN Result r ON r.debate_id = c.debate_id WHERE r.instanceNum = ?1";
 		return em.createQuery(query, Team.class).setParameter(1, resultId).getResultList();
 	}
-
+	@Override
 	public Team show(int id) {
 		return em.find(Team.class, id);
 	}
-
+	
+	@Override
+	@Transactional
 	public Team update(int id, String teamJson) {
 		ObjectMapper mapper = new ObjectMapper();
 		Team updatedTeam = null;
@@ -52,6 +54,8 @@ public class TeamDAO implements TeamDAOI {
 		return em.find(Team.class, oldTeam.getId());
 	}
 
+	@Override
+	@Transactional
 	public Team create(String teamJson) {
 		ObjectMapper mapper = new ObjectMapper();
 		Team newTeam = null;
@@ -69,6 +73,8 @@ public class TeamDAO implements TeamDAOI {
 		return em.find(Team.class, newTeam.getId());
 	}
 
+	@Override
+	@Transactional
 	public Team destroy(int id) {
 		Team deletedTeam = em.find(Team.class, id);
 		try {

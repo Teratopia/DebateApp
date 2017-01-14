@@ -5,6 +5,8 @@ import java.util.Collection;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import entities.Rules;
@@ -28,6 +30,7 @@ public class RulesDAO implements RulesDAOI{
 	}
 
 	@Override
+	@Transactional
 	public Rules update(int id, String RulesJson) {
 		
 		ObjectMapper mapper = new ObjectMapper();
@@ -54,6 +57,7 @@ public class RulesDAO implements RulesDAOI{
 	}
 
 	@Override
+	@Transactional
 	public Rules create(String catJson) {
 		
 		ObjectMapper mapper = new ObjectMapper();
@@ -71,6 +75,7 @@ public class RulesDAO implements RulesDAOI{
 	}
 
 	@Override
+	@Transactional
 	public Rules destroy(int id) {
 		
 		Rules t = em.find(Rules.class, id);

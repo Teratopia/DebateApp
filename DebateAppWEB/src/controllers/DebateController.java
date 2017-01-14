@@ -23,20 +23,20 @@ public class DebateController {
 									// with mySQL database
 
 	// Respond to request by returning all Debates
-	@RequestMapping(path = "Debate", method = RequestMethod.GET)
+	@RequestMapping(path = "debate", method = RequestMethod.GET)
 	public Collection<Debate> index(HttpServletRequest req, HttpServletResponse res) {
 		return debateDAO.index();
 	}
 
 	// Respond to request by returning single, specific Debate
-	@RequestMapping(path = "Debate/{id}", method = RequestMethod.GET)
+	@RequestMapping(path = "debate/{id}", method = RequestMethod.GET)
 	public Debate show(HttpServletRequest req, HttpServletResponse res, @PathVariable("id") int id) {
 		return debateDAO.show(id);
 	}
 
 	// Respond to request by passing updates to DAO from HSP res in JSON format
 	// and returning updated Debate from DAO
-	@RequestMapping(path = "Debate/{id}", method = RequestMethod.PUT)
+	@RequestMapping(path = "debate/{id}", method = RequestMethod.PUT)
 	public Debate update(HttpServletRequest req, HttpServletResponse res, @PathVariable("id") int id,
 			@RequestBody String debateJson) {
 		return debateDAO.update(id, debateJson);
@@ -44,7 +44,7 @@ public class DebateController {
 
 	// Respond to request by passing JSON for new Debate to DAO and returning
 	// successfully saved Debate
-	@RequestMapping(path = "Debate", method = RequestMethod.POST)
+	@RequestMapping(path = "debate", method = RequestMethod.POST)
 	public Debate create(HttpServletRequest req, HttpServletResponse res, @RequestBody String debateJson) {
 		return debateDAO.create(debateJson);
 	}
@@ -52,7 +52,7 @@ public class DebateController {
 	// Respond to request by destroying/deleting specific Debate and returning
 	// deleted Debate information back to front end's angular asynchronous
 	// service
-	@RequestMapping(path = "Debate/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(path = "debate/{id}", method = RequestMethod.DELETE)
 	public Debate destroy(HttpServletRequest req, HttpServletResponse res, @PathVariable("id") int id) {
 		return debateDAO.destroy(id);
 	}

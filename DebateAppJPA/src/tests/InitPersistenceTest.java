@@ -14,10 +14,11 @@ import entities.Argument;
 import entities.Category;
 import entities.Comment;
 import entities.Debate;
-import entities.Result;
+import entities.Issue;
+import entities.Performance;
+import entities.PerformanceMember;
 import entities.Rules;
 import entities.Team;
-import entities.Topic;
 import entities.User;
 import entities.Vote;
 
@@ -40,35 +41,38 @@ public class InitPersistenceTest {
 
 	@Test
 	public void testEntitiesPersistence() {
-		Vote v = em.find(Vote.class, 2);
-		assertEquals(v.getInstanceNum(), 1);
+		Vote v = em.find(Vote.class, 1);
+		assertEquals(v.getUser().getUsername(), "testu2");
 		
 		User u = em.find(User.class, 1);
 		assertEquals(u.getUsername(), "testu1");
 		
-		Topic t = em.find(Topic.class, 1);
-		assertEquals(t.getText(), "Hip Hop");
-		
 		Team te = em.find(Team.class, 1);
 		assertEquals(te.getName(), "testTeam1");
-		
+//		
 		Rules r = em.find(Rules.class, 1);
-		assertEquals(r.getCharsPerArg(), 280);
+		assertEquals(r.getCharsPerArg(), 256);
+
+		PerformanceMember pm = em.find(PerformanceMember.class, 1);
+		assertEquals(pm.getUser().getUsername(), "testu1");
 		
-		Result re = em.find(Result.class, 1);
-		assertEquals(re.getTeamTime(), 86125);
+		Performance p = em.find(Performance.class, 1);
+		assertEquals(p.getStance(), "Tupac > Biggie");
+		
+		Issue i = em.find(Issue.class, 1);
+		assertEquals(i.getTitle(), "Biggie vs Tupac");
 		
 		Debate d = em.find(Debate.class, 1);
-		assertEquals(d.getTitle(), "TestDebate");
+		assertEquals(d.getRules().getId(), 1);
 		
 		Comment c = em.find(Comment.class, 1);
-		assertEquals(c.getText(), "illogical.");
+		assertEquals(c.getText(), "testComment");
 		
 		Category ca = em.find(Category.class, 1);
-		assertEquals(ca.getName(), "Politics");
+		assertEquals(ca.getTitle(), "Music");
 		
-		Argument a = em.find(Argument.class, 1);
-		assertEquals(a.getText(), "The govt dont need no ethics committee");
+		Argument a = em.find(Argument.class, 2);
+		assertEquals(a.getText(), "testArg");
 	}
 
 }

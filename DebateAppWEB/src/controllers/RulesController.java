@@ -22,20 +22,20 @@ public class RulesController {
 									// with mySQL database
 
 	// Respond to request by returning all Rules
-	@RequestMapping(path = "Rules", method = RequestMethod.GET)
+	@RequestMapping(path = "rules", method = RequestMethod.GET)
 	public Collection<Rules> index(HttpServletRequest req, HttpServletResponse res) {
 		return rulesDAO.index();
 	}
 
 	// Respond to request by returning single, specific Rules
-	@RequestMapping(path = "Rules/{id}", method = RequestMethod.GET)
+	@RequestMapping(path = "rules/{id}", method = RequestMethod.GET)
 	public Rules show(HttpServletRequest req, HttpServletResponse res, @PathVariable("id") int id) {
 		return rulesDAO.show(id);
 	}
 
 	// Respond to request by passing updates to DAO from HSP res in JSON format
 	// and returning updated Rules from DAO
-	@RequestMapping(path = "Rules/{id}", method = RequestMethod.PUT)
+	@RequestMapping(path = "rules/{id}", method = RequestMethod.PUT)
 	public Rules update(HttpServletRequest req, HttpServletResponse res, @PathVariable("id") int id,
 			@RequestBody String rulesJson) {
 		return rulesDAO.update(id, rulesJson);
@@ -43,7 +43,7 @@ public class RulesController {
 
 	// Respond to request by passing JSON for new Rules to DAO and returning
 	// successfully saved Rules
-	@RequestMapping(path = "Rules", method = RequestMethod.POST)
+	@RequestMapping(path = "rules", method = RequestMethod.POST)
 	public Rules create(HttpServletRequest req, HttpServletResponse res, @RequestBody String rulesJson) {
 		return rulesDAO.create(rulesJson);
 	}
@@ -51,7 +51,7 @@ public class RulesController {
 	// Respond to request by destroying/deleting specific Rules and returning
 	// deleted Rules information back to front end's angular asynchronous
 	// service
-	@RequestMapping(path = "Rules/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(path = "rules/{id}", method = RequestMethod.DELETE)
 	public Rules destroy(HttpServletRequest req, HttpServletResponse res, @PathVariable("id") int id) {
 		return rulesDAO.destroy(id);
 	}
