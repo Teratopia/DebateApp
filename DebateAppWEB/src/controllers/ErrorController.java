@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class ErrorController implements ErrorControllerI { // currently unused as only displaying error message regarding email-username/password incongruency
-  @RequestMapping("/unauthorized")
+  @RequestMapping("/unauth")
   public Map<String,String> unauthorized(HttpServletRequest req, HttpServletResponse res) {
     res.setStatus(401);
     Map<String,String> errorJson = new HashMap<>();

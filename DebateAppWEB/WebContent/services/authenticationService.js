@@ -34,6 +34,9 @@ angular.module('ngDebate').factory('authenticationService', function($window, $h
 	  
 	    service.createUser = function(user){
 		  
+	    	console.log('in createUser');
+	    	console.log(user);
+	    	
 		  return $http({
 			  method : 'POST',
 			  url : 'api/signup',

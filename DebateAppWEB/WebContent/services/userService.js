@@ -24,20 +24,20 @@ angular.module('ngDebate').factory('userService', function($http, authentication
 	  })
   };
 
-  service.createUser = function(data){
-	  
-	  return $http({
-		  method : 'POST',
-		  url : 'api/user',
-		  dataType: 'json',
-		  headers : {
-		  'Content-Type' : 'application/json',
-		  'x-access-token' : authenticationService.getToken()
-		  },
-		  data : data
-	  })
-	  
-  }
+//  service.createUser = function(data){
+//	  
+//	  return $http({
+//		  method : 'POST',
+//		  url : 'api/user',
+//		  dataType: 'json',
+//		  headers : {
+//		  'Content-Type' : 'application/json',
+//		  'x-access-token' : authenticationService.getToken()
+//		  },
+//		  data : data
+//	  })
+//	  
+//  }
 
   service.deleteUser = function(id){
     
