@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html ng-app="ngDebate">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quibblur</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Monda:400,700">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/Navigation-Clean1.css">
+    <link rel="shortcut icon" href="">
+</head>
+
+<body style="font-size:14px;line-height:1.42857143;color:#333;background-color:#1e2021;">
+    <div>
+        <nav class="navbar navbar-inverse navigation-clean" ng-controller="navCtrl" style="margin-bottom:10px;background-color:#1e2021;">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand navbar-link" href="#" style="padding:0px;margin:0px 0px 0px 0px;"><img src="assets/img/Quib-Logo-WHITE.png" style="float:left;border-radius:5px;border:1px solid rgb(169,169,169);"></a>
+                    <button class="navbar-toggle collapsed" ng-click="isCollapsed = !isCollapsed; log()"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+                </div>
+                <div class="collapse navbar-collapse" uib-collapse="isCollapsed" id="navcol-1">
+                    <ul class="nav navbar-nav navbar-right"><!-- 
+                        <li class="active" role="presentation"><a href="#">First Item</a></li> -->
+                        <li class="line_item" role="presentation"><a href="#intro">About </a></li>
+                        <li class="line_item" role="presentation"><a href="#">New Quib</a></li>
+                        <li class="dropdown open" uib-dropdown keyboard-nav><a class="dropdown-toggle" uib-dropdown-toggle aria-expanded="true" href="#">Search Quibs<span class="caret"></span></a>
+                            <ul class="dropdown-menu" uib-dropdown-menu role="menu">
+                                <li class="sub_line_item" role="presentation"><a href="#">Insert Search Bar Here</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown open" uib-dropdown keyboard-nav><a class="dropdown-toggle" uib-dropdown-toggle aria-expanded="true" href="#">Quibagories<span class="caret"></span></a>
+                            <ul class="dropdown-menu" uib-dropdown-menu role="menu">
+                                <li class="sub_line_item" role="presentation"><a href="#">Quibagory 1</a></li>
+                                <li class="sub_line_item" role="presentation"><a href="#">Quibagory 2</a></li>
+                                <li class="sub_line_item" role="presentation"><a href="#">Quibagory 3</a></li>
+                                <li class="sub_line_item " role="presentation"><a href="#">Quibagory 4</a></li>
+                                <li class="sub_line_item " role="presentation"><a href="#">Quibagory 5</a></li>
+                            </ul>
+                        </li>
+                        <li class="line_item" role="presentation"><a href="#">Log In</a></li>
+                        <li class="dropdown open" uib-dropdown keyboard-nav><a class="dropdown-toggle" uib-dropdown-toggle aria-expanded="true" href="#">Profile <span class="caret"></span></a>
+                            <ul class="dropdown-menu" uib-dropdown-menu role="menu">
+                                <li class="sub_line_item " role="presentation"><a href="#">View Profile</a></li>
+                                <li class="sub_line_item " role="presentation"><a href="#">Log Out</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-7 col-md-7" style="padding:0px;">
+                <div>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p style="color:#ffffff;font-size:1.5em;">Title </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p style="color:#ffffff;font-size:1em;">href </p>
+                                <p style="color:#ffffff;font-size:1em;">Description </p>
+                                <p style="color:#ffffff;font-size:1em;">Categories </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p style="color:#ffffff;font-size:1em;">Stances (ng-repeat)</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p style="color:#ffffff;font-size:1em;">Commentary: </p>
+                                <div style="overflow:hidden;min-height:280px;margin:5px;background:rgb(30,30,30);background:rgba(249,249,249,0.1);-webkit-box-shadow:inset 4px 4px 40px -10px rgba(0,0,0,0.7),3px 3px 5px 1px rgba(0,0,0,0.1);-moz-box-shadow:inset 4px 4px 40px -10px rgba(0,0,0,0.7),3px 3px 5px 1px rgba(0,0,0,0.1);box-shadow:inset 4px 4px 40px -10px rgba(0,0,0,0.7),3px 3px 5px 1px rgba(0,0,0,0.1);"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p style="color:#ffffff;font-size:1.5em;">Add Comment Form Field</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 col-md-5">
+                <div class="row">
+                    <div class="col-md-12">
+                        <p style="color:#ffffff;font-size:1.5em;">Debate </p>
+                    </div>
+                    <div class="col-md-12">
+                        <div style="/*float:left;*//*width:20px;*/min-height:20px;margin:0px 0px 10px 0px;background:rgb(30,30,30);background:rgba(248,19,4,0.5);/*-webkit-box-shadow:inset 4px 4px 40px -10px rgba(0,0,0,0.7),3px 3px 5px 1px rgba(0,0,0,0.1);*//*-moz-box-shadow:inset 4px 4px 40px -10px rgba(0,0,0,0.7),3px 3px 5px 1px rgba(0,0,0,0.1);*//*box-shadow:inset 4px 4px 40px -10px rgba(0,0,0,0.7),3px 3px 5px 1px rgba(0,0,0,0.1);*/"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12" style="/*padding:0px;*/">
+                        <div style="overflow:hidden;min-height:396px;margin:5px;background:rgb(30,30,30);background:rgba(249,249,249,0.1);-webkit-box-shadow:inset 4px 4px 40px -10px rgba(0,0,0,0.7),3px 3px 5px 1px rgba(0,0,0,0.1);-moz-box-shadow:inset 4px 4px 40px -10px rgba(0,0,0,0.7),3px 3px 5px 1px rgba(0,0,0,0.1);box-shadow:inset 4px 4px 40px -10px rgba(0,0,0,0.7),3px 3px 5px 1px rgba(0,0,0,0.1);"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <p style="color:#ffffff;font-size:1.5em;">Add Argument Form Field</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="assets/js/angular.min.js"></script>
+    <script src="assets/js/angular-route.min.js"></script>
+    <script src="assets/js/angular-animate.min.js"></script>
+    <script src="assets/js/Chart.bundle.min.js"></script>
+    <script src="assets/js/angular-chart.min.js"></script>
+    <script src="assets/js/jquery.min.js"></script>
+    <!-- <script src="assets/bootstrap/js/bootstrap.min.js"></script> -->
+    <script src="assets/bootstrap/js/ui-bootstrap-2.4.0.min.js"></script>
+    <script src="assets/js/Transparent-Navigation-with-animation-on-scroll.js"></script>
+    <script src="ngApp.js"></script>
+    <script src="components/navCtrl.js"></script>
+</body>
+
+</html>
