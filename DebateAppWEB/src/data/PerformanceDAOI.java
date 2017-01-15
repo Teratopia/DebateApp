@@ -7,6 +7,8 @@ import entities.Performance;
 public interface PerformanceDAOI {
 
 	public Collection<Performance> index();
+	
+	public Collection<Performance> indexByUser(int id);
 
 	public Performance show(int id);
 

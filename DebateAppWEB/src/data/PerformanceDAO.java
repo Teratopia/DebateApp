@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import entities.Performance;
+import entities.Team;
 
 public class PerformanceDAO implements PerformanceDAOI {
 
@@ -20,6 +21,13 @@ public class PerformanceDAO implements PerformanceDAOI {
 	@Override
 	public Collection<Performance> index() {
 		String query = "select c from Performance c where c.id > 0";
+		List<Performance> cats = em.createQuery(query, Performance.class).getResultList();
+		return cats;
+	}
+
+	@Override
+	public Collection<Performance> indexByUser(int id) {
+		String query = "select p from Performance p join Team t on p.team_id = t.id join team_roster r on t.id = r.team_id join User u on r.user_id = u.id where u.id = "+id;
 		List<Performance> cats = em.createQuery(query, Performance.class).getResultList();
 		return cats;
 	}
@@ -65,6 +73,9 @@ public class PerformanceDAO implements PerformanceDAOI {
 		
 		em.persist(newPerformance);
 		em.flush();
+		
+		String query = "select i from Performance i where i.id=(select max(id) from Performance)";
+		newPerformance = em.createQuery(query, Performance.class).getSingleResult();
 		
 		return newPerformance;
 	}
