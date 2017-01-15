@@ -1,6 +1,18 @@
 angular.module('ngDebate').factory('issueService', function($http, authenticationService){
   var service = {};
 
+  service.indexIssuesByCategory = function(){
+	  
+	  return $http({
+		  method : 'GET',
+		  url : 'api/issue/cat',
+		  headers : {
+			  'x-access-token' : authenticationService.getToken()
+		  }
+	  })
+	  
+  };
+  
   service.indexIssues = function(){
 
 		return $http({

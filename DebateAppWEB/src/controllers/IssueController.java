@@ -21,7 +21,7 @@ public class IssueController {
 	@Autowired
 	private IssueDAOI issueDAO; // Create Data Access Object for managed CRUD
 									// with mySQL database
-
+	
 	// Respond to request by returning all Issues
 	@RequestMapping(path = "issue", method = RequestMethod.GET)
 	public Collection<Issue> index(HttpServletRequest req, HttpServletResponse res) {

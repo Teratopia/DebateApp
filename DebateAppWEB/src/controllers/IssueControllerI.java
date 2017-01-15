@@ -12,7 +12,6 @@ import entities.Issue;
 
 public interface IssueControllerI {
 
-
 	public Collection<Issue> index(HttpServletRequest req, HttpServletResponse res);
 
 	public Issue show(HttpServletRequest req, HttpServletResponse res, @PathVariable("id") int id);
