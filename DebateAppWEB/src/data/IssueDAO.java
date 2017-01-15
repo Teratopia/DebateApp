@@ -15,7 +15,7 @@ public class IssueDAO implements IssueDAOI {
 
 	@PersistenceContext
 	EntityManager em;
-
+	
 	@Override
 	public Collection<Issue> index() {
 		String query = "select t from Issue t where t.id > 0";

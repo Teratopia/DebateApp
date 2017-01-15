@@ -6,6 +6,7 @@ import entities.Issue;
 
 public interface IssueDAOI {
 	
+	
 	public Collection<Issue> index();
 
 	public Issue show(int id);
