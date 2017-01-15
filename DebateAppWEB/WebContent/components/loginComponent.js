@@ -1,4 +1,5 @@
 angular.module('ngDebate').component("loginComponent", {
+	
  template : `
  
 	<div style="font-size:14px;line-height:1.42857143;color:#333;background-color:#1e2021;">

@@ -1,6 +1,6 @@
-var app = angular.module('ngDebate'); //ngRoute and 'ui.bootstrap' are module dependencies
+var app = angular.module('ngDebate');
 
-function debateController(authenticationService) { // Name todosController and load todoService and todoAuthenticationService as parameters
+function debateController(authenticationService) { // authenticationService as parameter
   var vm = this;
 
 }

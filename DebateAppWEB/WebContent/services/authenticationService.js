@@ -1,92 +1,93 @@
-angular.module('ngDebate').factory('authenticationService', function($window, $http){
-	  var service = {};
-	  
-	  	service.saveToken = function(token){
-	      $window.localStorage['debate-token'] = token;
-	    };
+var app = angular.module('ngDebate');
 
-	    service.getToken = function() {
-	      return $window.localStorage['debate-token'];
-	    };
-	    
-	    service.logout = function() {
-	        $window.localStorage.removeItem('debate-token');
-	    };
+app.factory('authenticationService', function($window, $http) {
+	var service = {};
 
-	    service.authUser = function(user){
+	service.saveToken = function(token) {
+		$window.localStorage['debate-token'] = token;
+	};
 
-		  return $http({
-			  method : 'POST',
-			  url : 'api/auth',
-			  dataType: 'json',
-			  headers : {
-			  'Content-Type' : 'application/json',
-				  
-			  },
-			  data : user
-		  })
-		  .then(function(response){
-			  service.saveToken(response.data.jwt);
-			  return response;
-		  })
-		  
-	    };
-	  
-	    service.createUser = function(user){
-		  
-	    	console.log('in createUser');
-	    	console.log(user);
-	    	
-		  return $http({
-			  method : 'POST',
-			  url : 'api/signup',
-			  dataType: 'json',
-			  headers : {
-				  'Content-Type' : 'application/json',
-			  },
-			  data : user
-		  })
-		  
-	    };
-	    	  
-	    service.unauthorizeUser = function(){
-		  
-		  return $http({
-			  method : 'GET',
-			  url : 'api/unauth',
-			  headers : {
-				  'Content-Type' : 'application/json',
-			  }
-		  })
-		  
-	    };
-	  
-	    service.isLoggedIn = function() {
-	        var token = service.getToken();
+	service.getToken = function() {
+		return $window.localStorage['debate-token'];
+	};
 
-	        if (token) {
-	          // $window.atob decodes the encoded string
-	          var payload = JSON.parse($window.atob(token.split('.')[1]));
+	service.logout = function() {
+		$window.localStorage.removeItem('debate-token');
+	};
 
-	          return payload.exp > Date.now() / 1000;
+	service.authUser = function(user) {
 
-	        } else {
-	          return false;
-	        }
-	     };
-	     
-	     service.currentUser = function() {
-	          if (isLoggedIn()) {
-	            var token = getToken();
-	            var payload = JSON.parse($window.atob(token.split('.')[1]));
+		return $http({
+			method : 'POST',
+			url : 'api/auth',
+			dataType : 'json',
+			headers : {
+				'Content-Type' : 'application/json',
 
-	            return {
-	              name : payload.username,
-	              password : payload.password,
-	              id : payload.id
-	            };
-	          }
-	      };
-	
-	      return service;
+			},
+			data : user
+		}).then(function(response) {
+			service.saveToken(response.data.jwt);
+			return response;
+		})
+
+	};
+
+	service.createUser = function(user) {
+
+		console.log('in createUser');
+		console.log(user);
+
+		return $http({
+			method : 'POST',
+			url : 'api/signup',
+			dataType : 'json',
+			headers : {
+				'Content-Type' : 'application/json',
+			},
+			data : user
+		})
+
+	};
+
+	service.unauthorizeUser = function() {
+
+		return $http({
+			method : 'GET',
+			url : 'api/unauth',
+			headers : {
+				'Content-Type' : 'application/json',
+			}
+		})
+
+	};
+
+	service.isLoggedIn = function() {
+		var token = service.getToken();
+
+		if (token) {
+			// $window.atob decodes the encoded string
+			var payload = JSON.parse($window.atob(token.split('.')[1]));
+
+			return payload.exp > Date.now() / 1000;
+
+		} else {
+			return false;
+		}
+	};
+
+	service.currentUser = function() {
+		if (isLoggedIn()) {
+			var token = getToken();
+			var payload = JSON.parse($window.atob(token.split('.')[1]));
+
+			return {
+				name : payload.username,
+				password : payload.password,
+				id : payload.id
+			};
+		}
+	};
+
+	return service;
 });
