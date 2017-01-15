@@ -1,4 +1,4 @@
-var app = angular.module('ngDebate'); //ngRoute and 'ui.bootstrap' are module dependencies
+var app = angular.module('ngDebate');
 
 function navController(authenticationService) {
   var vm = this;
