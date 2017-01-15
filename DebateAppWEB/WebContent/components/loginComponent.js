@@ -35,10 +35,10 @@ angular.module('ngDebate').component("loginComponent", {
                 <button class="btn btn-primary btn-block" ng-click="$ctrl.signup(post.username, post.password); post.username = ''; post.password='';">Sign Up</button>
             </div>
             
-             <div ng-show="logForm.$dirty && logForm.username.$invalid">
+             <div ng-show="logForm.password.$dirty && logForm.username.$invalid ">
               <p>Username must be between 6 and 42 characters.</p>
              </div>
-          	<div ng-show="logForm.$dirty && logForm.password.$invalid">
+          	<div ng-show="logForm.username.$dirty && logForm.password.$dirty && logForm.password.$invalid">
               <p>Password must be between 6 and 42 characters.</p>
         	</div>
 	 </form>
