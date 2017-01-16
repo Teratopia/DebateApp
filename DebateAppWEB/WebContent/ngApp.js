@@ -4,10 +4,22 @@ app.config(function($routeProvider){ // $routeProvider is an Angular service
   console.log("INSIDE config");
   $routeProvider
 		.when('/', {
-			template: `<debate-component></debate-component>` // use templateURL to reference a different file
+			template: `<login-component></login-component>` // use templateURL to reference a different file
 		})
 		.when('/login', {
 			template: `<login-component></login-component>` // use templateURL to reference a different file
+		})
+		.when('/categories', {
+			template: `<categories-component></categories-component>` // use templateURL to reference a different file
+		})
+		.when('/join', {
+			template: `<joinDebate-component></joinDebate-component>` // use templateURL to reference a different file
+		})
+		.when('/start', {
+			template: `<startDebate-component></startDebate-component>` // use templateURL to reference a different file
+		})
+		.when('/debate', {
+			template: `<debate-component></debate-component>` // use templateURL to reference a different file
 		})
 		// .when('/debate/:id', { // Directs user to page displaying details of specific debate. debate is fetched from 'api/debate/{id}' on SpringREST
 		//   template : `<detail-component debate="$resolve.myData"></detail-component>`,
