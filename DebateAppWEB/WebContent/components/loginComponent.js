@@ -30,7 +30,7 @@ angular.module('ngDebate').component("loginComponent", {
                             <a href="#!/categories"><button class="btn btn-primary btn-block" ng-click="$ctrl.login(post.username, post.password); post.username = ''; post.password='';">Log In</button></a>
                         </div>
                         <div class="form-group">
-                            <button class="btn btn-primary btn-block" ng-click="$ctrl.signup(post.username, post.password); post.username = ''; post.password='';">Sign Up</button>
+                            <a href="#!/categories"><button class="btn btn-primary btn-block" ng-click="$ctrl.signup(post.username, post.password); post.username = ''; post.password='';">Sign Up</button></a>
                         </div>
                     		<div style="height:60px;font-size:12px;color:#e09182;text-align:center">
                            <div ng-show="logForm.password.$dirty && logForm.username.$invalid ">

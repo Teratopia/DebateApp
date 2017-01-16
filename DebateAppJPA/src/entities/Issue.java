@@ -24,6 +24,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -33,7 +34,7 @@ public class Issue {
 	private int id;
 	@ManyToMany
 	@JoinTable(name = "issue_category", joinColumns = @JoinColumn(name = "issue_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
-	@JsonIgnore
+	@JsonBackReference(value="iss_cat")
 	private Set<Category> categories;
 	private String title;
 	private String description;
