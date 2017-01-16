@@ -1,6 +1,7 @@
 angular.module('ngDebate').component("joinDebateComponent", {
 	
 	template : `
+		<nav-component></nav-component>
 		<h2>Join Debate</h2>
 		<form name="sdForm" novalidate>
 		

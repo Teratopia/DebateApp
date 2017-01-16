@@ -2,6 +2,7 @@ angular.module('ngDebate').component("startDebateComponent", {
 
 	template : `
 	
+		<nav-component></nav-component>
 		<h2>Start a Debate</h2>
 		<form name="sdForm" novalidate>
 		
