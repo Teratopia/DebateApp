@@ -1,4 +1,4 @@
-var app = angular.module('ngDebate', ['ngRoute','ui.bootstrap']); //ngRoute and 'ui.bootstrap' are module dependencies
+var app = angular.module('ngDebate', ['ngRoute','ui.bootstrap','vAccordion', 'ngAnimate']); //ngRoute and 'ui.bootstrap' are module dependencies
 
 app.config(function($routeProvider){ // $routeProvider is an Angular service
   console.log("INSIDE config");
