@@ -1,9 +1,9 @@
 var app = angular.module('ngDebate');
 
-function debateInfoController(authenticationService, argumentService) { // authenticationService as parameter
+function debateInfoController(authenticationService, performanceService) { // authenticationService as parameter
   var vm = this;
   vm.argument = function(x){
-    argumentService.getArgument();
+    performanceService.getPerformance().;
   }
 
 }
