@@ -6,25 +6,26 @@ function debateInfoController(authenticationService) { // authenticationService 
 }
 
 app.component('debateInfoComponent',{
-  template: `<div class="col-md-12">
-                <div class="row">
-                    <div class="col-md-12">
-                        <p style="color:#ffffff;font-size:1.5em;">Title </p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <p style="color:#ffffff;font-size:1em;">href </p>
-                        <p style="color:#ffffff;font-size:1em;">Description </p>
-                        <p style="color:#ffffff;font-size:1em;">Categories </p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <p style="color:#ffffff;font-size:1em;">Stances (ng-repeat)</p>
-                    </div>
-                </div>
-            </div>`,
+  template: `<v-accordion class="vAccordion--default" multiple>
+              <v-pane>
+                <v-pane-header>
+                  Description:
+                </v-pane-header>
+                <v-pane-content>
+                  <div>INSERT HREF HERE!</div>
+                  <div>INSERT DESCRIPTION HERE!</div>
+                  <div>INSERT LIST OF CATEGORIES HERE!</div>
+                </v-pane-content>
+              </v-pane>
+              <v-pane>
+                <v-pane-header>
+                  Stances:
+                </v-pane-header>
+                <v-pane-content>
+                  SEE END OF CODE FOR NG-REPEAT FOR STANCES
+                </v-pane-content>
+              </v-pane>
+            </v-accordion>`,
 
   controller : debateInfoController,
 });

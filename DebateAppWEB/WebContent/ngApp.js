@@ -23,6 +23,8 @@ app.config(function($routeProvider){ // $routeProvider is an Angular service
 		})
 		.when('/about', {
 			template: `<about-component></about-component>` // use templateURL to reference a different file
+		.when('/issues', {
+			template: `<issues-component></issues-component>` // use templateURL to reference a different file
 		})
 		// .when('/debate/:id', { // Directs user to page displaying details of specific debate. debate is fetched from 'api/debate/{id}' on SpringREST
 		//   template : `<detail-component debate="$resolve.myData"></detail-component>`,
@@ -60,4 +62,5 @@ app.config(function($routeProvider){ // $routeProvider is an Angular service
 		.otherwise({
 		    redirectTo: '/'
 		})
+});
 });

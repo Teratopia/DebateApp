@@ -17,26 +17,7 @@ app.component('debateComponent',{
                                        <p style="font-size:1.5em;">Title</p>
                                    </div>
                                </div>
-                                <v-accordion class="vAccordion--default" multiple>
-                                  <v-pane>
-                                    <v-pane-header>
-                                      Description:
-                                    </v-pane-header>
-                                    <v-pane-content>
-                                      <div>INSERT HREF HERE!</div>
-                                      <div>INSERT DESCRIPTION HERE!</div>
-                                      <div>INSERT LIST OF CATEGORIES HERE!</div>
-                                    </v-pane-content>
-                                  </v-pane>
-                                  <v-pane>
-                                    <v-pane-header>
-                                      Stances:
-                                    </v-pane-header>
-                                    <v-pane-content>
-                                      SEE END OF CODE FOR NG-REPEAT FOR STANCES
-                                    </v-pane-content>
-                                  </v-pane>
-                                </v-accordion>
+                               <debate-info-component></debate-info-component>
                            </div>
                            <div class="col-md-12">
                                <div class="row">
