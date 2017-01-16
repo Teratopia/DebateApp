@@ -65,6 +65,18 @@ angular.module('ngDebate').factory('performanceService', function($http, authent
 	  })
 	  
   }
+  
+  service.indexPerformancesByUserId = function(id){
+	  
+		return $http({
+			method : 'GET',
+			url : 'api/performance/user/'+id,
+			headers : {
+				'x-access-token' : authenticationService.getToken()
+			}
+		})
+	  
+  }
 
   return service;
 });

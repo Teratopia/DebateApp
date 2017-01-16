@@ -28,6 +28,12 @@ public class PerformanceController implements PerformanceControllerI{
 		return performanceDAO.index();
 	}
 
+	// Respond to request by returning all Performances
+	@RequestMapping(path = "performance/user/{id}", method = RequestMethod.GET)
+	public Collection<Performance> indexByUser(HttpServletRequest req, HttpServletResponse res, @PathVariable("id") int id) {
+		return performanceDAO.indexByUser(id);
+	}
+
 	// Respond to request by returning single, specific Performance
 	@RequestMapping(path = "performance/{id}", method = RequestMethod.GET)
 	public Performance show(HttpServletRequest req, HttpServletResponse res, @PathVariable("id") int id) {

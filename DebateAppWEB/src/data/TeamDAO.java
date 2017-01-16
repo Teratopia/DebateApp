@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import entities.Debate;
 import entities.Team;
 
 @Repository
@@ -70,7 +71,11 @@ public class TeamDAO implements TeamDAOI {
 		em.persist(newTeam);
 		em.flush();
 		System.out.println(newTeam);
-		return em.find(Team.class, newTeam.getId());
+		
+		String query = "select i from Team i where i.id=(select max(id) from Team)";
+		newTeam = em.createQuery(query, Team.class).getSingleResult();
+		
+		return newTeam;
 	}
 
 	@Override

@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import entities.Debate;
+import entities.Rules;
 
 public class DebateDAO implements DebateDAOI{
 
@@ -69,6 +70,9 @@ public class DebateDAO implements DebateDAOI{
 		
 		em.persist(r);
 		em.flush();
+		
+		String query = "select i from Debate i where i.id=(select max(id) from Debate)";
+		r = em.createQuery(query, Debate.class).getSingleResult();
 		
 		return r;
 	}

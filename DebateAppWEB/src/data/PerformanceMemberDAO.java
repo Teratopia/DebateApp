@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import entities.Performance;
 import entities.PerformanceMember;
 
 public class PerformanceMemberDAO implements PerformanceMemberDAOI {
@@ -66,6 +67,9 @@ public class PerformanceMemberDAO implements PerformanceMemberDAOI {
 		
 		em.persist(newPerformanceMember);
 		em.flush();
+		
+		String query = "select i from PerformanceMember i where i.id=(select max(id) from PerformanceMember)";
+		newPerformanceMember = em.createQuery(query, PerformanceMember.class).getSingleResult();
 		
 		return newPerformanceMember;
 	}

@@ -66,6 +66,9 @@ public class IssueDAO implements IssueDAOI {
 
 		em.persist(newIssue);
 		em.flush();
+		
+		String query = "select i from Issue i where i.id=(select max(id) from Issue)";
+		newIssue = em.createQuery(query, Issue.class).getSingleResult();
 
 		return newIssue;
 	}

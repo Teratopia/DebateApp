@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import entities.Issue;
 import entities.Rules;
 
 public class RulesDAO implements RulesDAOI{
@@ -71,6 +72,9 @@ public class RulesDAO implements RulesDAOI{
 		em.persist(t);
 		em.flush();
 		
+		String query = "select i from Rules i where i.id=(select max(id) from Rules)";
+		t = em.createQuery(query, Rules.class).getSingleResult();
+
 		return t;
 	}
 
