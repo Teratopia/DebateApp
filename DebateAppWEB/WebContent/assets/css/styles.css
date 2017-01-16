@@ -68,3 +68,31 @@ div.panel-heading {
 .panel-group .panel-heading+.panel-collapse>.panel-body {
     border-top: 1px solid #ddd;
 }
+
+.arg-left {
+  min-height:40px;
+  background:#fff4bb;
+  margin-top:10px;
+  width:90%;
+  position:relative;
+  left:-5px;
+  float:left;
+  border-radius:0px 55px 15px 0px;
+  -webkit-box-shadow:2px 2px 2px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow:2px 2px 2px 0px rgba(0,0,0,0.75);
+  box-shadow:2px 2px 2px 0px rgba(0,0,0,0.75);
+}
+
+.arg-right {
+  min-height:40px;
+  background:#d2a5ff;
+  width:90%;
+  margin-top:10px;
+  position:relative;
+  right:-5px;
+  float:right;
+  border-radius:15px 0px 0px 55px;
+  -webkit-box-shadow:2px 2px 2px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow:2px 2px 2px 0px rgba(0,0,0,0.75);
+  box-shadow:2px 2px 2px 0px rgba(0,0,0,0.75);
+}

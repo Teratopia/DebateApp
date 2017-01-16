@@ -45,8 +45,8 @@ app.component('debateComponent',{
                        </div>
                        <div class="row">
                            <div class="col-md-12" style="/*padding:0px;*/">
-                        	   <!-- style="overflow:hidden;min-height:396px;margin:5px;background:rgb(30,30,30);background:rgba(249,249,249,0.1);-webkit-box-shadow:inset 4px 4px 40px -10px rgba(0,0,0,0.7),3px 3px 5px 1px rgba(0,0,0,0.1);-moz-box-shadow:inset 4px 4px 40px -10px rgba(0,0,0,0.7),3px 3px 5px 1px rgba(0,0,0,0.1);box-shadow:inset 4px 4px 40px -10px rgba(0,0,0,0.7),3px 3px 5px 1px rgba(0,0,0,0.1);" -->
-                               <div class="display-screen" style="min-height:396px"></div>
+                               <div class="display-screen" style="min-height:396px">
+                               </div>
                            </div>
                        </div>
                        <div class="row">
