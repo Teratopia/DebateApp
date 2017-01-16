@@ -92,6 +92,4 @@ app.factory('authenticationService', function(categoryService, authenticationSer
 			vm.performanceMember = pmService.createPerformanceMember(pm);
 		}
 
-	}
-
 });

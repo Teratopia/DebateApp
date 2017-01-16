@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import entities.Argument;
 import entities.Debate;
 import entities.Rules;
 
@@ -20,8 +21,19 @@ public class DebateDAO implements DebateDAOI{
 	@Override
 	public Collection<Debate> index() {
 		String query = "select r from Debate r where r.id > 0";
-		Collection<Debate> Debates = em.createQuery(query, Debate.class).getResultList();
-		return Debates;
+		Collection<Debate> debates = em.createQuery(query, Debate.class).getResultList();
+		return debates;
+	}
+
+	@Override
+	public Collection<Argument> indexArgs(int id) {
+		String query = "SELECT a "  
+					+ "FROM Argument AS a " 
+					+ "JOIN a.perfMember AS pm " 
+					+ "JOIN pm.performance AS p " 
+					+ "WHERE p.debate.id = ?1";
+		Collection<Argument> arguments = em.createQuery(query, Argument.class).setParameter(1, id).getResultList();
+		return arguments;
 	}
 
 	@Override

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import entities.Debate;
 import entities.Rules;
 
 public interface DebateControllerI {
@@ -22,4 +23,6 @@ public interface DebateControllerI {
 	public Rules create(HttpServletRequest req, HttpServletResponse res, @RequestBody String rulesJson);
 
 	public Rules destroy(HttpServletRequest req, HttpServletResponse res, @PathVariable("id") int id);
+
+	public Debate showArgs(HttpServletRequest req, HttpServletResponse res, @PathVariable("id") int id);
 }

@@ -10,11 +10,23 @@ angular.module('ngDebate').factory('debateService', function($http, authenticati
 			  'x-access-token' : authenticationService.getToken()
 			  }
 		})
-	  
+
   };
-  
+
+  service.indexDebateArgs = function(id){
+
+		return $http({
+		method : 'GET',
+		url : 'api/debate/' + id + '/args',
+		headers : {
+			  'x-access-token' : authenticationService.getToken()
+			  }
+		})
+
+  };
+
   service.getDebate = function(id){
-	  
+
 	  return $http({
 		  method : 'GET',
 		  url : 'api/debate/'+id,
@@ -25,7 +37,7 @@ angular.module('ngDebate').factory('debateService', function($http, authenticati
   };
 
   service.createDebate = function(data){
-	  
+
 	  return $http({
 		  method : 'POST',
 		  url : 'api/debate',
@@ -36,11 +48,11 @@ angular.module('ngDebate').factory('debateService', function($http, authenticati
 		  },
 		  data : data
 	  })
-	  
+
   }
 
   service.deleteDebate = function(id){
-    
+
     return $http({
     	method : 'DELETE',
     	url : 'api/debate/'+id,
@@ -48,9 +60,9 @@ angular.module('ngDebate').factory('debateService', function($http, authenticati
   		  'x-access-token' : authenticationService.getToken()
   		  }
     })
-    
+
   };
-  
+
   service.editDebate = function(id, data){
 
 	  return $http({
@@ -63,7 +75,7 @@ angular.module('ngDebate').factory('debateService', function($http, authenticati
 			  },
 			  data : data
 	  })
-	  
+
   };
 
   return service;

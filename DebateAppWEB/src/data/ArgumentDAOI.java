@@ -15,4 +15,6 @@ public interface ArgumentDAOI {
 	public Argument create(String argumentJson);
 
 	public Argument destroy(int id);
+	
+	
 }
