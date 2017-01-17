@@ -7,21 +7,17 @@ function debateArgumentController(authenticationService, debateService, formatSe
     return formatService.getArgPerfClass(arg, performances);
   }
 
-  vm.isRight=function(x){
-    if(x === 'arg-right'){
-      return "arg-index-number-right";
-    }else{
-      return "arg-index-number-left";
-    }
+  vm.isRight=function(args, performances){
+    return formatService.getArgNumClass(args, performances);
   }
 }
 
 app.component('debateArgumentComponent',{
-  template: ` <div class="display-screen" style="min-height:396px">
-                <div ng-repeat="argument in $ctrl.args">
+  template: ` <div class="args-display-screen">
+                <div ng-repeat="argument in $ctrl.debatewargs.arguments">
                   <div class="row arg-holder">
-                    <div ng-class="$ctrl.assignClass(argument, $ctrl.performances)">
-                	  <div ng-class="$ctrl.isRight($ctrl.assignClass(argument, $ctrl.performances))">{{$index}}</div>
+                    <div ng-class="$ctrl.assignClass(argument, $ctrl.debatewargs.debate.performances)">
+                	  <div ng-class="$ctrl.isRight(argument, $ctrl.debatewargs.debate.performances)">{{$index}}</div>
                         <div class="pad-arg-text">
                           {{argument.text}}
                         </div>
@@ -33,7 +29,6 @@ app.component('debateArgumentComponent',{
   controller : debateArgumentController,
 
   bindings : {
-                args: '<',
-                performances: '<'
+                debatewargs: '<'
               }
 });

@@ -1,6 +1,7 @@
 package controllers;
 
 import java.util.Collection;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import data.DebateDAOI;
-import entities.Argument;
 import entities.Debate;
 
 @RestController
@@ -37,7 +37,7 @@ public class DebateController {
 
 	// Respond to request by returning single, specific Debate
 	@RequestMapping(path = "debate/{id}/args", method = RequestMethod.GET)
-	public Collection<Argument> showArgs(HttpServletRequest req, HttpServletResponse res, @PathVariable("id") int id) {
+	public Map<String, Object> showArgs(HttpServletRequest req, HttpServletResponse res, @PathVariable("id") int id) {
 		return debateDAO.indexArgs(id);
 	}
 

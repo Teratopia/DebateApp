@@ -1,15 +1,15 @@
 package data;
 
 import java.util.Collection;
+import java.util.Map;
 
-import entities.Argument;
 import entities.Debate;
 
 public interface DebateDAOI {
 
 	public Collection<Debate> index();
 	
-	public Collection<Argument> indexArgs(int id);
+	public Map<String, Object> indexArgs(int id);
 
 	public Debate show(int id);
 	

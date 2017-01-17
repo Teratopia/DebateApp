@@ -6,8 +6,8 @@ function debateInfoController(authenticationService, issueService, formatService
       return issueService.getIssue(x);
   }
 
-  vm.getPerformanceClass = function(arg){
-    return formatService.getPerformanceClass(arg);
+  vm.getPerformanceClass = function(performance, performances){
+    return formatService.getPerformanceClass(performance, performances);
   }
 }
 
@@ -18,9 +18,9 @@ app.component('debateInfoComponent',{
                   Description
                 </v-pane-header>
                 <v-pane-content>
-                  <div>{{$ctrl.performances[0].debate.issue.linkRef}}</div>
-                  <div>{{$ctrl.performances[0].debate.issue.description}}</div>
-                  <div ng-repeat="category in popCategories($ctrl.performances[0].debate.issue.id)">{{category}}</div>
+                  <div>{{$ctrl.debate.issue.linkRef}}</div>
+                  <div>{{$ctrl.debate.issue.description}}</div>
+                  <div ng-repeat="category in popCategories($ctrl.debate.issue.id)">{{category}}</div>
                 </v-pane-content>
               </v-pane>
               <v-pane>
@@ -28,10 +28,12 @@ app.component('debateInfoComponent',{
                   Stances
                 </v-pane-header>
                 <v-pane-content>
-                  <div ng-repeat="performance in $ctrl.performances">
-                    <span ng-class="$ctrl.getPerformanceClass($index)">
-                      {{performance.team.name}}: {{performance.stance}}
-                    </span>
+                  <div ng-repeat="performance in $ctrl.debate.performances">
+                    	<div ng-class="$ctrl.getPerformanceClass($index)" style="margin:0px 0px 10px 0px">
+                    		<div class="pad-arg-text">
+                      			{{performance.team.name}}: {{performance.stance}}
+                      		</div
+                	</div>
                   </div>
                 </v-pane-content>
               </v-pane>
@@ -40,38 +42,6 @@ app.component('debateInfoComponent',{
   controller : debateInfoController,
 
   bindings : {
-	  			performances: '<'
+	  			        debate: '<'
               }
 });
-
-//"performance": {
-//    "id": 1,
-//    "debate": {
-//      "id": 1,
-//      "rules": {
-//        "id": 1,
-//        "argPerTurn": 2,
-//        "charsPerArg": 256,
-//        "timeLimit": 86165,
-//        "openingStatements": false,
-//        "referencesOn": false,
-//        "winValue": 100,
-//        "publicFlag": false,
-//        "viewersFlag": false,
-//        "commentsView": false,
-//        "privateDebate": true
-//      },
-//      "issue": {
-//        "@id": 1,
-//        "id": 1,
-//        "title": "Biggie vs Tupac",
-//        "description": null,
-//        "linkRef": null
-//      },
-//      "timeStamp": 1484257476000
-//    },
-//    "team": {
-//      "id": 1,
-//      "name": "testTeam1"
-//    },
-//    "stance": "Tupac > Biggie"

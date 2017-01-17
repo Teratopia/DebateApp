@@ -19,7 +19,7 @@ app.config(function($routeProvider){ // $routeProvider is an Angular service
 			template: `<startDebate-component></startDebate-component>` // use templateURL to reference a different file
 		})
 		.when('/debate/:id', {
-			template: `<debate-component args="$resolve.myData.args" performances="$resolve.myData.performances" ></debate-component>`, // Directs user to page displaying details of specific debate. debate is fetched from 'api/debate/{id}' on SpringREST
+			template: `<debate-component debatewargs="$resolve.myData"></debate-component>`, // Directs user to page displaying details of specific debate. debate is fetched from 'api/debate/{id}' on SpringREST
       resolve : {
     	  myData : function(debateService, $route, $location) {
           var id = parseInt($route.current.params.id); // Get the id of the specific clicked on debate from the general debate-table-componenet
@@ -27,10 +27,8 @@ app.config(function($routeProvider){ // $routeProvider is an Angular service
           if (id) { // if the id is successfully parsed in the previous line, try to fetch the debate using the parsed id
             return debateService.indexDebateArgs(id)  // call get debate to fetch the debate by id
             .then(function(res) {
-            	return {
-            		args : res.data,
-            		performances : debateService.getDebatePerformances(res.data),
-            	}
+              console.log(res.data);
+            	return res.data
             })
             .catch(function(err) {
               // if the id was not found, redirect to not found
@@ -69,8 +67,8 @@ app.config(function($routeProvider){ // $routeProvider is an Angular service
 				       console.log("current params id: ");
 				       console.log($route.current.params.id);
 				       var id = parseInt($route.current.params.id);
-				       
-				       if (id) { 
+
+				       if (id) {
 				   		        return debateService.getDebate(id) // call get debate to fetch the debate by id
 				   		         .then(function(res) {
 				   		           console.log("IN .THEN in ngApp");
@@ -88,9 +86,9 @@ app.config(function($routeProvider){ // $routeProvider is an Angular service
 				   		         $location.path('/_404');
 				   		       }
 				   		     }
-				       
+
 			}
-				 
+
 		})
 		// .when('/debate/:id', { // Directs user to page displaying details of specific debate. debate is fetched from 'api/debate/{id}' on SpringREST
 		//   template : `<detail-component debate="$resolve.myData"></detail-component>`,
