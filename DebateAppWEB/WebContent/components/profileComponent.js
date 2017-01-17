@@ -2,7 +2,7 @@ angular.module('ngDebate').component("profileComponent", {
 
 	
 	template : `
-	
+	<nav-component></nav-component>
 		<h2>{{$ctrl.user.username}}</h2>
 		
 		<h4 ng-show="$ctrl.user.teams.length > 0">Your Teams:</h4>
@@ -16,7 +16,7 @@ angular.module('ngDebate').component("profileComponent", {
 		var vm = this;
 		
 		vm.user = authenticationService.currentUser();
-		vm.performances = performanceService.indexByUserId(vm.user.id);
+		vm.performances = performanceService.indexPerformancesByUserId(vm.user.id);
 		
 		
 	}

@@ -54,6 +54,11 @@ public class PerformanceController implements PerformanceControllerI{
 	public Performance create(HttpServletRequest req, HttpServletResponse res, @RequestBody String PerformanceJson) {
 		return performanceDAO.create(PerformanceJson);
 	}
+	
+	@RequestMapping(path = "pam", method = RequestMethod.POST)
+	public void instPerformanceAndMember(HttpServletRequest req, HttpServletResponse res, @RequestBody String cJson) {
+		performanceDAO.instPAM(cJson);
+	}
 
 	// Respond to request by destroying/deleting specific Performance and returning
 	// deleted Performance information back to front end's angular asynchronous

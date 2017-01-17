@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,6 +16,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 //+-----------+---------+------+-----+---------+----------------+
 //| Field     | Type    | Null | Key | Default | Extra          |
@@ -38,8 +40,8 @@ public class Debate {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@OneToMany(mappedBy = "debate")
-	@JsonIgnore
+	@OneToMany(mappedBy = "debate", fetch = FetchType.EAGER)
+	@JsonManagedReference(value="deb_per")
 	private Set<Performance> performances;
 	@OneToMany(mappedBy = "debate")
 	@JsonIgnore
