@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import data.DebateDAOI;
+import entities.Argument;
 import entities.Debate;
 
 @RestController
@@ -32,6 +33,12 @@ public class DebateController {
 	@RequestMapping(path = "debate/{id}", method = RequestMethod.GET)
 	public Debate show(HttpServletRequest req, HttpServletResponse res, @PathVariable("id") int id) {
 		return debateDAO.show(id);
+	}
+
+	// Respond to request by returning single, specific Debate
+	@RequestMapping(path = "debate/{id}/args", method = RequestMethod.GET)
+	public Collection<Argument> showArgs(HttpServletRequest req, HttpServletResponse res, @PathVariable("id") int id) {
+		return debateDAO.indexArgs(id);
 	}
 
 	// Respond to request by passing updates to DAO from HSP res in JSON format
