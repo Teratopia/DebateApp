@@ -36,7 +36,20 @@ angular.module('ngDebate').factory('performanceService', function($http, authent
 		  },
 		  data : data
 	  })
+  }
+  
+  service.instPerformanceAndMember = function(cJson){
 	  
+	  return $http({
+		  method : 'POST',
+		  url : 'api/pam',
+		  dataType: 'json',
+		  headers : {
+			  'Content-Type' : 'application/json',
+			  'x-access-token' : authenticationService.getToken()
+		  },
+		  data : cJson
+	  })
   }
 
   service.deletePerformance = function(id){

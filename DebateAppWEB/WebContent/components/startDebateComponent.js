@@ -6,18 +6,22 @@ angular.module('ngDebate').component("startDebateComponent", {
 		<h2>Start a Debate</h2>
 		<form name="sdForm" novalidate>
 		
+			<div ng-show="$ctrl.showDivs(1)">
 			<h5>Issue</h5>
 			<input type="text" placeholder="Issue Title" ng-model="issTitle"/><br><br>
 			<input type="text" placeholder="Issue Description" ng-model="issDesc"/><br><br>
 			<input type="text" placeholder="Issue Link" ng-model="issLink"/><br><br>
 			<span ng-repeat="cat in $ctrl.cats">
-			<input type="checkbox" id="catsBox">{{cat.title}}</input>
+			<input type="checkbox" value="cat" ng-model="$ctrl.catsBox">{{cat.title}}</input>
 			</span><br>
+			<button ng-click="$ctrl.instantiateIssue(issTitle, issDesc, issLink)">Post Issue</button>
+			</div>
 			
+			<div ng-show="$ctrl.showDivs(2)">
 			<h5>Rules</h5>
 			<select ng-model="ruleApt">
 				<option value="" disabled selected>Arguments per Turn</option>
-				<option ng-repeat="opt in $ctrl.aptOptions" value="opt" name="opt">
+				<option ng-repeat="opt in $ctrl.aptOptions" value="{{opt}}" name="opt">{{opt}}</option>
 				<option value="100" name="Unlimited">
 			</select><br><br>
 			<input type="text" placeholder="Characters per Argument" name="ruleCpt"/><br><br>
@@ -52,12 +56,20 @@ angular.module('ngDebate').component("startDebateComponent", {
 			Viewer Comments Visable <input type="checkbox" ng-model="vcsVisable"/><br><br>
 			Private Debate<input type="checkbox" ng-model="pDebate"/><br><br>
 			
-			<h5>Your Team</h5>
-			<input type="text" value="$ctrl.defaultTeamName" ng-model="teamName"/><br>
-			<input type="text" placeholder="Your Stance on This Issue" ng-model="perfStance"/><br><br>
+			<button ng-click="$ctrl.instantiateRules(ruleApt, ruleCpt, tLimit, oStatements, refsEnabled, vtWin, vcsVisable, pDebate)">Set Rules</button>
+
+			</div>
 			
-			<button ng-click="$ctrl.postDebate(issTitle, issDesc, issLink, ruleApt, ruleCpt, tLimit, vtWin, oStatements,
-			refsEnabled, vcsVisable, pDebate, teamName, perfStance)">Post Debate</button><br><br>
+			<div ng-show="$ctrl.showDivs(3)">
+			<h5>Your Team</h5>
+			<input type="text" ng-model="$ctrl.defaultTeamName"/><br>
+			<input type="text" placeholder="Your Stance on This Issue" ng-model="perfStance"/><br><br>
+			<button ng-click="$ctrl.instantiateTeam($ctrl.defaultTeamName); $ctrl.instantiateDebate()">Create Team</button>
+			</div>
+			
+			<div ng-show="$ctrl.showDivs(4)">
+			<button ng-click="$ctrl.instantiatePerformanceMember(perfStance)">Start Debate</button><br><br>
+			</div>
 			
 		</form>
 	
@@ -69,32 +81,50 @@ angular.module('ngDebate').component("startDebateComponent", {
 		vm.cats = categoryService.indexCategories();
 		vm.aptOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 		vm.defaultTeamName = authenticationService.currentUser().name;
+		vm.currentUser = authenticationService.currentUser();
 		vm.issue;
 		vm.rules;
 		vm.debate;
 		vm.performance;
 		vm.performanceMember;
+		vm.catsBox = [];
+		vm.hideIndex = 1;
 		
-		
-		vm.postDebate = function(issTitle, issDesc, issLink, ruleApt, ruleCpt, tLimit, vtWin, oStatements,
-				refsEnabled, vcsVisable, pDebate, teamName, perfStance){
-			vm.instantiateIssue(issTitle, issDesc, issLink);
-			vm.instantiateRules(ruleApt, ruleCpt, tLimit, oStatements, refsEnabled, vtWin, vcsVisable, pDebate);
-			vm.instantiateDebate();
-			vm.instantiateTeam(teamName);
-			vm.instantiatePerformance(perfStance);
-			vm.instantiatePerformanceMember();
-			
+		vm.showDivs = function(q){
+			if(q === vm.hideIndex){
+				return true;
+			} else {
+				return false;
+			}
 		}
+		
+//		vm.postDebate = function(issTitle, issDesc, issLink, ruleApt, ruleCpt, tLimit, vtWin, oStatements,
+//				refsEnabled, vcsVisable, pDebate, teamName, perfStance){
+//			vm.instantiateIssue(issTitle, issDesc, issLink);
+//			vm.instantiateRules(ruleApt, ruleCpt, tLimit, oStatements, refsEnabled, vtWin, vcsVisable, pDebate);
+//			vm.instantiateDebate();
+//			vm.instantiateTeam(teamName);
+//			vm.instantiatePerformance(perfStance);
+//			vm.instantiatePerformanceMember();
+//			vm.currentUser = authenticationService.currentUser();
+//			
+//		}
 		
 		vm.instantiateIssue = function(title, desc, link){
 			var iss = {
 					'title' : title,
 					'description': desc,
-					'linkRef' : link
+					'linkRef' : link,
+//					'categories' : cats
 			}
-			
-			vm.issue = issueService.createIssue(iss);
+			console.log(iss);
+			issueService.createIssue(iss).then(function(res) {
+            	console.log("in perf promise");
+            	console.log(res.data);
+            	console.log(res);
+            	vm.issue =  res.data;
+			})
+			vm.hideIndex = 2;
 		}
 		
 		vm.instantiateRules = function(apt, cpa, tLimit, oStatements, refOn, winVal, commView, isPrivate){
@@ -102,7 +132,7 @@ angular.module('ngDebate').component("startDebateComponent", {
 					'argPerTurn' : apt,
 					'charsPerArg' : cpa,
 					'timeLimit' : tLimit,
-					'openingStatements' : pStatements,
+					'openingStatements' : oStatements,
 					'referencesOn' : refOn,
 					'winValue' : winVal,
 					'publicFlag' : commView,
@@ -111,16 +141,30 @@ angular.module('ngDebate').component("startDebateComponent", {
 					'privateDebate' : isPrivate
 			}
 			
-			vm.rules = rulesService.createRules(rul);
+			rulesService.createRules(rul).then(function(res) {
+            	console.log("in perf promise");
+            	console.log(res.data);
+            	console.log(res);
+            	vm.rules =  res.data;
+			})
+			vm.hideIndex = 3;
 		}
 		
 		vm.instantiateDebate = function(){
+			console.log("inst debate, issue:");
+			console.log(vm.issue);
 			var deb = {
 					'issue' : vm.issue,
 					'rules' : vm.rules,
+					'timeStamp' : new Date()
 			}
 			
-			vm.debate = debateService.createDebate(deb);
+			debateService.createDebate(deb).then(function(res) {
+            	console.log("in perf promise");
+            	console.log(res.data);
+            	console.log(res);
+            	vm.debate =  res.data;
+			})
 		}
 		
 		vm.instantiateTeam = function(name){
@@ -128,30 +172,42 @@ angular.module('ngDebate').component("startDebateComponent", {
 					'name': name
 			}
 			
-			vm.team = teamService.createTeam(t);
+			teamService.createTeam(t).then(function(res) {
+            	console.log("in perf promise");
+            	console.log(res.data);
+            	console.log(res);
+            	vm.team =  res.data;
+			})
+			vm.hideIndex = 4;
 		}
 		
-		vm.instantiatePerformance = function(stance){
-			var per = {
-					
-					'debate' : vm.debate,
-					'team' : vm.team,
-					'stance' : stance
-					
-			}
-			
-			vm.performance = performanceService.createPerformance(per);
-		}
+//		vm.instantiatePerformance = function(stance){
+//			var per = {
+//					
+//					'debate' : vm.debate,
+//					'team' : vm.team,
+//					'stance' : stance
+//					
+//			}
+//			vm.performance = performanceService.createPerformance(per);
+//		}
 		
-		vm.instantiatePerformanceMember = function(){
-			
-			var pm = {
-					
-					'performance' : vm.performance,
-					'user' : authenticationService.currentUser()
+		vm.instantiatePerformanceMember = function(stance){
+			var instPAM = {
+				'debateId' : vm.debate.id,
+				'teamId' : vm.team.id,
+				'stance' : stance,
+				'timeTotal' : 0,
+				'userId' : vm.currentUser.id,
+				'role' : null
 			}
+
+			console.log('CURRENT USER: #################################');
+			console.log(vm.currentUser);
+			console.log('IPAM: #################################');
+			console.log(instPAM);
 			
-			vm.performanceMember = pmService.createPerformanceMember(pm);
+			performanceService.instPerformanceAndMember(instPAM);
 		}
 		
 	}

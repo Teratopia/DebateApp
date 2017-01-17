@@ -41,7 +41,7 @@ public class Debate {
 	private int id;
 
 	@OneToMany(mappedBy = "debate", fetch = FetchType.EAGER)
-//	@JsonManagedReference(value="deb_per")
+	@JsonManagedReference(value="deb_per")
 	private Set<Performance> performances;
 	@OneToMany(mappedBy = "debate")
 	@JsonIgnore

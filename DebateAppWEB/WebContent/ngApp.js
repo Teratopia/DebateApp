@@ -24,6 +24,9 @@ app.config(function($routeProvider){ // $routeProvider is an Angular service
 		.when('/about', {
 			template: `<about-component></about-component>` // use templateURL to reference a different file
 		})
+		.when('/profile', {
+			template: `<profile-component></profile-component>` // use templateURL to reference a different file
+		})
 		.when('/issues', {
 			template: `<issues-component></issues-component>` // use templateURL to reference a different file
 		})

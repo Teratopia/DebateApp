@@ -17,8 +17,8 @@ public class Performance {
 	private int id;
 	@ManyToOne
 	@JoinColumn(name = "debate_id")
-//	@JsonBackReference(value="deb_per")
-	@JsonIgnore
+	@JsonBackReference(value="deb_per")
+//	@JsonIgnore
 	private Debate debate;
 	@ManyToOne
 	@JoinColumn(name = "team_id")

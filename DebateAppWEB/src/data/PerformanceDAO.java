@@ -10,8 +10,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import entities.Debate;
+import entities.InstPAM;
 import entities.Performance;
+import entities.PerformanceMember;
 import entities.Team;
+import entities.User;
 
 public class PerformanceDAO implements PerformanceDAOI {
 
@@ -27,7 +31,7 @@ public class PerformanceDAO implements PerformanceDAOI {
 
 	@Override
 	public Collection<Performance> indexByUser(int id) {
-		String query = "select p from Performance p join Team t on p.team_id = t.id join team_roster r on t.id = r.team_id join User u on r.user_id = u.id where u.id = "+id;
+		String query = "select p from Performance p join Team t on p.team.id = t.id join team_roster r on t.id = r.team_id join User u on r.user_id = u.id where u.id = "+id;
 		List<Performance> cats = em.createQuery(query, Performance.class).getResultList();
 		return cats;
 	}
@@ -79,7 +83,54 @@ public class PerformanceDAO implements PerformanceDAOI {
 		
 		return newPerformance;
 	}
-
+	
+	@Override
+	@Transactional
+	public void instPAM(String catJson) {
+		
+		ObjectMapper mapper = new ObjectMapper();
+		InstPAM ipam= null;
+		try{
+			ipam = mapper.readValue(catJson, InstPAM.class);
+		}catch(Exception e){
+			System.out.println(e);
+		}
+		
+		Performance per = new Performance();
+		PerformanceMember pm = new PerformanceMember();
+		
+		per.setDebate(em.find(Debate.class, ipam.getDebateId()));
+		per.setStance(ipam.getStance());
+		per.setTeam(em.find(Team.class, ipam.getTeamId()));
+		em.persist(per);
+		
+		String query = "select i from Performance i where i.id=(select max(id) from Performance)";
+		Performance newPerformance = em.createQuery(query, Performance.class).getSingleResult();
+		
+		pm.setUser(em.find(User.class, ipam.getUserId()));
+		pm.setRole(ipam.getRole());
+		pm.setPerformance(newPerformance);
+		em.persist(pm);
+		
+	}
+		
+//		String performanceQuery = "insert into Performance (debate_id, team_id, stance) VALUES ("+
+//		ipam.getDebateId()+", "+
+//		ipam.getTeamId()+", '"+
+//		ipam.getStance()+"')";
+//		em.createNativeQuery(performanceQuery);
+//		
+//		em.createNativeQuery(performanceQuery);
+//		
+//		
+//		String pmQuery = "insert into Performance_member (performance_id, user_id) VALUES ("+
+//		newPerformance.getId()+", "+
+//		ipam.getUserId()+")";
+//		em.createNativeQuery(pmQuery);
+//		
+//		em.createNativeQuery(pmQuery);
+		
+		
 	@Override
 	@Transactional
 	public Performance destroy(int id) {

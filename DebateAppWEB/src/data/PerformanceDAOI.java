@@ -18,4 +18,7 @@ public interface PerformanceDAOI {
 
 	public Performance destroy(int id);
 	
+	public void instPAM(String catJson);
+
+	
 }

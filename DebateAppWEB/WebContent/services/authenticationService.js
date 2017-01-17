@@ -80,9 +80,12 @@ app.factory('authenticationService', function($window, $http) {
 		if (service.isLoggedIn()) {
 			var token = service.getToken();
 			var payload = JSON.parse($window.atob(token.split('.')[1]));
+			
+			console.log("PAYLOAD: #####################");
+			console.log(payload);
 
 			return {
-				id : payload.id,
+				id : payload.user_id,
 				username : payload.username,
 				password : payload.password,
 				goodness : payload.goodness,

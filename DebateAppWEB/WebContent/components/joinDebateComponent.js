@@ -62,35 +62,25 @@ angular.module('ngDebate').component("joinDebateComponent", {
             	vm.team = res.data;
             }).then(function(res){
             	
-            	var per = {
-    					'debate' : vm.debate,
-    					'team' : vm.team,
-    					'stance' : vm.stance,
-    			}
-            	
-            	performanceService.createPerformance(per).then(function(res) {
-                	console.log("in perf promise");
-                	console.log(res.data);
-                	console.log(res);
-                	vm.performance =  res.data;
-                }).then(function(res){
-                	
-                	var pm = {
-        					'performance' : vm.performance,
-        					'user' : vm.currentUser
+        			var instPAM = {
+        				'debateId' : vm.debate.id,
+        				'teamId' : vm.team.id,
+        				'stance' : stance,
+        				'timeTotal' : 0,
+        				'userId' : vm.currentUser.id,
+        				'role' : null
         			}
-        			
-        			pmService.createPerformanceMember(pm).then(function(res) {
-                    	console.log("in pm promise");
-                    	console.log(res.data);
-                    	console.log(res);
-                    	vm.performanceMember = res.data;
-                    })
-                })
-            })
-		}
 
+        			console.log('CURRENT USER: #################################');
+        			console.log(vm.currentUser);
+        			console.log('IPAM: #################################');
+        			console.log(instPAM);
+        			
+        			performanceService.instPerformanceAndMember(instPAM);
+        		})
+            }
 	}
+
 });
 
 
@@ -166,3 +156,29 @@ angular.module('ngDebate').component("joinDebateComponent", {
 //    })
 //
 //}
+
+//            	var per = {
+//    					'debate' : vm.debate,
+//    					'team' : vm.team,
+//    					'stance' : vm.stance,
+//    			}
+//            	
+//            	performanceService.createPerformance(per).then(function(res) {
+//                	console.log("in perf promise");
+//                	console.log(res.data);
+//                	console.log(res);
+//                	vm.performance =  res.data;
+//                }).then(function(res){
+//                	
+//                	var pm = {
+//        					'performance' : vm.performance,
+//        					'user' : vm.currentUser
+//        			}
+//        			
+//        			pmService.createPerformanceMember(pm).then(function(res) {
+//                    	console.log("in pm promise");
+//                    	console.log(res.data);
+//                    	console.log(res);
+//                    	vm.performanceMember = res.data;
+//                    })
+//                })

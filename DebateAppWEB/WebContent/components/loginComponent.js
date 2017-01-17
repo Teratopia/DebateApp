@@ -43,6 +43,7 @@ angular.module('ngDebate').component("loginComponent", {
      	}
 
      	authenticationService.authUser(user).then(function(response){
+     		console.log("LOGIN AUTH RESPONSE:");
      		console.log(response);
      		vm.jwt = response.data.jwt;
      		authenticationService.saveToken(vm.jwt);
