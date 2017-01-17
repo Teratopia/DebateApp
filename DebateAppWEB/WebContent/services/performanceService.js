@@ -10,11 +10,11 @@ angular.module('ngDebate').factory('performanceService', function($http, authent
 			  'x-access-token' : authenticationService.getToken()
 			  }
 		})
-	  
+
   };
-  
+
   service.getPerformance = function(id){
-	  
+
 	  return $http({
 		  method : 'GET',
 		  url : 'api/performance/'+id,
@@ -25,7 +25,7 @@ angular.module('ngDebate').factory('performanceService', function($http, authent
   };
 
   service.createPerformance = function(data){
-	  
+
 	  return $http({
 		  method : 'POST',
 		  url : 'api/performance',
@@ -36,11 +36,11 @@ angular.module('ngDebate').factory('performanceService', function($http, authent
 		  },
 		  data : data
 	  })
-	  
+
   }
 
   service.deletePerformance = function(id){
-    
+
     return $http({
     	method : 'DELETE',
     	url : 'api/performance/'+id,
@@ -48,9 +48,9 @@ angular.module('ngDebate').factory('performanceService', function($http, authent
   		  'x-access-token' : authenticationService.getToken()
   		  }
     })
-    
+
   }
-  
+
   service.editPerformance = function(id, data){
 
 	  return $http({
@@ -63,11 +63,11 @@ angular.module('ngDebate').factory('performanceService', function($http, authent
 			  },
 			  data : data
 	  })
-	  
+
   }
-  
+
   service.indexPerformancesByUserId = function(id){
-	  
+
 		return $http({
 			method : 'GET',
 			url : 'api/performance/user/'+id,
@@ -75,8 +75,19 @@ angular.module('ngDebate').factory('performanceService', function($http, authent
 				'x-access-token' : authenticationService.getToken()
 			}
 		})
-	  
+
   }
+
+  service.indexPerformancesByDebateId = function(id){
+
+		return $http({
+		method : 'GET',
+		url : 'api/performance/debate' + id,
+		headers : {
+			  'x-access-token' : authenticationService.getToken()
+			  }
+		})
+
 
   return service;
 });

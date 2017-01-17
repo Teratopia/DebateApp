@@ -13,7 +13,7 @@ app.component('debateComponent',{
                            <div class="col-md-12">
                                <div class="row">
                                    <div class="col-md-12">
-                                       <p style="font-size:1.5em;">Title</p>
+                                       <p style="font-size:1.5em;">{{$ctrl.performances[0].debate.issue.title}}</p>
                                    </div>
                                </div>
                                <debate-info-component performances="$ctrl.performances"></debate-info-component>
