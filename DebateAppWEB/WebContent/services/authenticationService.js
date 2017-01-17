@@ -40,7 +40,7 @@ app.factory('authenticationService', function($window, $http) {
 
 		return $http({
 			method : 'POST',
-			url : 'api/signup',
+			url : 'api/user',
 			dataType : 'json',
 			headers : {
 				'Content-Type' : 'application/json',
@@ -77,14 +77,17 @@ app.factory('authenticationService', function($window, $http) {
 	};
 
 	service.currentUser = function() {
-		if (isLoggedIn()) {
-			var token = getToken();
+		if (service.isLoggedIn()) {
+			var token = service.getToken();
 			var payload = JSON.parse($window.atob(token.split('.')[1]));
 
 			return {
-				name : payload.username,
+				id : payload.id,
+				username : payload.username,
 				password : payload.password,
-				id : payload.id
+				goodness : payload.goodness,
+				lawfulness : payload.lawfulness,
+				type : payload.type
 			};
 		}
 	};

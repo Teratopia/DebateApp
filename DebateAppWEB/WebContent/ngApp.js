@@ -27,6 +27,44 @@ app.config(function($routeProvider){ // $routeProvider is an Angular service
 		.when('/issues', {
 			template: `<issues-component></issues-component>` // use templateURL to reference a different file
 		})
+		.when('/startDebate', {
+			template: `<start-debate-component></start-debate-component>` // use templateURL to reference a different file
+		})
+		.when('/join/:id', {
+			template: `<join-debate-component debate="$resolve.myData"></join-debate-component>`
+				,
+			resolve : {
+//				     auth : function(authenticationService) {
+//				       // use an authService to perform an authentication check
+//				     },
+				     myData : function(debateService, $route, $location) {
+				       console.log("IN MYDATA");
+				       console.log("current params id: ");
+				       console.log($route.current.params.id);
+				       var id = parseInt($route.current.params.id);
+				       
+				       if (id) { 
+				   		        return debateService.getDebate(id) // call get debate to fetch the debate by id
+				   		         .then(function(res) {
+				   		           console.log("IN .THEN in ngApp");
+				   		           console.log(res.data);
+				   		           return res.data; // return the JSON data of the fetched debate.
+				   		         })
+				   		         .catch(function(err) {
+				   		           // if the id was not found, redirect to not found
+				   		           if (err.status == 404) {
+				   		             $location.path('/_404');
+				   		           }
+				   		         })
+				   		       } else {
+				   		         // if id is absent or NaN, redirect to not found
+				   		         $location.path('/_404');
+				   		       }
+				   		     }
+				       
+			}
+				 
+		})
 		// .when('/debate/:id', { // Directs user to page displaying details of specific debate. debate is fetched from 'api/debate/{id}' on SpringREST
 		//   template : `<detail-component debate="$resolve.myData"></detail-component>`,
 		//   resolve : {

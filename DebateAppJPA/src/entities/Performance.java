@@ -7,6 +7,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Performance {
 	@Id
@@ -14,6 +17,8 @@ public class Performance {
 	private int id;
 	@ManyToOne
 	@JoinColumn(name = "debate_id")
+//	@JsonBackReference(value="deb_per")
+	@JsonIgnore
 	private Debate debate;
 	@ManyToOne
 	@JoinColumn(name = "team_id")

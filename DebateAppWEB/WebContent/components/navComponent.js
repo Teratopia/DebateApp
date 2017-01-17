@@ -4,6 +4,9 @@ function navController(authenticationService) {
   var vm = this;
   vm.isCollapsed = true;
   vm.checkLogin = function(x){return authenticationService.isLoggedIn()};
+  vm.logout = function(){
+	  
+  }
 }
 
 app.component('navComponent',{
@@ -16,10 +19,10 @@ app.component('navComponent',{
                           </div>
                           <div class="collapse navbar-collapse" uib-collapse="$ctrl.isCollapsed" id="navcol-1">
                               <ul class="nav navbar-nav navbar-right"><!--
-                                  <li class="active" role="presentation"><a href="#">First Item</a></li> -->
+                                  <li class="active" role="presentation" ng-show="$ctrl.checkLogin"><a href="#">First Item</a></li> -->
                                   <li class="line_item" role="presentation"><a href="#intro">About </a></li>
-                                  <li class="line_item" role="presentation"><a href="#">New Quib</a></li>
-                                  <li class="dropdown open" uib-dropdown keyboard-nav><a class="dropdown-toggle" uib-dropdown-toggle aria-expanded="true" href="#">Search Quibs<span class="caret"></span></a>
+                                  <li class="line_item" role="presentation" ng-show="$ctrl.checkLogin"><a href="#!/startDebate">New Quib</a></li>
+                                  <li class="dropdown open" uib-dropdown keyboard-nav><a class="dropdown-toggle" uib-dropdown-toggle aria-expanded="true" href="#"  ng-show="$ctrl.checkLogin">Search Quibs<span class="caret"></span></a>
                                       <ul class="dropdown-menu" uib-dropdown-menu role="menu">
                                           <li class="sub_line_item" role="presentation"><a href="#">Insert Search Bar Here</a></li>
                                       </ul>

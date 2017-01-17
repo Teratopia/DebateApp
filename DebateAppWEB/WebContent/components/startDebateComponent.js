@@ -7,9 +7,9 @@ angular.module('ngDebate').component("startDebateComponent", {
 		<form name="sdForm" novalidate>
 		
 			<h5>Issue</h5>
-			<input type="text" placeholder="Issue Title" ng-model="issTitle"/>
-			<input type="text" placeholder="Issue Description" ng-model="issDesc"/>
-			<input type="text" placeholder="Issue Link" ng-model="issLink"/>
+			<input type="text" placeholder="Issue Title" ng-model="issTitle"/><br><br>
+			<input type="text" placeholder="Issue Description" ng-model="issDesc"/><br><br>
+			<input type="text" placeholder="Issue Link" ng-model="issLink"/><br><br>
 			<span ng-repeat="cat in $ctrl.cats">
 			<input type="checkbox" id="catsBox">{{cat.title}}</input>
 			</span><br>
@@ -19,8 +19,8 @@ angular.module('ngDebate').component("startDebateComponent", {
 				<option value="" disabled selected>Arguments per Turn</option>
 				<option ng-repeat="opt in $ctrl.aptOptions" value="opt" name="opt">
 				<option value="100" name="Unlimited">
-			</select>
-			<input type="text" placeholder="Characters per Argument" name="ruleCpt"/>
+			</select><br><br>
+			<input type="text" placeholder="Characters per Argument" name="ruleCpt"/><br><br>
 			<select ng-model="tLimit">
 				<option value="" disabled selected>Time Limit</option>
 				<option value="300" name="five">5 Minutes</option>
@@ -35,7 +35,7 @@ angular.module('ngDebate').component("startDebateComponent", {
 				<option value="115200" name="32hour">32 Hours</option>
 				<option value="230400" name="3day">3 Days</option>
 				<option value="100" name="None">
-			</select>
+			</select><br><br>
 			<select ng-model="vtWin">
 				<option value="" disabled selected>Votes to Win</option>
 				<option value="5" name="None">5</option>
@@ -46,18 +46,18 @@ angular.module('ngDebate').component("startDebateComponent", {
 				<option value="250" name="None">250</option>
 				<option value="500" name="None">500</option>
 				<option value="1000" name="None">1000</option>
-			</select>
-			<input type="checkbox" ng-model="oStatements">Opening Statements Enabled</input>
-			<input type="checkbox" ng-model="refsEnabled">References Enabled</input>
-			<input type="checkbox" ng-model="vcsVisable">Viewer Comments Visable</input>
-			<input type="checkbox" ng-model="pDebate">Private Debate</input>
+			</select><br><br>
+			Opening Statements Enabled <input type="checkbox" ng-model="oStatements"/><br><br>
+			References Enabled <input type="checkbox" ng-model="refsEnabled"/><br><br>
+			Viewer Comments Visable <input type="checkbox" ng-model="vcsVisable"/><br><br>
+			Private Debate<input type="checkbox" ng-model="pDebate"/><br><br>
 			
 			<h5>Your Team</h5>
-			<input type="text" value="$ctrl.defaultTeamName" ng-model="teamName"/>
-			<input type="text" placeholder="Your Stance on This Issue" ng-model="perfStance"/>
+			<input type="text" value="$ctrl.defaultTeamName" ng-model="teamName"/><br>
+			<input type="text" placeholder="Your Stance on This Issue" ng-model="perfStance"/><br><br>
 			
 			<button ng-click="$ctrl.postDebate(issTitle, issDesc, issLink, ruleApt, ruleCpt, tLimit, vtWin, oStatements,
-			refsEnabled, vcsVisable, pDebate, teamName, perfStance)">Post Debate</button>
+			refsEnabled, vcsVisable, pDebate, teamName, perfStance)">Post Debate</button><br><br>
 			
 		</form>
 	
