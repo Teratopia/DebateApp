@@ -13,16 +13,16 @@ app.component('debateComponent',{
                            <div class="col-md-12">
                                <div class="row">
                                    <div class="col-md-12">
-                                       <p style="font-size:1.5em;">{{$ctrl.performances[0].debate.issue.title}}</p>
+                                       <p style="font-size:1.5em;">{{$ctrl.debatewargs.debate.issue.title}}</p>
                                    </div>
                                </div>
-                               <debate-info-component performances="$ctrl.performances"></debate-info-component>
+                               <debate-info-component debate="$ctrl.debatewargs.debate"></debate-info-component>
                            </div>
                            <div class="col-md-12">
                                <div class="row">
                                    <div class="col-md-12">
                                        <p style="font-size:1em;">Commentary:</p>
-                                       <div class="display-screen" style="min-height: 280px"></div>
+                                       <div class="comments-display-screen"></div>
                                    </div>
                                </div>
                                <div class="row">
@@ -43,13 +43,13 @@ app.component('debateComponent',{
                            </div>
                        </div>
                        <div class="row">
-                           <div class="col-md-12" style="/*padding:0px;*/">
-                                <debate-argument-component performances="$ctrl.performances" args="$ctrl.args"></debate-argument-component>
+                           <div class="col-md-12">
+                                <debate-argument-component debatewargs="$ctrl.debatewargs"></debate-argument-component>
                            </div>
                        </div>
                        <div class="row">
                            <div class="col-md-12">
-                               <p style="font-size:1.5em;">Add Argument Form Field</p>
+                               <arg-form-component debatewargs="$ctrl.debatewargs"></arg-form-component>
                            </div>
                        </div>
                    </div>
@@ -59,8 +59,7 @@ app.component('debateComponent',{
   controller : debateController,
 
   bindings : {
-                performances: '<',
-                args: '<'
+                debatewargs: '<'
               }
 });
 

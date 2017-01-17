@@ -1,6 +1,7 @@
 package controllers;
 
 import java.util.Collection;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -8,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import entities.Debate;
 import entities.Rules;
 
 public interface DebateControllerI {
@@ -24,5 +24,5 @@ public interface DebateControllerI {
 
 	public Rules destroy(HttpServletRequest req, HttpServletResponse res, @PathVariable("id") int id);
 
-	public Debate showArgs(HttpServletRequest req, HttpServletResponse res, @PathVariable("id") int id);
+	public Map<String, Object> showArgs(HttpServletRequest req, HttpServletResponse res, @PathVariable("id") int id);
 }

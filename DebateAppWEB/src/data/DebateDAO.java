@@ -1,6 +1,8 @@
 package data;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -25,20 +27,24 @@ public class DebateDAO implements DebateDAOI{
 	}
 
 	@Override
-	public Collection<Argument> indexArgs(int id) {
+	public Map<String, Object> indexArgs(int id) {
+		Debate debate = em.find(Debate.class, id);
 		String query = "SELECT a "  
 					+ "FROM Argument AS a " 
 					+ "JOIN a.perfMember AS pm " 
 					+ "JOIN pm.performance AS p " 
 					+ "WHERE p.debate.id = ?1";
 		Collection<Argument> arguments = em.createQuery(query, Argument.class).setParameter(1, id).getResultList();
-		return arguments;
+		Map<String, Object> responseJson = new HashMap<>();
+		responseJson.put("debate", debate);
+		responseJson.put("arguments", arguments);
+		return responseJson;
 	}
 
 	@Override
 	public Debate show(int id) {
-		Debate r = em.find(Debate.class, id);
-		return r;
+		Debate debate = em.find(Debate.class, id);
+		return debate;
 	}
 
 	@Override
