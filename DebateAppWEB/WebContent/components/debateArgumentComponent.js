@@ -1,31 +1,17 @@
 var app = angular.module('ngDebate');
 
-function debateArgumentController(authenticationService, debateService) { // authenticationService as parameter
+function debateArgumentController(authenticationService, debateService, formatService) { // authenticationService as parameter
   var vm = this;
-  var colors = ["ivory","tomato","pale-golden-rod","pale-turquoise","thistle","lemon-chiffon"];
 
-  vm.getPerformanceClass = function(arg){
-    if(vm.performances.length < 3){
-      if(arg.perfMember.performance.id === vm.performances[0].id){
-        return "arg-left";
-      }
-      else if(arg.perfMember.performance.id === vm.performances[1].id){
-        return "arg-right";
-      }
-      else{
-        console.error("Error: User not a performer.");
-      }
-    }
+  vm.assignClass = function(arg, performances){
+    return formatService.getArgPerfClass(arg, performances);
+  }
 
-    if(vm.performers.length >= 3){
-      for(var i = 0; i < args.length; i++){
-        if(arg.perfMember.performance.id === vm.performances[i].id){
-          return colors[i];
-        }
-        else{
-          console.error("Error: User not a performer.");
-        }
-      }
+  vm.isRight=function(x){
+    if(x === 'arg-right'){
+      return "arg-index-number-right";
+    }else{
+      return "arg-index-number-left";
     }
   }
 }
@@ -33,9 +19,14 @@ function debateArgumentController(authenticationService, debateService) { // aut
 app.component('debateArgumentComponent',{
   template: ` <div class="display-screen" style="min-height:396px">
                 <div ng-repeat="argument in $ctrl.args">
-                  <div ng-class="$ctrl.getPerformanceClass(argument)">
-                    {{argument.text}}
-                  </div>
+                  <div class="row arg-holder">
+                    <div ng-class="$ctrl.assignClass(argument, $ctrl.performances)">
+                	  <div ng-class="$ctrl.isRight($ctrl.assignClass(argument, $ctrl.performances))">{{$index}}</div>
+                        <div class="pad-arg-text">
+                          {{argument.text}}
+                        </div>
+                     </div>
+                   </div>
                 </div>
               </div>`,
 

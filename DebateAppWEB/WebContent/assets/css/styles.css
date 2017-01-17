@@ -78,77 +78,86 @@ div.panel-heading {
 	border-top: 1px solid #ddd;
 }
 
-.arg-left, .arg-right, .ivory, .tomato, .pale-golden-rod,
-	.pale-turquoise, .thistle {
+.arg-holder {
+	margin-top: 5px;
+	position: relative;
+}
+
+.pad-arg-text {
+    padding: 5px 20px;
+}
+
+.arg-left, .arg-right, .pink, .tomato, .pale-golden-rod, .pale-turquoise,
+	.thistle {
 	color: #000;
-	margin-top: 10px;
-	width: 90%;
+	max-width: 90%;
 	position: relative;
 	-webkit-box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.75);
 	-moz-box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.75);
 	box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.75);
 }
 
-.arg-left {
-	border-radius: 0px 15px 55px 0px;
-	padding: 5px 15px 5px 10px;
-	left: -5px;
-	float: left;
-	background: #fff4bb;
-}
-
 .arg-right {
-	border-radius: 15px 0px 0px 55px;
-	padding: 5px 10px 5px 15px;
-	right: -5px;
-	background: #d2a5ff;
-	float: right;
-}
-
-.ivory {
-	border-radius: 15px 0px 0px 55px;
-	padding: 5px 10px 5px 15px;
-	right: -5px;
+	border-radius: 10px 0px 0px 20px;
+	padding: 0px 10px 0px 2px;
+	left: 10px;
+	text-align: right;
 	background: #FFFFF0;
 	float: right;
 }
 
-.tomato {
-	border-radius: 0px 15px 55px 0px;
-	padding: 5px 15px 5px 10px;
-	left: -5px;
-	background: #FF6347;
+.arg-left, .pink, .tomato, .pale-golden-rod, .pale-turquoise, .thistle {
+	border-radius: 0px 10px 20px 0px;
+	padding: 0px 2px 0px 10px;
+	right: 10px;
 	float: left;
+}
+
+.arg-left {
+	background: #89d1d2;
+}
+
+.pink {
+	background: #ffa4d7;
+}
+
+.tomato {
+	background: #FF6347;
 }
 
 .pale-golden-rod {
-	border-radius: 0px 15px 55px 0px;
-	padding: 5px 15px 5px 10px;
-	left: -5px;
 	background: #EEE8AA;
-	float: left;
 }
 
 .pale-turquoise {
-	border-radius: 0px 15px 55px 0px;
-	padding: 5px 15px 5px 10px;
-	left: -5px;
 	background: #AFEEEE;
-	float: left;
 }
 
 .thistle {
-	border-radius: 0px 15px 55px 0px;
-	padding: 5px 15px 5px 10px;
-	left: -5px;
 	background: #D8BFD8;
-	float: left;
 }
 
 .lemon-chiffon {
-	border-radius: 0px 15px 55px 0px;
-	padding: 5px 15px 5px 10px;
-	left: -5px;
 	background: #FFFACD;
+}
+
+.arg-index-number-left, .arg-index-number-right {
+	border-radius: 10px;
+	background-color: white;
+	padding: 1px 4px 1px 4px;
+	margin:1px;
+	font-size: .7em;
+	position: relative;
+    top: 1.5px;
+	-webkit-box-shadow: inset 1px 1px 1px 1px rgba(0, 0, 0, 0.7);
+	-moz-box-shadow: inset 1px 1px 1px 1px rgba(0, 0, 0, 0.7);
+	box-shadow: inset 1px 1px 1px 1px rgba(0, 0, 0, 0.7);
+}
+
+.arg-index-number-left {
+	float: right;
+}
+
+.arg-index-number-right {
 	float: left;
 }

@@ -1,28 +1,38 @@
 var app = angular.module('ngDebate');
 
-function debateInfoController(authenticationService) { // authenticationService as parameter
+function debateInfoController(authenticationService, issueService, formatService) { // authenticationService as parameter
   var vm = this;
+  var popCategories = function(x){
+      return issueService.getIssue(x);
+  }
 
+  vm.getPerformanceClass = function(arg){
+    return formatService.getPerformanceClass(arg);
+  }
 }
 
 app.component('debateInfoComponent',{
   template: `<v-accordion class="vAccordion--default" multiple>
               <v-pane>
                 <v-pane-header>
-                  Description:
+                  Description
                 </v-pane-header>
                 <v-pane-content>
-                  <div>INSERT HREF HERE!</div>
-                  <div>{{performances[0].debate.issue.description}}</div>
-                  <div>INSERT LIST OF CATEGORIES HERE!</div>
+                  <div>{{$ctrl.performances[0].debate.issue.linkRef}}</div>
+                  <div>{{$ctrl.performances[0].debate.issue.description}}</div>
+                  <div ng-repeat="category in popCategories($ctrl.performances[0].debate.issue.id)">{{category}}</div>
                 </v-pane-content>
               </v-pane>
               <v-pane>
                 <v-pane-header>
-                  Stances:
+                  Stances
                 </v-pane-header>
-                <v-pane-content ng-repeat="performace in $ctrl.performances">
-                  {{performance.stance}}
+                <v-pane-content>
+                  <div ng-repeat="performance in $ctrl.performances">
+                    <span ng-class="$ctrl.getPerformanceClass($index)">
+                      {{performance.team.name}}: {{performance.stance}}
+                    </span>
+                  </div>
                 </v-pane-content>
               </v-pane>
             </v-accordion>`,
@@ -35,6 +45,7 @@ app.component('debateInfoComponent',{
 });
 
 //performances[0].debate.issue.description
+
 //"performance": {
 //    "id": 1,
 //    "debate": {
