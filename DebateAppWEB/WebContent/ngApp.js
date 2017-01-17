@@ -18,12 +18,36 @@ app.config(function($routeProvider){ // $routeProvider is an Angular service
 		.when('/start', {
 			template: `<startDebate-component></startDebate-component>` // use templateURL to reference a different file
 		})
-		.when('/debate', {
-			template: `<debate-component></debate-component>` // use templateURL to reference a different file
+		.when('/debate/:id', {
+			template: `<debate-component args="$resolve.myData.args" performances="$resolve.myData.performances" ></debate-component>`, // Directs user to page displaying details of specific debate. debate is fetched from 'api/debate/{id}' on SpringREST
+      resolve : {
+    	  myData : function(debateService, $route, $location) {
+          var id = parseInt($route.current.params.id); // Get the id of the specific clicked on debate from the general debate-table-componenet
+
+          if (id) { // if the id is successfully parsed in the previous line, try to fetch the debate using the parsed id
+            return debateService.indexDebateArgs(id)  // call get debate to fetch the debate by id
+            .then(function(res) {
+            	return {
+            		args : res.data,
+            		performances : debateService.getDebatePerformances(res.data),
+            	}
+            })
+            .catch(function(err) {
+              // if the id was not found, redirect to not found
+              if (err.status == 404) {
+                $location.path('/_404');
+              }
+            })
+          } else {
+            // if id is absent or NaN, redirect to not found
+            $location.path('/_404');
+          }
+        }
+      }
 		})
 		.when('/about', {
 			template: `<about-component></about-component>` // use templateURL to reference a different file
-		})
+    })
 		.when('/issues', {
 			template: `<issues-component></issues-component>` // use templateURL to reference a different file
 		})

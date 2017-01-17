@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import entities.Performance;
-import entities.Team;
 
 public class PerformanceDAO implements PerformanceDAOI {
 

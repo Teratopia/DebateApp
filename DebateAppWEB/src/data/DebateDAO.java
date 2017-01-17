@@ -11,7 +11,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import entities.Argument;
 import entities.Debate;
-import entities.Rules;
 
 public class DebateDAO implements DebateDAOI{
 

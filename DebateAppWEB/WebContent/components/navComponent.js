@@ -11,7 +11,7 @@ app.component('navComponent',{
                   <nav class="navbar navbar-inverse navigation-clean" style="margin-bottom:10px;background-color:#1e2021;">
                       <div class="container-fluid">
                           <div class="navbar-header">
-                              <a class="navbar-brand navbar-link" href="./" style="padding:0px;margin:0px 0px 0px 0px;"><img src="assets/img/Quib-Logo-WHITE.png" style="float:left;border-radius:5px;border:1px solid rgb(169,169,169);"></a>
+                              <a class="navbar-brand navbar-link nav-icon" href="./" ><img src="assets/img/Quib-Logo-WHITE.png" style="float:left;border-radius:5px;border:1px solid rgb(169,169,169);"></a>
                               <button class="navbar-toggle collapsed" ng-click="$ctrl.isCollapsed = !$ctrl.isCollapsed"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
                           </div>
                           <div class="collapse navbar-collapse" uib-collapse="$ctrl.isCollapsed" id="navcol-1">

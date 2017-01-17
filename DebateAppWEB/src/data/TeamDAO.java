@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import entities.Debate;
 import entities.Team;
 
 @Repository

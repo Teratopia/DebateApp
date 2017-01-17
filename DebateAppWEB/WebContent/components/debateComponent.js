@@ -2,7 +2,6 @@ var app = angular.module('ngDebate');
 
 function debateController(authenticationService) { // authenticationService as parameter
   var vm = this;
-
 }
 
 app.component('debateComponent',{
@@ -17,7 +16,7 @@ app.component('debateComponent',{
                                        <p style="font-size:1.5em;">Title</p>
                                    </div>
                                </div>
-                               <debate-info-component></debate-info-component>
+                               <debate-info-component performances="$ctrl.performances"></debate-info-component>
                            </div>
                            <div class="col-md-12">
                                <div class="row">
@@ -45,8 +44,7 @@ app.component('debateComponent',{
                        </div>
                        <div class="row">
                            <div class="col-md-12" style="/*padding:0px;*/">
-                               <div class="display-screen" style="min-height:396px">
-                               </div>
+                                <debate-argument-component performances="$ctrl.performances" args="$ctrl.args"></debate-argument-component>
                            </div>
                        </div>
                        <div class="row">
@@ -59,6 +57,11 @@ app.component('debateComponent',{
            </div>`,
 
   controller : debateController,
+
+  bindings : {
+                performances: '<',
+                args: '<'
+              }
 });
 
 //<v-pane-content ng-repeat="stance in BIND STANCES LIST HERE!!!!" ng-disabled="LOGIC TEST FOR STANCES CASE OF EMPTY!!!!">

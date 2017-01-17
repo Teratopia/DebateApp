@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import entities.Issue;
 import entities.Rules;
 
 public class RulesDAO implements RulesDAOI{

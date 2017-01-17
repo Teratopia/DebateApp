@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import entities.Performance;
 import entities.PerformanceMember;
 
 public class PerformanceMemberDAO implements PerformanceMemberDAOI {
