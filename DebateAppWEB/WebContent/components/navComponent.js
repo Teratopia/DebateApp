@@ -24,7 +24,7 @@ app.component('navComponent',{
                                   <li class="active" role="presentation" ng-show="$ctrl.checkLogin()"><a href="#">First Item</a></li> -->
                                   <li class="line_item" role="presentation"><a href="#!/about">About </a></li>
                                   <li class="line_item" role="presentation" ng-show="$ctrl.checkLogin()"><a href="#!/startDebate">New Quib</a></li>
-									<li class="line_item" role="presentation" ng-show="$ctrl.checkLogin()"><a href="#!/categories">Browse Quibs</a></li>
+									<li class="line_item" role="presentation"><a href="#!/categories">Browse Quibs</a></li>
 
                                   <li ng-hide="$ctrl.checkLogin()" class="line_item" role="presentation"><a href="#">Log In</a></li>
                                   <li ng-show="$ctrl.checkLogin()" class="dropdown open" uib-dropdown keyboard-nav><a class="dropdown-toggle" uib-dropdown-toggle aria-expanded="true" href="#">Profile <span class="caret"></span></a>

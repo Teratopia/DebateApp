@@ -13,7 +13,7 @@ angular.module('ngDebate').component("categoriesComponent", {
 			{{deb.issue.title}} 
            </v-pane-header>
            <v-pane-content>
-           <span ng-show="{{deb.performances.length}} < 2"><a href="#!/join/{{deb.id}}"><button>Join</button></a></span>
+           <span ng-show="{{deb.performances.length}} < 2 && $ctrl.logged()"><a href="#!/join/{{deb.id}}"><button>Join</button></a></span>
 			<button><a href="#!/view/{{deb.id}}">View</button></a>
                                    <h4>Description: </h4>
                                   	{{deb.issue.description}}<br>
@@ -29,9 +29,12 @@ angular.module('ngDebate').component("categoriesComponent", {
          </v-pane>
        </v-accordion>`,
 	
-	controller : function(categoryService, issueService, debateService){
+	controller : function(categoryService, issueService, debateService, authenticationService){
 		
 		var vm = this;
+		vm.logged = function(){
+			return authenticationService.isLoggedIn();
+		}
 		vm.cats;
 		vm.issues;
 		vm.allDebates;
@@ -40,8 +43,8 @@ angular.module('ngDebate').component("categoriesComponent", {
 		
 		categoryService.indexCategories()
 			.then(function(res) {
-				    console.log("IN .indexCategories");
 				    vm.cats = res.data;
+				    console.log("IN .indexCategories");
 				    console.log(vm.cats);
 				})
 		
