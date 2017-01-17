@@ -27,32 +27,38 @@ import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
-@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="@id")
+//@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="@id")
+//@JsonTypeInfo(use = JsonTypeInfo.Id.NONE)
 public class Issue {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "issue_category", joinColumns = @JoinColumn(name = "issue_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
-//	@JsonBackReference(value="iss_cat")
-	private Set<Category> categories;
+//	@ManyToMany(fetch = FetchType.EAGER)
+//	@JoinTable(name = "issue_category", joinColumns = @JoinColumn(name = "issue_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
+////	@JsonBackReference(value="iss_cat")
+//	private Set<Category> categories;
 	private String title;
 	private String description;
 	private String linkRef;
 	@OneToMany(mappedBy = "issue")
 	@JsonIgnore
 	private Set<Debate> debates;
+	@OneToMany(mappedBy = "issue", fetch = FetchType.EAGER)
+	@JsonManagedReference(value="issCat_issue")
+	private Set<IssCat> issCats;
 
-	public Set<Category> getCategories() {
-		return categories;
-	}
-
-	public void setCategories(Set<Category> categories) {
-		this.categories = categories;
-	}
+//	public Set<Category> getCategories() {
+//		return categories;
+//	}
+//
+//	public void setCategories(Set<Category> categories) {
+//		this.categories = categories;
+//	}
 
 	public String getTitle() {
 		return title;
@@ -113,20 +119,28 @@ public class Issue {
 		}
 	}
 
-	public void addCategory(Category category) {
-		if (categories == null) {
-			categories = new HashSet<>();
-		}
-		if (!categories.contains(category)) {
-			categories.add(category);
-			category.addIssue(this);
-		}
+	public Set<IssCat> getIssCats() {
+		return issCats;
 	}
 
-	public void removeCategory(Category category) {
-		if (categories != null && categories.contains(category)) {
-			categories.remove(category);
-			category.removeIssue(this);
-		}
+	public void setIssCats(Set<IssCat> issCat) {
+		this.issCats = issCat;
 	}
+
+//	public void addCategory(Category category) {
+//		if (categories == null) {
+//			categories = new HashSet<>();
+//		}
+//		if (!categories.contains(category)) {
+//			categories.add(category);
+//			category.addIssue(this);
+//		}
+//	}
+//
+//	public void removeCategory(Category category) {
+//		if (categories != null && categories.contains(category)) {
+//			categories.remove(category);
+//			category.removeIssue(this);
+//		}
+//	}
 }

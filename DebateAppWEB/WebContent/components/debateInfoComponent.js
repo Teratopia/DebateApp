@@ -34,7 +34,7 @@ app.component('debateInfoComponent',{
               }
 });
 
-performances[0].debate.issue.description
+//performances[0].debate.issue.description
 //"performance": {
 //    "id": 1,
 //    "debate": {

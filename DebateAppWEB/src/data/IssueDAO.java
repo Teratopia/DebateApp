@@ -42,7 +42,7 @@ public class IssueDAO implements IssueDAOI {
 		}
 
 		Issue oldIssue = em.find(Issue.class, id);
-		oldIssue.setCategories(updateIssue.getCategories());
+		oldIssue.setIssCats(updateIssue.getIssCats());
 		oldIssue.setTitle(updateIssue.getTitle());
 		oldIssue.setDescription(updateIssue.getDescription());
 		oldIssue.setLinkRef(updateIssue.getLinkRef());

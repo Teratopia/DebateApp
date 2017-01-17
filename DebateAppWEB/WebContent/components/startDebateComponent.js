@@ -11,10 +11,9 @@ angular.module('ngDebate').component("startDebateComponent", {
 			<input type="text" placeholder="Issue Title" ng-model="issTitle"/><br><br>
 			<input type="text" placeholder="Issue Description" ng-model="issDesc"/><br><br>
 			<input type="text" placeholder="Issue Link" ng-model="issLink"/><br><br>
-			<span ng-repeat="cat in $ctrl.cats">
-			<input type="checkbox" value="cat" ng-model="$ctrl.catsBox">{{cat.title}}</input>
-			</span><br>
-			<button ng-click="$ctrl.instantiateIssue(issTitle, issDesc, issLink)">Post Issue</button>
+			<span ng-repeat="cat in $ctrl.cats">{{cat.title}} <input type="checkbox" ng-click="$ctrl.addCat(cat)"/>  </span>
+			<br>
+			<button ng-click="$ctrl.instantiateIssue(issTitle, issDesc, issLink)"><a>Post Issue</a></button>
 			</div>
 			
 			<div ng-show="$ctrl.showDivs(2)">
@@ -56,7 +55,7 @@ angular.module('ngDebate').component("startDebateComponent", {
 			Viewer Comments Visable <input type="checkbox" ng-model="vcsVisable"/><br><br>
 			Private Debate<input type="checkbox" ng-model="pDebate"/><br><br>
 			
-			<button ng-click="$ctrl.instantiateRules(ruleApt, ruleCpt, tLimit, oStatements, refsEnabled, vtWin, vcsVisable, pDebate)">Set Rules</button>
+			<button ng-click="$ctrl.instantiateRules(ruleApt, ruleCpt, tLimit, oStatements, refsEnabled, vtWin, vcsVisable, pDebate)"><a>Set Rules</a></button>
 
 			</div>
 			
@@ -64,21 +63,30 @@ angular.module('ngDebate').component("startDebateComponent", {
 			<h5>Your Team</h5>
 			<input type="text" ng-model="$ctrl.defaultTeamName"/><br>
 			<input type="text" placeholder="Your Stance on This Issue" ng-model="perfStance"/><br><br>
-			<button ng-click="$ctrl.instantiateTeam($ctrl.defaultTeamName); $ctrl.instantiateDebate()">Create Team</button>
+			<button ng-click="$ctrl.instantiateTeam($ctrl.defaultTeamName); $ctrl.instantiateDebate()"><a>Create Team</a></button>
 			</div>
 			
 			<div ng-show="$ctrl.showDivs(4)">
-			<button ng-click="$ctrl.instantiatePerformanceMember(perfStance)">Start Debate</button><br><br>
+			<button ng-click="$ctrl.instantiatePerformanceMember(perfStance)"><a href="#!/categories">Start Debate</button></a><br><br>
 			</div>
 			
 		</form>
 	
 	`,
 	controller : function(categoryService, authenticationService, issueService, debateService, teamService,
-			performanceService, pmService, rulesService){
+			performanceService, pmService, rulesService, issCatService){
 		var vm = this;
 		
-		vm.cats = categoryService.indexCategories();
+		categoryService.indexCategories().then(function(res) {
+        	console.log("in perf promise");
+        	console.log(res.data);
+        	console.log(res);
+        	vm.cats =  res.data;
+		}).then(function(res){
+			
+		console.log("CATS ##################");
+		console.log(vm.cats);
+		})
 		vm.aptOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 		vm.defaultTeamName = authenticationService.currentUser().name;
 		vm.currentUser = authenticationService.currentUser();
@@ -89,6 +97,29 @@ angular.module('ngDebate').component("startDebateComponent", {
 		vm.performanceMember;
 		vm.catsBox = [];
 		vm.hideIndex = 1;
+		
+		vm.addCat = function(cat){
+			console.log("add cat 1:")
+			console.log(cat);
+			var flag = false;
+			var index = 0;
+			var startSplice;
+			vm.catsBox.forEach(function(c){
+				if (c.id === cat.id){
+					flag = true;
+					startSplice = index;
+				}
+				index++;
+			})
+			if(flag === false){
+				vm.catsBox.push(cat);
+			} else {
+				vm.catsBox.splice(startSplice, 1);
+			}
+			console.log("addCat -- CATS:");
+			console.log(vm.catsBox);
+			
+		}
 		
 		vm.showDivs = function(q){
 			if(q === vm.hideIndex){
@@ -111,11 +142,11 @@ angular.module('ngDebate').component("startDebateComponent", {
 //		}
 		
 		vm.instantiateIssue = function(title, desc, link){
+			
 			var iss = {
 					'title' : title,
 					'description': desc,
-					'linkRef' : link,
-//					'categories' : cats
+					'linkRef' : link
 			}
 			console.log(iss);
 			issueService.createIssue(iss).then(function(res) {
@@ -147,7 +178,21 @@ angular.module('ngDebate').component("startDebateComponent", {
             	console.log(res);
             	vm.rules =  res.data;
 			})
+			
+			vm.instantiateIssCats();
+			
 			vm.hideIndex = 3;
+		}
+		
+		vm.instantiateIssCats = function(){
+			vm.catsBox.forEach(function(cat){
+				var issCat = {
+						'category' : cat,
+						'issue' : vm.issue
+				}
+				
+				issCatService.createIssCat(issCat);
+			})
 		}
 		
 		vm.instantiateDebate = function(){
@@ -213,3 +258,4 @@ angular.module('ngDebate').component("startDebateComponent", {
 	}
 	
 });
+

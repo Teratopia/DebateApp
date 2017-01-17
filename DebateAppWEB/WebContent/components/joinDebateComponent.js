@@ -28,8 +28,7 @@ angular.module('ngDebate').component("joinDebateComponent", {
 			<input type="text" ng-model="$ctrl.defaultTeamName"/><br><br>
 			<input type="text" placeholder="Your Stance on This Issue" ng-model="$ctrl.stance"/><br><br>
 			
-			<button ng-click="$ctrl.joinDebate($ctrl.defaultTeamName, perfStance)">Join Debate</button>
-			<button ng-click="$ctrl.mPatch()">Fix</button>
+			<button ng-click="$ctrl.joinDebate($ctrl.defaultTeamName, $ctrl.stance)">Join Debate</button>
 			
 		</form>
 	`,

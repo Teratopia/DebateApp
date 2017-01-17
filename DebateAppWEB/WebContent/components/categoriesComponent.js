@@ -4,7 +4,7 @@ angular.module('ngDebate').component("categoriesComponent", {
 	
 		<h5>Filter by:</h5>
 		<column ng-repeat="cat in $ctrl.cats"> {{cat.title}} 
-		<input type="checkbox" ng-click="$ctrl.filterDebates(cat.id)"></column>
+		<input type="checkbox" ng-click="$ctrl.filterDebates(cat)"></column>
 		<br><br>
 	
         <v-accordion class="vAccordion--default">
@@ -13,8 +13,8 @@ angular.module('ngDebate').component("categoriesComponent", {
 			{{deb.issue.title}} 
            </v-pane-header>
            <v-pane-content>
-           <a href="#!/join/{{deb.id}}"><button>Join {{deb.id}}</button></a>
-			<button href="">View</button>
+           <span ng-show="{{deb.performances.length}} < 2"><a href="#!/join/{{deb.id}}"><button>Join</button></a></span>
+			<button><a href="#!/view/{{deb.id}}">View</button></a>
                                    <h4>Description: </h4>
                                   	{{deb.issue.description}}<br>
                                   	<span ng-show="deb.issue.linkRef"><h4>Reference:</h4>
@@ -31,27 +31,25 @@ angular.module('ngDebate').component("categoriesComponent", {
 	
 	controller : function(categoryService, issueService, debateService){
 		
-		console.log('in catComp');
-		
-		
-		
 		var vm = this;
 		vm.cats;
 		vm.issues;
 		vm.allDebates;
 		vm.debates;
-		vm.filterIds = [];
+		vm.filterCats = [];
 		
 		categoryService.indexCategories()
 			.then(function(res) {
-				    console.log("IN .THEN");
+				    console.log("IN .indexCategories");
 				    vm.cats = res.data;
+				    console.log(vm.cats);
 				})
 		
 		issueService.indexIssues()
 			.then(function(res) {
-			    console.log("IN .THEN");
+			    console.log("IN .indexIssues");
 			    vm.issues = res.data;
+			    console.log(vm.issues);
 			})
 		
 		debateService.indexDebates()
@@ -62,49 +60,99 @@ angular.module('ngDebate').component("categoriesComponent", {
 				    console.log(vm.debates);
 				})	
 		
-		vm.filterDebates = function(id){
+		vm.filterDebates = function(cat1){
 			var index = 0;
 			var found = false;
 			
-			vm.filterIds.forEach(function(cat){
-				if(cat === id){
+			vm.filterCats.forEach(function(cat2){
+				if(cat1.id === cat2.id){
 					found = true;
 				}
 				if(found === false){
-				index++;
+					index++;
 				}
 			})
 			
-			if(found){
+			if(found === true){
 				console.log("in found");
 				console.log(index);
-				vm.filterIds.splice(index, 1);
+				vm.filterCats.splice(index, 1);
 			} else {
 				console.log("in else found");
 				console.log(index);
-				vm.filterIds.push(id);
+				vm.filterCats.push(cat1);
 			}
 			
 			var filteredDebates = [];
+			
 			vm.allDebates.forEach(function(deb){
 				var there = false;
 				if(there === false){
-				deb.issue.categories.forEach(function(cat){
-					if(there === false){
-					vm.filterIds.forEach(function(id){
+					deb.issue.issCats.forEach(function(ic1){
 						if(there === false){
-							if(cat.id === id){
-								filteredDebates.push(deb);
-								there = true;
-							}
+							vm.filterCats.forEach(function(cat){
+								if(there === false){
+									cat.issCats.forEach(function(ic2){
+										if(ic2.id === ic1.id){
+											there = true;
+											filteredDebates.push(deb);
+										}
+									})
+								}
+							})
 						}
-					});
-					}
-				});
+					})
 				}
-			});
-			
+			})
 			vm.debates = filteredDebates;
+			
+			if(vm.filterCats.length === 0){
+				vm.debates = vm.allDebates;
+			}
+			
+//			vm.allDebates.forEach(function(deb){
+//				var there = false;
+//				if(there === false && deb.issue.issCats !== undefined && deb.issue.issCats.length > 0){
+//					console.log("1a");
+//					deb.issue.issCats.forEach(function(ic){
+//						if(there === false){
+//							console.log("2a");
+//							vm.filterIds.forEach(function(id){
+//								if(there === false){
+//									console.log("3a");
+//									console.log(deb);
+//									console.log(ic);
+//									if(ic.category.id === id){
+//										console.log("4a there!")
+//										console.log(deb);
+//										filteredDebates.push(deb);
+//										there = true;
+//									}
+//								}
+//							})
+//						}
+//					})
+//				}
+//			})
+			
+//			vm.allDebates.forEach(function(deb){
+//				var there = false;
+//				if(there === false && deb.issue !== undefined && deb.issue.categories !== undefined){
+//				deb.issue.categories.forEach(function(cat){
+//					if(there === false){
+//					vm.filterIds.forEach(function(id){
+//						if(there === false){
+//							if(cat.id === id){
+//								filteredDebates.push(deb);
+//								there = true;
+//							}
+//						}
+//					});
+//					}
+//				});
+//				}
+//			});
+			
 			
 		}
 				
