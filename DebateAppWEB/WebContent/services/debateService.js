@@ -78,5 +78,19 @@ angular.module('ngDebate').factory('debateService', function($http, authenticati
 
   };
 
+  service.getDebatePerformances = function(args){
+    var performances = [];
+    console.log(args);
+    args.forEach(function(arg) {
+      console.log("IN GETDEBATEPERFORMERS: ");
+      if(!performances.includes(arg.perfMember.performance)){
+        performances.push(arg.perfMember.performance);
+        console.log(arg.perfMember.performance);
+      }
+    });
+    console.log("performances");
+    return performances;
+  };
+
   return service;
 });
