@@ -1,12 +1,12 @@
 angular.module('ngDebate').component("ctComponent", {
 
 	template : `
-	<div class="row" style="overflow: hidden;">
-		<div style="float:right">
+	<div class="row" style="overflow: hidden;margin:0px 5px;" ng-hide="$ctrl.noTwoPerfs()">
+		<div style="float:right" ng-hide="$ctrl.hideButtons()">
 			<button ng-click="$ctrl.logVote($ctrl.performance2)" style="width:50px;height:25px">Blue</button>
 		</div>
 		<div style="overflow: hidden;">
-			<div style="float:left">
+			<div style="float:left" ng-hide="$ctrl.hideButtons()">
 				<button ng-click="$ctrl.logVote($ctrl.performance1)" style="width:50px;height:25px">Red</button>
 			</div>
 			<div style="overflow: hidden;">
@@ -14,6 +14,9 @@ angular.module('ngDebate').component("ctComponent", {
 				<div style="width: {{100-$ctrl.leftBarPercentage()}}%;box-sizing: border-box;margin-left:-1px;border-left:1px solid #fff;height:25px;background-color:blue;float:right;"></div>
 			</div>
 		</div>
+	</div>
+	<div ng-show="$ctrl.noTwoPerfs()">
+		<h4>Waiting for Opponent</h4>
 	</div>
 		`,
 
@@ -25,40 +28,60 @@ angular.module('ngDebate').component("ctComponent", {
 		vm.performance1;
 		vm.performance2;
 		vm.debate;
-		vm.hasVoted = [];
+		vm.hasVoted;
 		vm.dummyArray = [{
 					'user' : null,
 					'debate' : null,
 					'performance' : null
 				}];
 
-		performanceService.getPerformance(1).then(function(res) {
-			console.log("per 1:");
-			console.log(res.data);
-        	vm.performance1 = res.data;
-		})
-		performanceService.getPerformance(2).then(function(res) {
-			console.log("per 2:");
-			console.log(res.data);
-			vm.performance2 = res.data;
-		})
-		debateService.getDebate(5).then(function(res) {
-			console.log("debate:");
-			console.log(res.data);
-			vm.debate = res.data;
-		})
+		vm.$onInit = function(){
+			console.log("on init. vm.debatefull:")
+			console.log(vm.debatefull)
+			vm.performance1 = vm.debatefull.debate.performances[0];
+			vm.performance2 = vm.debatefull.debate.performances[1];
+			vm.debate = vm.debatefull.debate;
+			
+			if(vm.hasVoted === undefined && vm.debate !== undefined){
+				console.log("in init if")
+				voteService.indexVotesByDebate(vm.debate).then(function(res) {
+	            	var votesCast =  res.data;
+	            	console.log("votes cast: ")
+	            	console.log(votesCast)
+	            	if(votesCast === undefined){
+	            		vm.hasVoted = vm.dummyArray;
+	            	} else {
+	            		vm.hasVoted = votesCast;
+	            		console.log("in else, vm.hasVoted = ")
+	            		console.log(vm.hasVoted)
+	            		vm.countLeft();
+	            		vm.countRight();
+	            	}
+				})
 
-		if(vm.hasVoted.length === 0 && vm.debate !== undefined){
-
-			voteService.indexVotesByDebate(vm.debate).then(function(res) {
-            	var votesCast =  res.data;
-            	if(votesCast === undefined){
-            		vm.hasVoted = vm.dummyArray;
-            	} else {
-            		vm.hasVoted.push(votesCast);
-            	}
+			}
+		}
+		
+		vm.noTwoPerfs = function(){
+			if(vm.debate.performances.length <2){
+				return true;
+			} else {
+				return false;
+			}
+		}
+		
+		vm.hideButtons = function(){
+				var flag = false;
+			vm.debatefull.performance_members.forEach(function(pm){
+				if(pm.user.id === vm.user.id){
+					flag = true
+				}
 			})
-
+			if(flag === true){
+				return true;
+			} else {
+				return false;
+			}
 		}
 
 		vm.leftBarPercentage = function(){
@@ -76,6 +99,7 @@ angular.module('ngDebate').component("ctComponent", {
 			})
 			console.log("left Votes: ")
 			console.log(index);
+			vm.leftVotes = index;
 			return index;
 		}
 
@@ -88,6 +112,7 @@ angular.module('ngDebate').component("ctComponent", {
 			})
 			console.log("right Votes: ")
 			console.log(index);
+			vm.rightVotes = index;
 			return index;
 		}
 
@@ -104,6 +129,8 @@ angular.module('ngDebate').component("ctComponent", {
 					'timeStamp' : new Date()
 				}
 			vm.hasVoted.forEach(function(v){
+				console.log("hasVoted foreach v = ")
+				console.log(v)
 				if(vm.user.id === v.user.id){
 					flag = true;
 					presentVote = v;
@@ -112,6 +139,7 @@ angular.module('ngDebate').component("ctComponent", {
 
 			if(flag === false){
 				console.log("in false, newvote = ")
+				console.log(newVote)
 				voteService.createVote(newVote).then(function(res){
 					newVote = res.data;
 					console.log(newVote);
@@ -144,6 +172,10 @@ angular.module('ngDebate').component("ctComponent", {
 			}
 
 		}
+	},
+	
+	bindings : {
+		debatefull : '<'
 	}
 
 

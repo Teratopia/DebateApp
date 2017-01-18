@@ -14,7 +14,7 @@ angular.module('ngDebate').component("categoriesComponent", {
            </v-pane-header>
            <v-pane-content>
            <span ng-show="{{deb.performances.length}} < 2 && $ctrl.logged()"><a href="#!/join/{{deb.id}}"><button>Join</button></a></span>
-			<button><a href="#!/debate/{{deb.id}}">View</button></a>
+			<a href="#!/debate/{{deb.id}}"><button>View</button></a>
                                    <h4>Description: </h4>
                                   	{{deb.issue.description}}<br>
                                   	<span ng-show="deb.issue.linkRef"><h4>Reference:</h4>

@@ -60,21 +60,21 @@ function debateController(authenticationService, $timeout) { // authenticationSe
   }
   
   vm.canComment = function(){
-	  console.log('in canComment. pm:')
-	  console.log(vm.debatefull.performance_members);
-	  console.log('in canComment. cu:')
-	  console.log(vm.currentUser);
+//	  console.log('in canComment. pm:')
+//	  console.log(vm.debatefull.performance_members);
+//	  console.log('in canComment. cu:')
+//	  console.log(vm.currentUser);
 	  var flag;
 	  
 	  if(vm.debatefull.performance_members === undefined
 			  || vm.currentUser === undefined){
-		  console.log("undefined")
+//		  console.log("undefined")
 		  return false;
 	  } else {
 		  if(vm.debatefull.performance_members.length < 2){
 			  if(vm.debatefull.performance_members[0].id === vm.currentUser.id){
-				  console.log("in <2. p_m[0] =");
-				  console.log(vm.debatefull.performance_members[0])
+//				  console.log("in <2. p_m[0] =");
+//				  console.log(vm.debatefull.performance_members[0])
 				  flag = false;
 			  } else {
 				  flag = true; 
@@ -135,7 +135,7 @@ app.component('debateComponent',{
                                <p style="font-size:1.5em;">Live Debate Feed (viewing as {{$ctrl.guest()}}):</p>
                            </div>
                            <div class="col-md-12">
-                               <div style="/*float:left;*//*width:20px;*/min-height:20px;margin:0px 0px 10px 0px;background:rgb(30,30,30);background:rgba(248,19,4,0.5);/*-webkit-box-shadow:inset 4px 4px 40px -10px rgba(0,0,0,0.7),3px 3px 5px 1px rgba(0,0,0,0.1);*//*-moz-box-shadow:inset 4px 4px 40px -10px rgba(0,0,0,0.7),3px 3px 5px 1px rgba(0,0,0,0.1);*//*box-shadow:inset 4px 4px 40px -10px rgba(0,0,0,0.7),3px 3px 5px 1px rgba(0,0,0,0.1);*/"></div>
+								<ct-component debatefull = "$ctrl.debatefull"></ct-component>
                            </div>
                        </div>
                        <div class="row">
