@@ -14,18 +14,22 @@ function debateController(authenticationService, $timeout) { // authenticationSe
   }
 
   vm.canComment = function(){
+	  console.log('in canComment. pm:')
+	  console.log(vm.debatefull.performance_members);
+	  console.log('in canComment. cu:')
+	  console.log(vm.currentUser);
 	  var flag;
 
-  	  if(vm.debatefull.performance_members === undefined || vm.currentUser === undefined || authenticationService.isLoggedIn() === false){
-  		  return false;
-  	  } else {
-  		  if(vm.debatefull.performance_members.length < 2){
-  			  if(vm.debatefull.performance_members[0].id === vm.currentUser.id){
-  				  flag = false;
-  			  } else {
-  				  flag = true;
-  			  }
-		  }
+	  if(vm.debatefull.performance_members !== undefined
+			  && vm.currentUser !== undefined){
+			  if(vm.debatefull.performance_members[0].user.id === vm.currentUser.id ||
+					  vm.debatefull.performance_members[1].user.id === vm.currentUser.id){
+				  console.log("in <2. p_m[0] =");
+				  console.log(vm.debatefull.performance_members[0])
+				  flag = false;
+			  } else {
+				  flag = true;
+			  }
 
 		  vm.debatefull.performance_members.forEach(function(pm){
 			  if(pm.user.id === vm.currentUser.id){
@@ -41,13 +45,17 @@ function debateController(authenticationService, $timeout) { // authenticationSe
 		  } else {
 			  return false;
 		  }
-	  }
+	  }else{
+      console.log("undefined")
+      return false;
+    }
   }
 
   vm.isParticipant = function(){
     if(vm.currentUser != undefined){
       vm.debatefull.roster.forEach(function(team){
         team.forEach(function(member){
+          console.log("PARTICIPANTS:" + member)
           if(member===vm.currentUser.id){
             return true;
           }

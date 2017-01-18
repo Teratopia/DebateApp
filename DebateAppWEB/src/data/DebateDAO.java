@@ -52,7 +52,7 @@ public class DebateDAO implements DebateDAOI {
 				System.out.println("Performance ID: " + performance.getId());
 				System.out.println("Performance Member's Performance ID: " + performanceMember.getPerformance().getId());
 				if(performance.getId() == performanceMember.getPerformance().getId()){
-					members.add(performanceMember.getId());
+					members.add(performanceMember.getUser().getId());
 					System.out.println("added");
 				}
 			}
