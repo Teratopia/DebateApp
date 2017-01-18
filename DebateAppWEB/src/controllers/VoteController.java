@@ -28,6 +28,11 @@ public class VoteController {
 		return voteDAO.index();
 	}
 
+	@RequestMapping(path = "vote/debate/{id}", method = RequestMethod.GET)
+	public Collection<Vote> indexByDebate(HttpServletRequest req, HttpServletResponse res, @PathVariable("id") int id) {
+		return voteDAO.indexByDebate(id);
+	}
+
 	// Respond to request by returning single, specific Vote
 	@RequestMapping(path = "vote/{id}", method = RequestMethod.GET)
 	public Vote show(HttpServletRequest req, HttpServletResponse res, @PathVariable("id") int id) {

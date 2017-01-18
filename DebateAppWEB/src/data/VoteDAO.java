@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import entities.Debate;
 import entities.Vote;
 
 public class VoteDAO implements VoteDAOI{
@@ -19,6 +20,16 @@ public class VoteDAO implements VoteDAOI{
 	@Override
 	public Collection<Vote> index() {
 		String query = "select t from Vote t where t.id > 0";
+		Collection<Vote> Votes = em.createQuery(query, Vote.class).getResultList();
+		return Votes;
+	}
+
+	@Override
+	public Collection<Vote> indexByDebate(int debId) {
+		
+		Debate d = em.find(Debate.class, debId);
+		
+		String query = "select t from Vote t where t.debate = "+debId;
 		Collection<Vote> Votes = em.createQuery(query, Vote.class).getResultList();
 		return Votes;
 	}
@@ -65,6 +76,9 @@ public class VoteDAO implements VoteDAOI{
 		
 		em.persist(newVote);
 		em.flush();
+		
+		String query = "select i from Vote i where i.id=(select max(id) from Vote)";
+		newVote = em.createQuery(query, Vote.class).getSingleResult();
 		
 		return newVote;
 	}

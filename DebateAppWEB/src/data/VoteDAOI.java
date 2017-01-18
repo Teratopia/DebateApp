@@ -16,4 +16,6 @@ public interface VoteDAOI {
 
 	public Vote destroy(int id);
 	
+	public Collection<Vote> indexByDebate(int debId);
+	
 }
