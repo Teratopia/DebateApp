@@ -55,7 +55,7 @@ function debateController(authenticationService, $timeout) { // authenticationSe
     if(vm.currentUser != undefined){
       vm.debatefull.roster.forEach(function(team){
         team.forEach(function(member){
-          if(member===currentUser.id){
+          if(member===vm.currentUser.id){
             return true;
           }
         });

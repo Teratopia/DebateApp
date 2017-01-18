@@ -73,8 +73,10 @@ angular.module('ngDebate').component("ctComponent", {
 		vm.hideButtons = function(){
 				var flag = false;
 			vm.debatefull.performance_members.forEach(function(pm){
-				if(pm.user.id === vm.user.id){
-					flag = true
+				if(vm.user !== undefined){
+					if(pm.user.id === vm.user.id){
+						flag = true
+					}
 				}
 			})
 			if(flag === true){
