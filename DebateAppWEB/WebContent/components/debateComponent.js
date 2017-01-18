@@ -2,70 +2,23 @@ var app = angular.module('ngDebate');
 
 function debateController(authenticationService, $timeout) { // authenticationService as parameter
   var vm = this;
-
-  var turnCount = 0;
-  $timeout(function(){turnCount = vm.debatefull.debate.turnCount;},300);
-
-  vm.turn = "unknown";
-  vm.turnCalc = function(roster){
-    angular.element(document).ready(function () {
-      countDown = turnCount;
-      var memberIndex = [];
-      for(var i = 0; i<roster.length; i++){
-        memberIndex[i]=0;
-      }
-      var teamRow=0;
-      while(countDown >= 0){
-        var flag = true;
-        for(var teamRow=0; teamRow<roster.length && flag; teamRow++){
-      	  console.log("Roster length at " + teamRow + " is " + roster[teamRow].length);
-      	  console.log("Current memberIndex for " + teamRow + " is " + memberIndex[teamRow]);
-      	  if(roster[teamRow].length!=0){
-            if(memberIndex[teamRow] >= roster[teamRow].length){
-              memberIndex[teamRow]=0;
-            }
-        	  console.log("Inside first if and countDown is " + countDown);
-            if(countDown<1){
-              console.log("INSIDE COUNTDOWN IF");
-              turnCount++;
-              vm.turn = roster[teamRow][memberIndex[teamRow]];
-              console.log("CURRENT TURN IS USER: ");
-              console.log(roster[teamRow][memberIndex[teamRow]]);
-              console.log(countDown);
-              flag = false;
-            }
-            memberIndex[teamRow]++;
-            countDown--;
-            }
-          }
-        }
-        console.log("Value of vm.turn is: " + vm.turn);
-    });
-  }
-
-  vm.$onInit=function(){
-	  vm.turnCalc(vm.debatefull.roster);
-	  };
-
   vm.currentUser = authenticationService.currentUser();
 
   vm.guest = function(){
-	  if(vm.currentUser !== undefined){
-	    if(vm.currentUser.name){
-	      return vm.currentUser.id;
-	    }else{
-	      return "guest";
-	    }
-	  }
+    if(vm.currentUser === undefined){
+        return "guest";
+    }else{
+        return vm.currentUser.username;
+    }
   }
-  
+
   vm.canComment = function(){
 //	  console.log('in canComment. pm:')
 //	  console.log(vm.debatefull.performance_members);
 //	  console.log('in canComment. cu:')
 //	  console.log(vm.currentUser);
 	  var flag;
-	  
+
 	  if(vm.debatefull.performance_members === undefined
 			  || vm.currentUser === undefined){
 //		  console.log("undefined")
@@ -77,10 +30,10 @@ function debateController(authenticationService, $timeout) { // authenticationSe
 //				  console.log(vm.debatefull.performance_members[0])
 				  flag = false;
 			  } else {
-				  flag = true; 
+				  flag = true;
 			  }
 		  }
-		  
+
 		  vm.debatefull.performance_members.forEach(function(pm){
 			  if(pm.user.id === vm.currentUser.id){
 				  console.log("in if ===. pm.user =");
@@ -89,7 +42,7 @@ function debateController(authenticationService, $timeout) { // authenticationSe
 			  }
 		  })
 		  console.log(flag);
-		  
+
 		  if(flag === true){
 			  return true;
 		  } else {
@@ -98,6 +51,18 @@ function debateController(authenticationService, $timeout) { // authenticationSe
 	  }
   }
 
+  vm.isParticipant = function(){
+    if(vm.currentUser != undefined){
+      vm.debatefull.roster.forEach(function(team){
+        team.forEach(function(member){
+          if(member===currentUser.id){
+            return true;
+          }
+        });
+      });
+    }
+    return false;
+    }
 }
 
 app.component('debateComponent',{
@@ -109,7 +74,7 @@ app.component('debateComponent',{
                            <div class="col-md-12">
                                <div class="row">
                                    <div class="col-md-12">
-                                       <p style="font-size:1.5em;">{{$ctrl.debatefull.debate.issue.title}}</p>
+                                       <p style="font-size:1.5em;height:1.48em">{{$ctrl.debatefull.debate.issue.title}}</p>
                                    </div>
                                </div>
                                <debate-info-component debate="$ctrl.debatefull.debate"></debate-info-component>
@@ -145,7 +110,7 @@ app.component('debateComponent',{
                        </div>
                        <div class="row">
                            <div class="col-md-12">
-                               <arg-form-component ng-show="$ctrl.getCurrentUser === {{$ctrl.turn}}" debatefull="$ctrl.debatefull"></arg-form-component>
+                               <arg-form-component ng-show="$ctrl.isParticipant()" debatefull="$ctrl.debatefull"></arg-form-component>
                            </div>
                        </div>
                    </div>

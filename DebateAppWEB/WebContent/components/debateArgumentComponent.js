@@ -2,6 +2,8 @@ var app = angular.module('ngDebate');
 
 function debateArgumentController(authenticationService, debateService, formatService) { // authenticationService as parameter
   var vm = this;
+  vm.classCode = null;
+  vm.leftRight = null;
 
   vm.assignClass = function(arg, performances){
     return formatService.getArgPerfClass(arg, performances);
@@ -20,7 +22,8 @@ app.component('debateArgumentComponent',{
                     <div ng-class="$ctrl.assignClass(argument, $ctrl.debatefull.debate.performances)">
                 	  <div ng-class="$ctrl.isRight(argument, $ctrl.debatefull.debate.performances)">{{$index}}</div>
                         <div class="pad-arg-text">
-                          {{argument.text}}
+                          {{argument.text}} 
+                          <div style="font-size:.7em">({{argument.user.username}})</div>
                         </div>
                      </div>
                    </div>

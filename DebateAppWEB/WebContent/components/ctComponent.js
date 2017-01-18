@@ -10,8 +10,8 @@ angular.module('ngDebate').component("ctComponent", {
 				<button ng-click="$ctrl.logVote($ctrl.performance1)" style="width:50px;height:25px">Red</button>
 			</div>
 			<div style="overflow: hidden;">
-				<div style="width: {{$ctrl.leftBarPercentage()}}%;box-sizing: border-box;margin-right:-1px;border-right:1px solid #fff;height:25px;background-color:red;float:left;"></div>
-				<div style="width: {{100-$ctrl.leftBarPercentage()}}%;box-sizing: border-box;margin-left:-1px;border-left:1px solid #fff;height:25px;background-color:blue;float:right;"></div>
+				<div style="width: {{$ctrl.leftBarPercentage()}}%;margin-right:-1px;border-right:1px solid #fff;height:25px;background-color:red;float:left;"></div>
+				<div style="width: {{100-$ctrl.leftBarPercentage()}}%;margin-left:-1px;border-left:1px solid #fff;height:25px;background-color:blue;float:right;"></div>
 			</div>
 		</div>
 	</div>

@@ -3,17 +3,19 @@ angular.module('ngDebate').factory(
 		function($http, authenticationService) {
 			var service = {};
 			var colors = [ "ivory", "blue", "pink", "tomato",
-					"pale-golden-rod", "pale-turquoise", "thistle",
-					"lemon-chiffon" ];
+					"pale-golden-rod", "light-green", "pale-turquoise",
+					"thistle", "lemon-chiffon", "sea-green", "drab" ];
 
 			service.getArgPerfClass = function(arg, performances) {
 				for (var i = 0; i < performances.length; i++) {
 					if (arg.perfMember.performance.id === performances[i].id) {
-						console.log("ARG ID" + arg.perfMember.performance.id);
-						console.log("PERFORMANCE ID" + performances[i].id);
+						console.log(arg.perfMember.performance);
+						console.log(performances);
 						if (i === 0) {
+							console.log(colors[i] + " arg-right");
 							return colors[i] + " arg-right";
 						} else {
+							console.log(colors[i] + " arg-left");
 							return colors[i] + " arg-left";
 						}
 					}
