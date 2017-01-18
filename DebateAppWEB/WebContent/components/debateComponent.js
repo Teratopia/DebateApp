@@ -1,7 +1,49 @@
 var app = angular.module('ngDebate');
 
-function debateController(authenticationService) { // authenticationService as parameter
+function debateController(authenticationService, $timeout) { // authenticationService as parameter
   var vm = this;
+  var turnCount = null;
+  $timeout(function(){turnCount = vm.debatefull.debate.turnCount;},500);
+
+  vm.turn= "unknown";
+  vm.turnCalc = function(roster){
+    angular.element(document).ready(function () {
+      countDown = turnCount;
+      var memberIndex = [];
+      for(var i = 0; i<roster.length; i++){
+        memberIndex[i]=0;
+      }
+      var teamRow=0;
+      while(countDown >= 0){
+        var flag = true;
+        for(var teamRow=0; teamRow<roster.length && flag; teamRow++){
+      	  console.log("Roster length at " + teamRow + " is " + roster[teamRow].length);
+      	  console.log("Current memberIndex for " + teamRow + " is " + memberIndex[teamRow]);
+      	  if(roster[teamRow].length!=0){
+            if(memberIndex[teamRow] >= roster[teamRow].length){
+              memberIndex[teamRow]=0;
+            }
+        	  console.log("Inside first if and countDown is " + countDown);
+            if(countDown<1){
+              console.log("INSIDE COUNTDOWN IF");
+              turnCount++;
+              vm.turn = roster[teamRow][memberIndex[teamRow]];
+              console.log("CURRENT TURN IS USER: ");
+              console.log(roster[teamRow][memberIndex[teamRow]]);
+              console.log(countDown);
+              flag = false;
+            }
+            memberIndex[teamRow]++;
+            countDown--;
+            }
+          }
+        }
+        console.log("Value of vm.turn is: " + vm.turn);
+    });
+  }
+
+  vm.getCurretnUser = function(){return authenticationService.currentUser()}
+
 }
 
 app.component('debateComponent',{
@@ -13,10 +55,10 @@ app.component('debateComponent',{
                            <div class="col-md-12">
                                <div class="row">
                                    <div class="col-md-12">
-                                       <p style="font-size:1.5em;">{{$ctrl.debatewargs.debate.issue.title}}</p>
+                                       <p style="font-size:1.5em;">{{$ctrl.debatefull.debate.issue.title}}</p>
                                    </div>
                                </div>
-                               <debate-info-component debate="$ctrl.debatewargs.debate"></debate-info-component>
+                               <debate-info-component debate="$ctrl.debatefull.debate"></debate-info-component>
                            </div>
                            <div class="col-md-12">
                                <div class="row">
@@ -44,25 +86,25 @@ app.component('debateComponent',{
                        </div>
                        <div class="row">
                            <div class="col-md-12">
-                                <debate-argument-component debatewargs="$ctrl.debatewargs"></debate-argument-component>
+                                <debate-argument-component debatefull="$ctrl.debatefull"></debate-argument-component>
                            </div>
                        </div>
                        <div class="row">
                            <div class="col-md-12">
-                               <arg-form-component debatewargs="$ctrl.debatewargs"></arg-form-component>
+                               <arg-form-component ng-show="$ctrl.getCurrentUser === {{$ctrl.turn}}" debatefull="$ctrl.debatefull"></arg-form-component>
                            </div>
                        </div>
                    </div>
                </div>
-           </div>`,
+           </div>
+
+           <button style="color:black" type="button" ng-click="$ctrl.turnCalc($ctrl.debatefull.roster)">Click Me!</button>
+           <div>CURRENT TURN IS: {{$ctrl.turn}}</div>
+           <div>CURRENT USER IS: {{$ctrl.getCurrentUser()}}</div>`,
 
   controller : debateController,
 
   bindings : {
-                debatewargs: '<'
+                debatefull: '<'
               }
 });
-
-//<v-pane-content ng-repeat="stance in BIND STANCES LIST HERE!!!!" ng-disabled="LOGIC TEST FOR STANCES CASE OF EMPTY!!!!">
-//{{stance}}
-//</v-pane-content>

@@ -13,11 +13,11 @@ angular.module('ngDebate').factory('debateService', function($http, authenticati
 
   };
 
-  service.indexDebateArgs = function(id){
+  service.indexDebateFull = function(id){
 
 		return $http({
 		method : 'GET',
-		url : 'api/debate/' + id + '/args',
+		url : 'api/debate/' + id + '/full',
 		headers : {
 			  'x-access-token' : authenticationService.getToken()
 			  }

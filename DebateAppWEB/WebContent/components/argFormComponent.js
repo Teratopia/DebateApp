@@ -28,7 +28,6 @@ function argFormController(authenticationService, userService, formatService, ar
 	  })
   }
   
-  
 }
 
 app.component('argFormComponent',{
@@ -38,13 +37,13 @@ app.component('argFormComponent',{
                   <textarea id="arg-text" placeholder="{{$ctrl.argumentText}}" ng-model="$ctrl.newText" class="arg-text-form"></textarea>
                 </div>
                 <div>
+                  <input id="args-submit" type="submit" value="Send">
+                </div>
+                <div style="overflow: hidden; padding-right: .35em;">
                   <input type="text" placeholder="{{$ctrl.hrefText}}" ng-model="$ctrl.newRef" id="arg-href-link" class="href-link"/>
                 </div>
-                <button ng-click="$ctrl.instArg()">THIS IS NOT THE BUTTON YOU'RE LOOKING FOR</button>
               </form>
-            </div>
-
-  `,
+            </div>`,
 
   controller : argFormController,
 
