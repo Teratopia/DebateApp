@@ -91,7 +91,7 @@ app.component('debateComponent',{
                        </div>
                        <div class="row">
                            <div class="col-md-12">
-                               <arg-form-component ng-show="$ctrl.getCurrentUser === {{$ctrl.turn}}" debatefull="$ctrl.debatefull"></arg-form-component>
+                               <arg-form-component ng-show="$ctrl.getCurrentUser === {{$ctrl.turn}}" cUser = "$ctrl.getCurrentUser()" debatefull="$ctrl.debatefull"></arg-form-component>
                            </div>
                        </div>
                    </div>
