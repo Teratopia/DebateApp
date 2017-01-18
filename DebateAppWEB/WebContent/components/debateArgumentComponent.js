@@ -14,10 +14,10 @@ function debateArgumentController(authenticationService, debateService, formatSe
 
 app.component('debateArgumentComponent',{
   template: ` <div class="args-display-screen">
-                <div ng-repeat="argument in $ctrl.debatewargs.arguments">
+                <div ng-repeat="argument in $ctrl.debatefull.arguments">
                   <div class="row arg-holder">
-                    <div ng-class="$ctrl.assignClass(argument, $ctrl.debatewargs.debate.performances)">
-                	  <div ng-class="$ctrl.isRight(argument, $ctrl.debatewargs.debate.performances)">{{$index}}</div>
+                    <div ng-class="$ctrl.assignClass(argument, $ctrl.debatefull.debate.performances)">
+                	  <div ng-class="$ctrl.isRight(argument, $ctrl.debatefull.debate.performances)">{{$index}}</div>
                         <div class="pad-arg-text">
                           {{argument.text}}
                         </div>
@@ -29,6 +29,6 @@ app.component('debateArgumentComponent',{
   controller : debateArgumentController,
 
   bindings : {
-                debatewargs: '<'
+                debatefull: '<'
               }
 });

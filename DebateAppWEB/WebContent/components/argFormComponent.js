@@ -5,6 +5,7 @@ function argFormController(authenticationService, userService, formatService) { 
   vm.argumentText = 'type argument';
   vm.hrefText = 'insert URL';
   vm.userInfo = function(){authenticationService.currentUser();}
+
 }
 
 app.component('argFormComponent',{
@@ -14,13 +15,13 @@ app.component('argFormComponent',{
                   <textarea id="arg-text" placeholder="{{$ctrl.argumentText}}" class="arg-text-form"></textarea>
                 </div>
                 <div>
+                  <input id="args-submit" type="submit" value="Send">
+                </div>
+                <div style="overflow: hidden; padding-right: .35em;">
                   <input type="text" placeholder="{{$ctrl.hrefText}}" id="arg-href-link" class="href-link"/>
                 </div>
-                
               </form>
-            </div>
-
-  `,
+            </div>`,
 
   controller : argFormController,
 

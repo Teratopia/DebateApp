@@ -36,7 +36,7 @@ public class DebateController {
 	}
 
 	// Respond to request by returning single, specific Debate
-	@RequestMapping(path = "debate/{id}/args", method = RequestMethod.GET)
+	@RequestMapping(path = "debate/{id}/full", method = RequestMethod.GET)
 	public Map<String, Object> showArgs(HttpServletRequest req, HttpServletResponse res, @PathVariable("id") int id) {
 		return debateDAO.indexArgs(id);
 	}

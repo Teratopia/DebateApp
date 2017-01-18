@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -59,6 +60,16 @@ public class Debate {
 //	@Column(name = "winner_id")
 //	private Performance winner;
 	private Date timeStamp;
+	@Column(name = "turn_count")
+	private int turnCount;
+
+	public int getTurnCount() {
+		return turnCount;
+	}
+
+	public void setTurnCount(int turnCount) {
+		this.turnCount = turnCount;
+	}
 
 	public Set<Comment> getComments() {
 		return comments;
