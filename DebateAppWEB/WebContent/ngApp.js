@@ -55,6 +55,9 @@ app.config(function($routeProvider){ // $routeProvider is an Angular service
 		.when('/startDebate', {
 			template: `<start-debate-component></start-debate-component>` // use templateURL to reference a different file
 		})
+		.when('/charttest', {
+			template: `<ct-component></ct-component>` // use templateURL to reference a different file
+		})
 		.when('/join/:id', {
 			template: `<join-debate-component debate="$resolve.myData"></join-debate-component>`
 				,
