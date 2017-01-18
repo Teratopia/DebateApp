@@ -29,11 +29,13 @@ app.component('debateInfoComponent',{
                 </v-pane-header>
                 <v-pane-content>
                   <div ng-repeat="performance in $ctrl.debate.performances">
-                    	<div ng-class="$ctrl.getPerformanceClass($index)" style="margin:0px 0px 10px 0px">
+	  				<div class="row">
+                    	<div ng-class="$ctrl.getPerformanceClass($index)" style="width:90%;margin:0px 0px 10px 0px">
                     		<div class="pad-arg-text">
                       			{{performance.team.name}}: {{performance.stance}}
-                      		</div
-                	</div>
+                    		</div>
+	  					</div>
+          	         </div>
                   </div>
                 </v-pane-content>
               </v-pane>

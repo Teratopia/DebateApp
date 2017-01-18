@@ -5,7 +5,7 @@ function debateController(authenticationService, $timeout) { // authenticationSe
   vm.currentUser = authenticationService.currentUser();
 
   vm.guest = function(){
-    if(isNaN(vm.currentUser.id)){
+    if(vm.currentUser === undefined){
         return "guest";
     }else{
         return vm.currentUser.username;
@@ -52,17 +52,17 @@ function debateController(authenticationService, $timeout) { // authenticationSe
   }
 
   vm.isParticipant = function(){
-    var cUser = vm.currentUser;
-    vm.debatefull.roster.forEach(function(team){
-      team.forEach(function(member){
-        if(member===cUser.id){
-          return true;
-        }
+    if(vm.currentUser != undefined){
+      vm.debatefull.roster.forEach(function(team){
+        team.forEach(function(member){
+          if(member===currentUser.id){
+            return true;
+          }
+        });
       });
-    });
+    }
     return false;
-  }
-
+    }
 }
 
 app.component('debateComponent',{
@@ -74,7 +74,7 @@ app.component('debateComponent',{
                            <div class="col-md-12">
                                <div class="row">
                                    <div class="col-md-12">
-                                       <p style="font-size:1.5em;">{{$ctrl.debatefull.debate.issue.title}}</p>
+                                       <p style="font-size:1.5em;height:1.48em">{{$ctrl.debatefull.debate.issue.title}}</p>
                                    </div>
                                </div>
                                <debate-info-component debate="$ctrl.debatefull.debate"></debate-info-component>
