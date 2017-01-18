@@ -13,36 +13,36 @@ function debateController(authenticationService, $timeout) { // authenticationSe
     }
   }
 
-  // vm.canComment = function(){
-	//   var flag;
-  //
-  // 	  if(vm.debatefull.performance_members === undefined || vm.currentUser === undefined || authenticationService.isLoggedIn() === false){
-  // 		  return false;
-  // 	  } else {
-  // 		  if(vm.debatefull.performance_members.length < 2){
-  // 			  if(vm.debatefull.performance_members[0].id === vm.currentUser.id){
-  // 				  flag = false;
-  // 			  } else {
-  // 				  flag = true;
-  // 			  }
-	// 	  }
-  //
-	// 	  vm.debatefull.performance_members.forEach(function(pm){
-	// 		  if(pm.user.id === vm.currentUser.id){
-	// 			  console.log("in if ===. pm.user =");
-	// 			  console.log(pm.user)
-	// 			  flag = false;
-	// 		  }
-	// 	  })
-	// 	  console.log(flag);
-  //
-	// 	  if(flag === true){
-	// 		  return true;
-	// 	  } else {
-	// 		  return false;
-	// 	  }
-	//   }
-  // }
+  vm.canComment = function(){
+	  var flag;
+
+  	  if(vm.debatefull.performance_members === undefined || vm.currentUser === undefined || authenticationService.isLoggedIn() === false){
+  		  return false;
+  	  } else {
+  		  if(vm.debatefull.performance_members.length < 2){
+  			  if(vm.debatefull.performance_members[0].id === vm.currentUser.id){
+  				  flag = false;
+  			  } else {
+  				  flag = true;
+  			  }
+		  }
+
+		  vm.debatefull.performance_members.forEach(function(pm){
+			  if(pm.user.id === vm.currentUser.id){
+				  console.log("in if ===. pm.user =");
+				  console.log(pm.user)
+				  flag = false;
+			  }
+		  })
+		  console.log(flag);
+
+		  if(flag === true){
+			  return true;
+		  } else {
+			  return false;
+		  }
+	  }
+  }
 
   vm.isParticipant = function(){
     if(vm.currentUser != undefined){
@@ -67,7 +67,9 @@ app.component('debateComponent',{
                            <div class="col-md-12">
                                <div class="row">
                                    <div class="col-md-12">
-                                       <p style="font-size:1.5em;height:1.48em">{{$ctrl.debatefull.debate.issue.title}}</p>
+                                       <div style="height:1.6em">
+                                           <p style="font-size:1.5em">{{$ctrl.debatefull.debate.issue.title}}</p>
+                                       </div>
                                    </div>
                                </div>
                                <debate-info-component debate="$ctrl.debatefull.debate"></debate-info-component>
