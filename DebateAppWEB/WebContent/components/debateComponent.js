@@ -2,21 +2,57 @@ var app = angular.module('ngDebate');
 
 function debateController(authenticationService, $timeout) { // authenticationService as parameter
   var vm = this;
-
-  vm.currentUser = function(){
-    return authenticationService.currentUser()
-  }
+  vm.currentUser = authenticationService.currentUser();
 
   vm.guest = function(){
-    if(isNaN(vm.currentUser().id)){
+    if(isNaN(vm.currentUser.id)){
         return "guest";
     }else{
-        return vm.currentUser().username;
+        return vm.currentUser.username;
     }
   }
 
+  vm.canComment = function(){
+	  console.log('in canComment. pm:')
+	  console.log(vm.debatefull.performance_members);
+	  console.log('in canComment. cu:')
+	  console.log(vm.currentUser);
+	  var flag;
+
+	  if(vm.debatefull.performance_members === undefined
+			  || vm.currentUser === undefined){
+		  console.log("undefined")
+		  return false;
+	  } else {
+		  if(vm.debatefull.performance_members.length < 2){
+			  if(vm.debatefull.performance_members[0].id === vm.currentUser.id){
+				  console.log("in <2. p_m[0] =");
+				  console.log(vm.debatefull.performance_members[0])
+				  flag = false;
+			  } else {
+				  flag = true;
+			  }
+		  }
+
+		  vm.debatefull.performance_members.forEach(function(pm){
+			  if(pm.user.id === vm.currentUser.id){
+				  console.log("in if ===. pm.user =");
+				  console.log(pm.user)
+				  flag = false;
+			  }
+		  })
+		  console.log(flag);
+
+		  if(flag === true){
+			  return true;
+		  } else {
+			  return false;
+		  }
+	  }
+  }
+
   vm.isParticipant = function(){
-    var cUser = vm.currentUser();
+    var cUser = vm.currentUser;
     vm.debatefull.roster.forEach(function(team){
       team.forEach(function(member){
         if(member===cUser.id){
@@ -51,8 +87,8 @@ app.component('debateComponent',{
                                    </div>
                                </div>
                                <div class="row">
-                                   <div class="col-md-12">
-                                       <p style="font-size:1.5em;">Add Comment Form Field</p>
+                                   <div class="col-md-12" ng-show="$ctrl.canComment()" >
+                                       <com-form-component></com-form-component>
                                    </div>
                                </div>
                            </div>
