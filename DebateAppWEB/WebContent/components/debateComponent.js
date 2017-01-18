@@ -1,6 +1,7 @@
 var app = angular.module('ngDebate');
 
-function debateController(authenticationService, $timeout) { // authenticationService as parameter
+function debateController(authenticationService, $timeout) { // authenticationService
+																// as parameter
   var vm = this;
   vm.currentUser = authenticationService.currentUser();
 
@@ -16,48 +17,13 @@ function debateController(authenticationService, $timeout) { // authenticationSe
 	  
 	  return vm.isParticipant();
 	  
-//	  console.log('in canComment. pm:')
-//	  console.log(vm.debatefull.performance_members);
-//	  console.log('in canComment. cu:')
-//	  console.log(vm.currentUser);
-//	  var flag;
-//
-//	  if(vm.debatefull.performance_members === undefined
-//			  || vm.debatefull.performance_members.length < 2
-//			  || vm.currentUser === undefined){
-//		  console.log("undefined")
-//		  return false;
-//	  } else {
-//			  if(vm.debatefull.performance_members[0].user.id === vm.currentUser.id ||
-//					  vm.debatefull.performance_members[1].user.id === vm.currentUser.id){
-//				  console.log("in <2. p_m[0] =");
-//				  console.log(vm.debatefull.performance_members[0])
-//				  flag = false;
-//			  } else {
-//				  flag = true;
-//			  }
-//
-//		  vm.debatefull.performance_members.forEach(function(pm){
-//			  if(pm.user.id === vm.currentUser.id){
-//				  console.log("in if ===. pm.user =");
-//				  console.log(pm.user)
-//				  flag = false;
-//			  }
-//		  })
-//		  console.log(flag);
-//
-//		  if(flag === true){
-//			  return true;
-//		  } else {
-//			  return false;
-//		  }
-//	  }
   }
 
   vm.isParticipant = function(){
     if(vm.currentUser !== undefined){
       vm.debatefull.roster.forEach(function(team){
         team.forEach(function(member){
+          console.log("PARTICIPANTS:" + member)
           if(member===vm.currentUser.id){
             return true;
           }
@@ -77,7 +43,9 @@ app.component('debateComponent',{
                            <div class="col-md-12">
                                <div class="row">
                                    <div class="col-md-12">
-                                       <p style="font-size:1.5em;height:1.48em">{{$ctrl.debatefull.debate.issue.title}}</p>
+                                       <div style="height:1.6em">
+                                           <p style="font-size:1.5em">{{$ctrl.debatefull.debate.issue.title}}</p>
+                                       </div>
                                    </div>
                                </div>
                                <debate-info-component debate="$ctrl.debatefull.debate"></debate-info-component>
