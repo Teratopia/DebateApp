@@ -1,21 +1,22 @@
 angular.module('ngDebate').component("ctComponent", {
 
 	template : `
-		
-		<div style="width:500px;">
-			<div style="float:left;">
-				<button ng-click="$ctrl.logVote($ctrl.performance1)">Red</button>
-			<div style="float:right;">
-				<button ng-click="$ctrl.logVote($ctrl.performance2)">Blue</button>
+	<div class="row" style="overflow: hidden;">
+		<div style="float:right">
+			<button ng-click="$ctrl.logVote($ctrl.performance2)" style="width:50px;height:25px">Blue</button>
+		</div>
+		<div style="overflow: hidden;">
+			<div style="float:left">
+				<button ng-click="$ctrl.logVote($ctrl.performance1)" style="width:50px;height:25px">Red</button>
 			</div>
-			</div>
-			<div style="width:100%;">
-				<div style="width: {{$ctrl.leftBarPercentage()}}%; height:25px;border-right:1px solid #000;background-color:red;"></div>
-				<div style="width: {{100-$ctrl.leftBarPercentage()}}%;height:25px;border-left:1px solid #000;background-color:blue;"></div>
+			<div style="overflow: hidden;">
+				<div style="width: {{$ctrl.leftBarPercentage()}}%;box-sizing: border-box;margin-right:-1px;border-right:1px solid #fff;height:25px;background-color:red;float:left;"></div>
+				<div style="width: {{100-$ctrl.leftBarPercentage()}}%;box-sizing: border-box;margin-left:-1px;border-left:1px solid #fff;height:25px;background-color:blue;float:right;"></div>
 			</div>
 		</div>
+	</div>
 		`,
-	
+
 	controller : function(authenticationService, voteService, performanceService, debateService){
 		var vm = this;
 		vm.leftVotes = 1;
@@ -30,7 +31,7 @@ angular.module('ngDebate').component("ctComponent", {
 					'debate' : null,
 					'performance' : null
 				}];
-		
+
 		performanceService.getPerformance(1).then(function(res) {
 			console.log("per 1:");
 			console.log(res.data);
@@ -46,9 +47,9 @@ angular.module('ngDebate').component("ctComponent", {
 			console.log(res.data);
 			vm.debate = res.data;
 		})
-		
+
 		if(vm.hasVoted.length === 0 && vm.debate !== undefined){
-		
+
 			voteService.indexVotesByDebate(vm.debate).then(function(res) {
             	var votesCast =  res.data;
             	if(votesCast === undefined){
@@ -57,15 +58,15 @@ angular.module('ngDebate').component("ctComponent", {
             		vm.hasVoted.push(votesCast);
             	}
 			})
-			
+
 		}
-		
+
 		vm.leftBarPercentage = function(){
 			var totVotes = vm.leftVotes + vm.rightVotes;
 			var dec = vm.leftVotes/totVotes;
 			return dec*100;
 		}
-		
+
 		vm.countLeft = function(){
 			var index = 0;
 			vm.hasVoted.forEach(function(v){
@@ -77,7 +78,7 @@ angular.module('ngDebate').component("ctComponent", {
 			console.log(index);
 			return index;
 		}
-		
+
 		vm.countRight = function(){
 			var index = 0;
 			vm.hasVoted.forEach(function(v){
@@ -89,11 +90,11 @@ angular.module('ngDebate').component("ctComponent", {
 			console.log(index);
 			return index;
 		}
-		
+
 		vm.logVote = function(performance){
-			
+
 			console.log("in log vote")
-			
+
 			var flag = false;
 			var presentVote;
 			var newVote = {
@@ -108,7 +109,7 @@ angular.module('ngDebate').component("ctComponent", {
 					presentVote = v;
 				}
 			})
-			
+
 			if(flag === false){
 				console.log("in false, newvote = ")
 				voteService.createVote(newVote).then(function(res){
@@ -119,7 +120,7 @@ angular.module('ngDebate').component("ctComponent", {
 					vm.rightVotes = vm.countRight();
 				})
 			}
-			
+
 			if(flag === true){
 				console.log("in true")
 				voteService.editVote(presentVote.id, newVote).then(function(res){
@@ -141,13 +142,13 @@ angular.module('ngDebate').component("ctComponent", {
 					vm.rightVotes = vm.countRight();
 				})
 			}
-			
+
 		}
 	}
-	
-	
+
+
 });
- 
+
 // encapsulate performances and voteCounts in json to hold in unlimited array
 //<div style="width:{{$ctrl.leftBarPercentage}}%;height:25px;border:2px solid #000;background-color:red;float:left"/>
 //<div style="width:{{100-$ctrl.leftBarPercentage}}%;height:25px;border:3px solid #000;background-color:blue;float:right"/>
