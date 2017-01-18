@@ -13,26 +13,25 @@ function debateController(authenticationService, $timeout) { // authenticationSe
   }
 
   vm.canComment = function(){
-//	  console.log('in canComment. pm:')
-//	  console.log(vm.debatefull.performance_members);
-//	  console.log('in canComment. cu:')
-//	  console.log(vm.currentUser);
+	  console.log('in canComment. pm:')
+	  console.log(vm.debatefull.performance_members);
+	  console.log('in canComment. cu:')
+	  console.log(vm.currentUser);
 	  var flag;
 
 	  if(vm.debatefull.performance_members === undefined
 			  || vm.currentUser === undefined){
-//		  console.log("undefined")
+		  console.log("undefined")
 		  return false;
 	  } else {
-		  if(vm.debatefull.performance_members.length < 2){
-			  if(vm.debatefull.performance_members[0].id === vm.currentUser.id){
-//				  console.log("in <2. p_m[0] =");
-//				  console.log(vm.debatefull.performance_members[0])
+			  if(vm.debatefull.performance_members[0].user.id === vm.currentUser.id ||
+					  vm.debatefull.performance_members[1].user.id === vm.currentUser.id){
+				  console.log("in <2. p_m[0] =");
+				  console.log(vm.debatefull.performance_members[0])
 				  flag = false;
 			  } else {
 				  flag = true;
 			  }
-		  }
 
 		  vm.debatefull.performance_members.forEach(function(pm){
 			  if(pm.user.id === vm.currentUser.id){
