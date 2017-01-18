@@ -2,10 +2,11 @@ var app = angular.module('ngDebate');
 
 function debateController(authenticationService, $timeout) { // authenticationService as parameter
   var vm = this;
-  var turnCount = null;
-  $timeout(function(){turnCount = vm.debatefull.debate.turnCount;},500);
+  
+  var turnCount = 0;
+  $timeout(function(){turnCount = vm.debatefull.debate.turnCount;},300);
 
-  vm.turn= "unknown";
+  vm.turn = "unknown";
   vm.turnCalc = function(roster){
     angular.element(document).ready(function () {
       countDown = turnCount;
@@ -42,7 +43,13 @@ function debateController(authenticationService, $timeout) { // authenticationSe
     });
   }
 
-  vm.getCurretnUser = function(){return authenticationService.currentUser()}
+  vm.$onInit=function(){
+	  vm.turnCalc(vm.debatefull.roster);
+	  };
+
+  vm.currentUser = function(){
+    return authenticationService.currentUser()
+  }
 
 }
 
@@ -91,7 +98,7 @@ app.component('debateComponent',{
                        </div>
                        <div class="row">
                            <div class="col-md-12">
-                               <arg-form-component ng-show="$ctrl.getCurrentUser === {{$ctrl.turn}}" debatefull="$ctrl.debatefull"></arg-form-component>
+                               <arg-form-component ng-show="($ctrl.currentUser.id === {{$ctrl.turn}})" debatefull="$ctrl.debatefull"></arg-form-component>
                            </div>
                        </div>
                    </div>
@@ -100,7 +107,7 @@ app.component('debateComponent',{
 
            <button style="color:black" type="button" ng-click="$ctrl.turnCalc($ctrl.debatefull.roster)">Click Me!</button>
            <div>CURRENT TURN IS: {{$ctrl.turn}}</div>
-           <div>CURRENT USER IS: {{$ctrl.getCurrentUser()}}</div>`,
+           <div>CURRENT USER IS: {{$ctrl.currentUser}}</div>`,
 
   controller : debateController,
 
