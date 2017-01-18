@@ -2,10 +2,11 @@ var app = angular.module('ngDebate');
 
 function debateController(authenticationService, $timeout) { // authenticationService as parameter
   var vm = this;
-  var turnCount = null;
-  $timeout(function(){turnCount = vm.debatefull.debate.turnCount;},500);
 
-  vm.turn= "unknown";
+  var turnCount = 0;
+  $timeout(function(){turnCount = vm.debatefull.debate.turnCount;},300);
+
+  vm.turn = "unknown";
   vm.turnCalc = function(roster){
     angular.element(document).ready(function () {
       countDown = turnCount;
@@ -42,7 +43,21 @@ function debateController(authenticationService, $timeout) { // authenticationSe
     });
   }
 
-  vm.getCurretnUser = function(){return authenticationService.currentUser()}
+  vm.$onInit=function(){
+	  vm.turnCalc(vm.debatefull.roster);
+	  };
+
+  vm.currentUser = function(){
+    return authenticationService.currentUser()
+  }
+
+  vm.guest = function(){
+    if(vm.currentUser.name){
+      return vm.currentUser.id;
+    }else{
+      return "guest";
+    }
+  }
 
 }
 
@@ -78,7 +93,7 @@ app.component('debateComponent',{
                    <div class="col-lg-5 col-md-5">
                        <div class="row">
                            <div class="col-md-12">
-                               <p style="font-size:1.5em;">Live Debate Feed:</p>
+                               <p style="font-size:1.5em;">Live Debate Feed (viewing as {{$ctrl.guest()}}):</p>
                            </div>
                            <div class="col-md-12">
                                <div style="/*float:left;*//*width:20px;*/min-height:20px;margin:0px 0px 10px 0px;background:rgb(30,30,30);background:rgba(248,19,4,0.5);/*-webkit-box-shadow:inset 4px 4px 40px -10px rgba(0,0,0,0.7),3px 3px 5px 1px rgba(0,0,0,0.1);*//*-moz-box-shadow:inset 4px 4px 40px -10px rgba(0,0,0,0.7),3px 3px 5px 1px rgba(0,0,0,0.1);*//*box-shadow:inset 4px 4px 40px -10px rgba(0,0,0,0.7),3px 3px 5px 1px rgba(0,0,0,0.1);*/"></div>
@@ -91,16 +106,12 @@ app.component('debateComponent',{
                        </div>
                        <div class="row">
                            <div class="col-md-12">
-                               <arg-form-component ng-show="$ctrl.getCurrentUser === {{$ctrl.turn}}" cUser = "$ctrl.getCurrentUser()" debatefull="$ctrl.debatefull"></arg-form-component>
+                               <arg-form-component ng-show="$ctrl.getCurrentUser === {{$ctrl.turn}}" debatefull="$ctrl.debatefull"></arg-form-component>
                            </div>
                        </div>
                    </div>
                </div>
-           </div>
-
-           <button style="color:black" type="button" ng-click="$ctrl.turnCalc($ctrl.debatefull.roster)">Click Me!</button>
-           <div>CURRENT TURN IS: {{$ctrl.turn}}</div>
-           <div>CURRENT USER IS: {{$ctrl.getCurrentUser()}}</div>`,
+           </div>`,
 
   controller : debateController,
 
