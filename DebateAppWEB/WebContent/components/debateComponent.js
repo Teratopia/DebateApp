@@ -2,7 +2,7 @@ var app = angular.module('ngDebate');
 
 function debateController(authenticationService, $timeout) { // authenticationService as parameter
   var vm = this;
-  
+
   var turnCount = 0;
   $timeout(function(){turnCount = vm.debatefull.debate.turnCount;},300);
 
@@ -98,7 +98,7 @@ app.component('debateComponent',{
                        </div>
                        <div class="row">
                            <div class="col-md-12">
-                               <arg-form-component ng-show="($ctrl.currentUser.id === {{$ctrl.turn}})" debatefull="$ctrl.debatefull"></arg-form-component>
+                               <arg-form-component ng-show="$ctrl.getCurrentUser === {{$ctrl.turn}}" cUser = "$ctrl.getCurrentUser()" debatefull="$ctrl.debatefull"></arg-form-component>
                            </div>
                        </div>
                    </div>
