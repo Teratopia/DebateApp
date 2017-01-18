@@ -3,60 +3,28 @@ var app = angular.module('ngDebate');
 function debateController(authenticationService, $timeout) { // authenticationService as parameter
   var vm = this;
 
-  var turnCount = 0;
-  $timeout(function(){turnCount = vm.debatefull.debate.turnCount;},300);
-
-  vm.turn = "unknown";
-  vm.turnCalc = function(roster){
-    angular.element(document).ready(function () {
-      countDown = turnCount;
-      var memberIndex = [];
-      for(var i = 0; i<roster.length; i++){
-        memberIndex[i]=0;
-      }
-      var teamRow=0;
-      while(countDown >= 0){
-        var flag = true;
-        for(var teamRow=0; teamRow<roster.length && flag; teamRow++){
-      	  console.log("Roster length at " + teamRow + " is " + roster[teamRow].length);
-      	  console.log("Current memberIndex for " + teamRow + " is " + memberIndex[teamRow]);
-      	  if(roster[teamRow].length!=0){
-            if(memberIndex[teamRow] >= roster[teamRow].length){
-              memberIndex[teamRow]=0;
-            }
-        	  console.log("Inside first if and countDown is " + countDown);
-            if(countDown<1){
-              console.log("INSIDE COUNTDOWN IF");
-              turnCount++;
-              vm.turn = roster[teamRow][memberIndex[teamRow]];
-              console.log("CURRENT TURN IS USER: ");
-              console.log(roster[teamRow][memberIndex[teamRow]]);
-              console.log(countDown);
-              flag = false;
-            }
-            memberIndex[teamRow]++;
-            countDown--;
-            }
-          }
-        }
-        console.log("Value of vm.turn is: " + vm.turn);
-    });
-  }
-
-  vm.$onInit=function(){
-	  vm.turnCalc(vm.debatefull.roster);
-	  };
-
   vm.currentUser = function(){
     return authenticationService.currentUser()
   }
 
   vm.guest = function(){
-    if(vm.currentUser.name){
-      return vm.currentUser.id;
+    if(isNaN(vm.currentUser().id)){
+        return "guest";
     }else{
-      return "guest";
+        return vm.currentUser().username;
     }
+  }
+
+  vm.isParticipant = function(){
+    var cUser = vm.currentUser();
+    vm.debatefull.roster.forEach(function(team){
+      team.forEach(function(member){
+        if(member===cUser.id){
+          return true;
+        }
+      });
+    });
+    return false;
   }
 
 }
@@ -106,7 +74,7 @@ app.component('debateComponent',{
                        </div>
                        <div class="row">
                            <div class="col-md-12">
-                               <arg-form-component ng-show="$ctrl.getCurrentUser === {{$ctrl.turn}}" debatefull="$ctrl.debatefull"></arg-form-component>
+                               <arg-form-component ng-show="$ctrl.isParticipant()" debatefull="$ctrl.debatefull"></arg-form-component>
                            </div>
                        </div>
                    </div>
