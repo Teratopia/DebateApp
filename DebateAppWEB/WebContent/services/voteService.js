@@ -13,6 +13,18 @@ angular.module('ngDebate').factory('voteService', function($http, authentication
 	  
   };
   
+  service.indexVotesByDebate = function(debate){
+	  
+	  return $http({
+		  method : 'GET',
+		  url : 'api/vote/debate/'+debate.id,
+		  headers : {
+			  'x-access-token' : authenticationService.getToken()
+		  }
+	  })
+	  
+  };
+  
   service.getVote = function(id){
 	  
 	  return $http({

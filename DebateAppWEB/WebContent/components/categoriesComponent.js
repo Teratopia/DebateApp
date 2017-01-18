@@ -20,7 +20,7 @@ angular.module('ngDebate').component("categoriesComponent", {
                                   	<span ng-show="deb.issue.linkRef"><h4>Reference:</h4>
 									<a href="{{deb.issue.linkRef}}">{{deb.issue.linkRef}}</a><br></span>
 									<h4>Categories: </h4>
-                                   	<span ng-repeat="cat in deb.issue.categories">{{cat.title}} </span>
+                                   	<span ng-repeat="cat in $ctrl.getCats(deb.issue.issCats)">{{cat.title}} </span>
                                    <h4>Stances:</h4>
                                    <ol>
                                    	<li ng-repeat="per in deb.performances">{{per.stance}}</li>
@@ -62,6 +62,20 @@ angular.module('ngDebate').component("categoriesComponent", {
 				    vm.debates = res.data;
 				    console.log(vm.debates);
 				})	
+				
+		vm.getCats = function(issCats){
+			var catArray = [];
+			issCats.forEach(function(ic1){
+				vm.cats.forEach(function(cat){
+					cat.issCats.forEach(function(ic2){
+						if(ic1.id === ic2.id){
+							catArray.push(cat);
+						}
+					})
+				})
+			});
+			return catArray;
+		}
 		
 		vm.filterDebates = function(cat1){
 			var index = 0;
