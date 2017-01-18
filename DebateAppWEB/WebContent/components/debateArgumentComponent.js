@@ -12,6 +12,7 @@ function debateArgumentController(authenticationService, debateService, formatSe
   }
 }
 
+//Add filter on ng-repeat to sort by timestamp?
 app.component('debateArgumentComponent',{
   template: ` <div class="args-display-screen">
                 <div ng-repeat="argument in $ctrl.debatewargs.arguments">
