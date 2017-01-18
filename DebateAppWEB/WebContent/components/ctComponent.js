@@ -1,20 +1,19 @@
 angular.module('ngDebate').component("ctComponent", {
 
 	template : `
-	<div style="width:100%">
-		<div style="width:100%">
-			<div style="float:left">
+		
+		<div style="width:500px;">
+			<div style="float:left;">
 				<button ng-click="$ctrl.logVote($ctrl.performance1)">Red</button>
+			<div style="float:right;">
+				<button ng-click="$ctrl.logVote($ctrl.performance2)">Blue</button>
 			</div>
-			<div style="width:100%">
-				<div style="width: {{$ctrl.leftBarPercentage()}}%; height:25px;border:1px solid #000;background-color:red;float:left;"></div>
-				<div style="width: {{100-$ctrl.leftBarPercentage()}}%;height:25px;border:1px solid #000;background-color:blue;float:right;"></div>
+			</div>
+			<div style="width:100%;">
+				<div style="width: {{$ctrl.leftBarPercentage()}}%; height:25px;border-right:1px solid #000;background-color:red;"></div>
+				<div style="width: {{100-$ctrl.leftBarPercentage()}}%;height:25px;border-left:1px solid #000;background-color:blue;"></div>
 			</div>
 		</div>
-		<div style="float:right">
-			<button ng-click="$ctrl.logVote($ctrl.performance2)">Blue</button>
-		</div>
-	</div>
 		`,
 	
 	controller : function(authenticationService, voteService, performanceService, debateService){
