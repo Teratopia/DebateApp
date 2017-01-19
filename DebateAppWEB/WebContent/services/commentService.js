@@ -13,6 +13,18 @@ angular.module('ngDebate').factory('commentService', function($http, authenticat
 	  
   };
   
+  service.indexCommentsByDebate = function(id){
+	  
+	  return $http({
+		  method : 'GET',
+		  url : 'api/comment/debate/'+id,
+		  headers : {
+			  'x-access-token' : authenticationService.getToken()
+		  }
+	  })
+	  
+  };
+  
   service.getComment = function(id){
 	  
 	  return $http({

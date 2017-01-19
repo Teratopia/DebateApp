@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import entities.Comment;
+import entities.Team;
 
 @Repository
 @Transactional
@@ -20,6 +21,11 @@ public class CommentDAO implements CommentDAOI {
 
 	public Collection<Comment> index() {
 		String query = "Select c from Comment c";
+		return em.createQuery(query, Comment.class).getResultList();
+	}
+	
+	public Collection<Comment> indexByDebate(int debId) {
+		String query = "Select c from Comment c where c.debate = "+debId;
 		return em.createQuery(query, Comment.class).getResultList();
 	}
 
@@ -67,8 +73,11 @@ public class CommentDAO implements CommentDAOI {
 
 		em.persist(newComment);
 		em.flush();
-		System.out.println(newComment);
-		return em.find(Comment.class, newComment.getId());
+		
+		String query = "select i from Comment i where i.id=(select max(id) from Comment)";
+		newComment = em.createQuery(query, Comment.class).getSingleResult();
+		
+		return newComment;
 	}
 
 	public Comment destroy(int id) {

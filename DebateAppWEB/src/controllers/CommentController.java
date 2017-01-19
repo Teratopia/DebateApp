@@ -33,6 +33,12 @@ public class CommentController implements CommentControllerI {
 	public Collection<Comment> index(HttpServletRequest req, HttpServletResponse res) {
 		return commentDAO.index();
 	}
+	
+	// Respond to request by returning all comments
+	@RequestMapping(path = "comment/debate/{id}", method = RequestMethod.GET)
+	public Collection<Comment> indexByDebate(HttpServletRequest req, HttpServletResponse res, @PathVariable("id") int id) {
+		return commentDAO.indexByDebate(id);
+	}
 
 	// Respond to request by returning single, specific comment
 	@RequestMapping(path = "/comment/{id}", method = RequestMethod.GET)

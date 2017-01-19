@@ -1,10 +1,20 @@
 var app = angular.module('ngDebate');
 
-function debateArgumentController(authenticationService, debateService, formatService) { // authenticationService as parameter
+function debateCommentController(authenticationService, debateService, formatService, commentService) { // authenticationService as parameter
   var vm = this;
   vm.classCode = null;
   vm.leftRight = null;
+  vm.allComments;
 
+  vm.$onInit = function(){
+	  	console.log("in comment controller on init")
+		  commentService.indexCommentsByDebate(vm.debatefull.debate.id).then(function(res){
+			  vm.allComments = res.data;
+			  console.log("allComments = res.Data:")
+			  console.log(vm.allComments);
+		  })
+  }
+  
   vm.assignClass = function(arg, performances){
     return formatService.getArgPerfClass(arg, performances);
   }
@@ -12,27 +22,21 @@ function debateArgumentController(authenticationService, debateService, formatSe
   vm.isRight=function(args, performances){
     return formatService.getArgNumClass(args, performances);
   }
+  
 }
 
 //Add filter on ng-repeat to sort by timestamp?
-app.component('debateArgumentComponent',{
-  template: ` <div class="args-display-screen">
-                <div ng-repeat="argument in $ctrl.debatefull.arguments">
-                  <div class="row arg-holder">
-                    <div ng-class="$ctrl.assignClass(argument, $ctrl.debatefull.debate.performances)">
-                	  <div ng-class="$ctrl.isRight(argument, $ctrl.debatefull.debate.performances)">{{$index}}</div>
-                        <div class="pad-arg-text">
-                          {{argument.text}} 
-                          <div style="font-size:.7em">({{argument.user.username}})</div>
-                        </div>
-                     </div>
-                   </div>
+app.component('debateCommentComponent',{
+  template: ` <div class="comments-display-screen">
+                <div ng-repeat="comment in $ctrl.allComments | orderBy:'timeStamp'">
+                          {{comment.user.username}} says: {{comment.text}} 
                 </div>
               </div>`,
 
-  controller : debateArgumentController,
+  controller : debateCommentController,
 
   bindings : {
                 debatefull: '<'
+//                allComments : '='
               }
 });
