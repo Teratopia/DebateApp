@@ -59,8 +59,10 @@ public class AuthenticationController implements AuthenticationControllerI {
 		System.out.println("IN AUTH CONTROLLER SIGNUP 1");
 
 		User user = userDao.create(userJson);
+		
 		System.out.println("IN AUTH CONTROLLER SIGNUP. USER:");
 		System.out.println(user);
+		
 		String jws = jwtGen.generateUserJwt(user);
 		System.out.println("IN AUTH CONTROLLER SIGNUP. JWT:");
 		System.out.println(jws);
