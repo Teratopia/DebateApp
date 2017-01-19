@@ -20,7 +20,7 @@ angular.module('ngDebate').component("ctComponent", {
 	</div>
 		`,
 
-	controller : function(authenticationService, voteService, performanceService, debateService){
+	controller : function(authenticationService, voteService, performanceService, debateService, $location){
 		var vm = this;
 		vm.leftVotes = 1;
 		vm.rightVotes = 1;
@@ -35,34 +35,45 @@ angular.module('ngDebate').component("ctComponent", {
 					'performance' : null
 				}];
 
-		vm.$onInit = function(){
-			console.log("on init. vm.debatefull:")
-			console.log(vm.debatefull)
-			vm.performance1 = vm.debatefull.debate.performances[0];
-			vm.performance2 = vm.debatefull.debate.performances[1];
-			vm.debate = vm.debatefull.debate;
-			
-			if(vm.hasVoted === undefined && vm.debate !== undefined){
-				console.log("in init if")
-				voteService.indexVotesByDebate(vm.debate).then(function(res) {
-	            	var votesCast =  res.data;
-	            	console.log("votes cast: ")
-	            	console.log(votesCast)
-	            	if(votesCast === undefined){
-	            		vm.hasVoted = vm.dummyArray;
-	            	} else {
-	            		vm.hasVoted = votesCast;
-	            		console.log("in else, vm.hasVoted = ")
-	            		console.log(vm.hasVoted)
-	            		vm.countLeft();
-	            		vm.countRight();
-	            	}
-				})
 
-			}
-		}
+				  var path = $location.path().split("/");
+				  debateService.indexDebateFull(path[path.length-1])
+				  	.then(function(res) {
+				  		vm.debateData = res.data;
+				  		console.log(vm.debateData)
+				  		vm.ddLoaded = true;
+				  		vm.performance1 = vm.debateData.debate.performances[0];
+						vm.performance2 = vm.debateData.debate.performances[1];
+						vm.debate = vm.debateData.debate;
+						
+						if(vm.hasVoted === undefined && vm.debate !== undefined){
+							console.log("in init if")
+							voteService.indexVotesByDebate(vm.debate).then(function(res) {
+				            	var votesCast =  res.data;
+				            	console.log("votes cast: ")
+				            	console.log(votesCast)
+				            	if(votesCast === undefined){
+				            		vm.hasVoted = vm.dummyArray;
+				            	} else {
+				            		vm.hasVoted = votesCast;
+				            		console.log("in else, vm.hasVoted = ")
+				            		console.log(vm.hasVoted)
+				            		vm.countLeft();
+				            		vm.countRight();
+				            	}
+							})
+
+						}
+				  	});
+
+//		vm.$onInit = function(){
+			console.log("on init in ctComp. vm.debateData:")
+			console.log(vm.debateData)
+			
+//		}
 		
 		vm.noTwoPerfs = function(){
+			if (!vm.debate) return false;
 			if(vm.debate.performances.length <2){
 				return true;
 			} else {
@@ -72,7 +83,7 @@ angular.module('ngDebate').component("ctComponent", {
 		
 		vm.hideButtons = function(){
 				var flag = false;
-			vm.debatefull.performance_members.forEach(function(pm){
+			vm.debateData.performance_members.forEach(function(pm){
 				if(vm.user !== undefined){
 					if(pm.user.id === vm.user.id){
 						flag = true
@@ -177,7 +188,7 @@ angular.module('ngDebate').component("ctComponent", {
 	},
 	
 	bindings : {
-		debatefull : '<'
+		debateData : '<'
 	}
 
 

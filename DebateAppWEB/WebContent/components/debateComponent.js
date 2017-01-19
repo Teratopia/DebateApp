@@ -1,10 +1,21 @@
 var app = angular.module('ngDebate');
 
-function debateController(authenticationService, $timeout) { // authenticationService
+function debateController(authenticationService, $timeout, $scope, debateService, $route, $location) { // authenticationService
 																// as parameter
   var vm = this;
   vm.currentUser = authenticationService.currentUser();
   vm.allComments;
+  vm.ddLoaded = false;
+
+  vm.isInDebate = false;
+  
+  vm.debateData = {
+		  debate : {
+			  performances : [],
+		  },
+		  performance_members : [],
+		  roster : [],
+  }
 
   vm.guest = function(){
     if(vm.currentUser === undefined){
@@ -14,41 +25,53 @@ function debateController(authenticationService, $timeout) { // authenticationSe
     }
   }
 
+  vm.canComment = function(){
+	  return vm.isParticipant();
+  }
+
   vm.isParticipant = function(){
-	  var flag = false;
-    if(vm.currentUser !== undefined){
-      vm.debatefull.roster.forEach(function(team){
-        team.forEach(function(member){
-//          console.log("PARTICIPANTS:" + member)
-          if(member===vm.currentUser.id){
-            flag = true;
-          }
-        });
-      });
-    }
-//    console.log("IS PARTICIPANT:")
-//    console.log(flag);
-    return flag;
-    }
+	  	if (vm.debateData && vm.currentUser) {
+		  var participating = false;
+		  var l = vm.debateData.roster.length;
+		  for (var i = 0 ; i < l ; i++) {
+			  if (vm.debateData.roster[i].includes(vm.currentUser.id)) {
+				  participating = true;
+				  break;
+			  }
+		  }
+		  return participating;
+	  	}
+  }
+  
+  var path = $location.path().split("/");
+  debateService.indexDebateFull(path[path.length-1])
+  	.then(function(res) {
+  		vm.debateData = res.data;
+  		console.log("vm.debateData")
+  		console.log(vm.debateData);
+  		vm.ddLoaded = true;
+  	});
+
 }
 
 app.component('debateComponent',{
   template: `<nav-component></nav-component>
-            <div class="container-fluid">
+            <div class="container-fluid" ng-if="$ctrl.ddLoaded === true">
                <div class="row">
                    <div class="col-lg-7 col-md-7" style="padding:0px;">
                        <div>
                            <div class="col-md-12">
                                <div class="row">
                                    <div class="col-md-12">
-                                       <div style="height:1.6em">
-                                           <p style="font-size:1.5em">{{$ctrl.debatefull.debate.issue.title}}</p>
+                                       <div style="height:2.5em">
+                                           <p style="font-size:1.5em">{{$ctrl.debateData.debate.issue.title}}</p>
                                        </div>
                                    </div>
                                </div>
-                               <debate-info-component debate="$ctrl.debatefull.debate"></debate-info-component>
+                               <debate-info-component debate="$ctrl.debateData.debate"></debate-info-component>
                            </div>
-                           <comment-master-component debatefull="$ctrl.debatefull"></comment-master-component>
+                           <comment-master-component debate-data="$ctrl.debateData"></comment-master-component>
+
                        </div>
                    </div>
                    <div class="col-lg-5 col-md-5">
@@ -57,31 +80,26 @@ app.component('debateComponent',{
                                <p style="font-size:1.5em;">Live Debate Feed (viewing as {{$ctrl.guest()}}):</p>
                            </div>
                            <div class="col-md-12">
-								<ct-component debatefull = "$ctrl.debatefull"></ct-component>
+								<ct-component debate-data="$ctrl.debateData"></ct-component>
                            </div>
                        </div>
                        <div class="row">
                            <div class="col-md-12">
-                                <debate-argument-component debatefull="$ctrl.debatefull"></debate-argument-component>
+                                <debate-argument-component debatefull="$ctrl.debateData"></debate-argument-component>
                            </div>
                        </div>
                        <div class="row">
                            <div class="col-md-12">
-                               <arg-form-component ng-show="$ctrl.isParticipant()" debatefull="$ctrl.debatefull"></arg-form-component>
+                               <arg-form-component ng-show="$ctrl.isParticipant()" debatefull="$ctrl.debateData"></arg-form-component>
                            </div>
                        </div>
                    </div>
                </div>
            </div>`,
 
-  controller : debateController,
+  controller : debateController
 
-  bindings : {
-                debatefull: '<',
-              }
 });
-
-
 
 //<div class="col-md-12">
 //<div class="row">
@@ -94,5 +112,4 @@ app.component('debateComponent',{
 //    <div class="col-md-12" ng-show="!$ctrl.isParticipant()" >
 //        <com-form-component ng-show="!$ctrl.isParticipant()" allComments="$ctrl.allComments" debatefull="$ctrl.debatefull"></com-form-component>
 //    </div>
-//</div>
 //</div>

@@ -14,7 +14,7 @@ angular.module('ngDebate').component("commentMasterComponent", {
                   </div>
                </div>
                <div class="row">
-                   <div class="col-md-12" ng-show="!$ctrl.isParticipant()" >
+                   <div class="col-md-12" ng-hide="$ctrl.isParticipant()" >
 						<div class="form-box">
 							<form>
 								<div>
@@ -38,7 +38,7 @@ angular.module('ngDebate').component("commentMasterComponent", {
 	`,
 	
 	controller : function(authenticationService, userService, formatService, commentService,
-			debateService){
+			debateService, $location){
 		
 		var vm = this;
 		  vm.classCode = null;
@@ -52,16 +52,29 @@ angular.module('ngDebate').component("commentMasterComponent", {
 		  vm.newRef = "";
 		  vm.debate;
 		  
-		  vm.$onInit = function(){
-			  vm.debate = vm.debatefull.debate;
+
+		  var path = $location.path().split("/");
+		  debateService.indexDebateFull(path[path.length-1])
+		  	.then(function(res) {
+		  		vm.debateData = res.data;
+		  		vm.ddLoaded = true;
+		  		vm.debate = vm.debateData.debate;
+		  		
+				  commentService.indexCommentsByDebate(vm.debateData.debate.id).then(function(res){
+					  vm.allComments = res.data;
+					  console.log("allComments = res.Data:")
+					  console.log(vm.allComments);
+				  })
+		  	});
+
+		  
+//		  vm.$onInit = function(){
+		  console.log(vm.debateData);
+		  console.log(this)
 			  
 			  console.log("in comment controller on init")
-			  commentService.indexCommentsByDebate(vm.debatefull.debate.id).then(function(res){
-				  vm.allComments = res.data;
-				  console.log("allComments = res.Data:")
-				  console.log(vm.allComments);
-			  })
-		  }
+
+//		  }
 		  
 		  vm.instCom = function(){
 			  console.log("in instCom. com = ")
@@ -90,11 +103,28 @@ angular.module('ngDebate').component("commentMasterComponent", {
 		    return formatService.getArgNumClass(args, performances);
 		  }
 		  
+		  vm.isParticipant = function(){
+			  if(authenticationService.isLoggedIn() === false){
+				  return true;
+			  } else if (vm.debateData && vm.currentUser) {
+				  var participating = false;
+				  var l = vm.debateData.roster.length;
+				  for (var i = 0 ; i < l ; i++) {
+					  if (vm.debateData.roster[i].includes(vm.currentUser.id)) {
+						  participating = true;
+						  break;
+					  }
+				  }
+				  return participating;
+			  	}
+		  }
+		  
+		  
 		},
-
-		  bindings : {
-		                debatefull: '<'
-		              }
+//
+//		  bindings : {
+//		    debateData: '<'
+//		  }
 });
 	
 	

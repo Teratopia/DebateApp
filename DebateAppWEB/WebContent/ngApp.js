@@ -19,29 +19,7 @@ app.config(function($routeProvider){ // $routeProvider is an Angular service
 			template: `<startDebate-component></startDebate-component>` // use templateURL to reference a different file
 		})
 		.when('/debate/:id', {
-			template: `<debate-component debatefull="$resolve.myData"></debate-component>`, // Directs user to page displaying details of specific debate. debate is fetched from 'api/debate/{id}' on SpringREST
-      resolve : {
-    	  myData : function(debateService, $route, $location) {
-          var id = parseInt($route.current.params.id); // Get the id of the specific clicked on debate from the general debate-table-componenet
-
-          if (id) { // if the id is successfully parsed in the previous line, try to fetch the debate using the parsed id
-            return debateService.indexDebateFull(id)  // call get debate to fetch the debate by id
-            .then(function(res) {
-              console.log(res.data);
-            	return res.data
-            })
-            .catch(function(err) {
-              // if the id was not found, redirect to not found
-              if (err.status == 404) {
-                $location.path('/_404');
-              }
-            })
-          } else {
-            // if id is absent or NaN, redirect to not found
-            $location.path('/_404');
-          }
-        }
-      }
+			template: `<debate-component></debate-component>`, // Directs user to page displaying details of specific debate. debate is fetched from 'api/debate/{id}' on SpringREST
 		})
 		.when('/about', {
 			template: `<about-component></about-component>` // use templateURL to reference a different file
