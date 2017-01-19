@@ -46,7 +46,14 @@ public class UserController implements UserControllerI{
 	// successfully saved User
 	@RequestMapping(path = "user", method = RequestMethod.POST)
 	public User create(HttpServletRequest req, HttpServletResponse res, @RequestBody String UserJson) {
-		return userDAO.create(UserJson);
+		User newUser = userDAO.create(UserJson);
+		if(newUser == null){
+			res.setStatus(422);
+			return null;
+		}else{
+			res.setStatus(201);
+			return newUser;
+		}
 	}
 	
 	@RequestMapping(path = "user/{id}/deact", method = RequestMethod.PUT)

@@ -50,8 +50,10 @@ app.factory('authenticationService', function($window, $http) {
 			service.saveToken(response.data.jwt);
 			return response;
 		})
-
-	};
+    .then(function(res){
+      service.login(res.data);
+    })
+};
 
 	service.unauthorizeUser = function() {
 
@@ -83,7 +85,7 @@ app.factory('authenticationService', function($window, $http) {
 		if (service.isLoggedIn()) {
 			var token = service.getToken();
 			var payload = JSON.parse($window.atob(token.split('.')[1]));
-			
+
 			console.log("PAYLOAD: #####################");
 			console.log(payload);
 

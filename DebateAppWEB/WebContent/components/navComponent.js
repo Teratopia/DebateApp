@@ -29,7 +29,7 @@ app.component('navComponent',{
                                   <li ng-hide="$ctrl.checkLogin()" class="line_item" role="presentation"><a href="#">Log In</a></li>
                                   <li ng-show="$ctrl.checkLogin()" class="dropdown open" uib-dropdown keyboard-nav><a class="dropdown-toggle" uib-dropdown-toggle aria-expanded="true" href="#">Profile <span class="caret"></span></a>
                                       <ul class="dropdown-menu" uib-dropdown-menu role="menu">
-                                          <li class="sub_line_item " role="presentation"><a href="#!/profile">View Profile</a></li>
+                                          <li class="sub_line_item " role="presentation"><a href="#!/secure/profile">View Profile</a></li>
                                           <li class="sub_line_item " role="presentation"><a href="#" ng-click="$ctrl.logout()">Log Out</a></li>
                                       </ul>
                                   </li>

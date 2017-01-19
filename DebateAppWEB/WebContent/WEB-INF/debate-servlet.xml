@@ -50,7 +50,7 @@
 
  	<mvc:interceptors>
 		<mvc:interceptor>
-			<mvc:mapping path="/quib/**" />
+			<mvc:mapping path="/secure/**" />
 			<bean id="DataSecurityInterceptor" class="security.DataSecurityInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>

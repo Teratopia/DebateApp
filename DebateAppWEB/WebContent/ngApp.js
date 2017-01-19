@@ -24,7 +24,7 @@ app.config(function($routeProvider){ // $routeProvider is an Angular service
 		.when('/about', {
 			template: `<about-component></about-component>` // use templateURL to reference a different file
 		})
-		.when('/profile', {
+		.when('/secure/profile', {
 			template: `<profile-component></profile-component>` // use templateURL to reference a different file
 		})
 		.when('/issues', {
@@ -32,15 +32,6 @@ app.config(function($routeProvider){ // $routeProvider is an Angular service
 		})
 		.when('/startDebate', {
 			template: `<start-debate-component></start-debate-component>` // use templateURL to reference a different file
-		})
-		.when('/charttest', {
-			template: `<ct-component></ct-component>` // use templateURL to reference a different file
-		})
-		.when('/afc', {
-			template: `<arg-form-component></arg-form-component>` // use templateURL to reference a different file
-		})
-		.when('/cfc', {
-			template: `<com-form-component></com-form-component>` // use templateURL to reference a different file
 		})
 		.when('/join/:id', {
 			template: `<join-debate-component debate="$resolve.myData"></join-debate-component>`
