@@ -28,12 +28,11 @@ function argFormController(authenticationService, userService, formatService, ar
   			})
   	});
  	  
- 	  
   vm.instArg = function(){
 	  console.log("in instArg. vm.arg = ")
 
 	  var arg = {
-			  'user' : vm.userInfo,
+			  'user' : vm.currentUser,
 			  'perfMember' : vm.perfMember,
 			  'text' : vm.newText,
 			  'linkRef' : vm.newRef,
@@ -41,11 +40,12 @@ function argFormController(authenticationService, userService, formatService, ar
 			  'team' : vm.performance.team
 	  }
 
+		console.log("HERE IS THE ARG OBJECT: ")
 	  console.log(arg);
 	  argumentService.createArgument(arg).then(function(res){
 		  vm.newText = null;
 		  vm.newRef = null;
-		  
+
 	  })
   }
 
@@ -114,7 +114,7 @@ function argFormController(authenticationService, userService, formatService, ar
 //	  };
 
   vm.currentUser = function(){
-    return authenticationService.currentUser()
+    return authenticationService.currentUser();
   }
 
   vm.highlight = function(x,y){
@@ -128,7 +128,9 @@ function argFormController(authenticationService, userService, formatService, ar
 }
 
 app.component('argFormComponent',{
-  template: `<div class="form-box">
+  template: `<div>TURN ID: {{$ctrl.turnId}}</div>
+						 <div>CURRENT USER ID: {{$ctrl.currentUser.id}}</div>
+						 <div class="form-box">
               <form>
                 <div>
                   <textarea id="arg-text" ng-class="$ctrl.highlight($ctrl.turnId,$ctrl.currentUser.id)" placeholder="{{$ctrl.argumentText}}" ng-model="$ctrl.newText" class="arg-text-form"></textarea>
@@ -144,6 +146,8 @@ app.component('argFormComponent',{
 
   controller : argFormController
 
-//ng-disabled="$ctrl.turnId != $ctrl.currentUser.id"
-	
 });
+
+//ng-disabled="$ctrl.turnId != $ctrl.currentUser.id"
+
+// ng-disabled="$ctrl.turnId != $ctrl.currentUser.id"

@@ -90,9 +90,8 @@ app.factory('authenticationService', function($window, $http) {
 			return {
 				id : payload.user_id,
 				username : payload.username,
-				password : payload.password,
-				goodness : payload.goodness,
-				lawfulness : payload.lawfulness,
+				goodevil : payload.goodevil,
+				lawfulchaotic : payload.lawfulchaotic,
 				type : payload.type
 			};
 		}

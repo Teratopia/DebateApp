@@ -26,6 +26,8 @@ public class JsonWebTokenGenerator {
     Map<String, Object> userJson = new HashMap<>();
     userJson.put("user_id", user.getId());
     userJson.put("username", user.getUsername());
+    userJson.put("goodevil", user.getGoodevil());
+    userJson.put("lawfulchaotic", user.getLawfulchaotic());
 
     // Use Jwts to create an encoded JWT as a String
     String jwt = "";
