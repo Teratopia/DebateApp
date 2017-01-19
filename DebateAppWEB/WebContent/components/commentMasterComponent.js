@@ -51,7 +51,6 @@ angular.module('ngDebate').component("commentMasterComponent", {
 		  vm.newText = "";
 		  vm.newRef = "";
 		  vm.debate;
-		  
 
 		  var path = $location.path().split("/");
 		  debateService.indexDebateFull(path[path.length-1])
@@ -62,19 +61,8 @@ angular.module('ngDebate').component("commentMasterComponent", {
 		  		
 				  commentService.indexCommentsByDebate(vm.debateData.debate.id).then(function(res){
 					  vm.allComments = res.data;
-					  console.log("allComments = res.Data:")
-					  console.log(vm.allComments);
 				  })
 		  	});
-
-		  
-//		  vm.$onInit = function(){
-		  console.log(vm.debateData);
-		  console.log(this)
-			  
-			  console.log("in comment controller on init")
-
-//		  }
 		  
 		  vm.instCom = function(){
 			  console.log("in instCom. com = ")
@@ -104,14 +92,10 @@ angular.module('ngDebate').component("commentMasterComponent", {
 		  }
 		  
 		  vm.isParticipant = function(){
-			  console.log("in isPart")
-			  console.log(vm.debateData)
-			  console.log(vm.userInfo)
 			  
 			  if(authenticationService.isLoggedIn() === false){
 				  return true;
 			  } else if (vm.debateData && vm.userInfo) {
-				  console.log("in isPart else if")
 				  var participating = false;
 				  var l = vm.debateData.roster.length;
 				  for (var i = 0 ; i < l ; i++) {
@@ -126,10 +110,6 @@ angular.module('ngDebate').component("commentMasterComponent", {
 		  
 		  
 		},
-//
-//		  bindings : {
-//		    debateData: '<'
-//		  }
 });
 	
 	

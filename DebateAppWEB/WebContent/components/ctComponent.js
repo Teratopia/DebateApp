@@ -39,24 +39,18 @@ angular.module('ngDebate').component("ctComponent", {
 	  debateService.indexDebateFull(path[path.length-1])
 	  	.then(function(res) {
 	  		vm.debateData = res.data;
-	  		console.log(vm.debateData)
 	  		vm.ddLoaded = true;
 	  		vm.performance1 = vm.debateData.debate.performances[0];
 			vm.performance2 = vm.debateData.debate.performances[1];
 			vm.debate = vm.debateData.debate;
 			
 			if(vm.hasVoted === undefined && vm.debate !== undefined){
-				console.log("in init if")
 				voteService.indexVotesByDebate(vm.debate).then(function(res) {
 	            	var votesCast =  res.data;
-	            	console.log("votes cast: ")
-	            	console.log(votesCast)
 	            	if(votesCast === undefined){
 	            		vm.hasVoted = vm.dummyArray;
 	            	} else {
 	            		vm.hasVoted = votesCast;
-	            		console.log("in else, vm.hasVoted = ")
-	            		console.log(vm.hasVoted)
 	            		vm.countLeft();
 	            		vm.countRight();
 	            	}
@@ -64,12 +58,6 @@ angular.module('ngDebate').component("ctComponent", {
 
 			}
 	  	});
-
-//		vm.$onInit = function(){
-			console.log("on init in ctComp. vm.debateData:")
-			console.log(vm.debateData)
-
-//		}
 
 		vm.noTwoPerfs = function(){
 			if (!vm.debate) return false;

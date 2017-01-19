@@ -1,49 +1,33 @@
 var app = angular.module('ngDebate');
 
 function argFormController(authenticationService, userService, formatService, argumentService,
-		debateService, performanceService, pmService) { // authenticationService
+		debateService, performanceService, pmService, $location) { // authenticationService
 														// as parameter
 
   var vm = this;
-  vm.cUser = function(){return authenticationService.getCurrentUser();}
+  vm.cUser = "";
   vm.argumentText = 'type argument';
   vm.hrefText = 'insert URL';
   vm.userInfo = authenticationService.currentUser();
   vm.perfMember;
   vm.newText = "";
   vm.newRef = "";
-
-  // Commented for testing
   vm.performance = "";
- vm.detPerformance = function(){
-	  vm.debatefull.performance_members.forEach(function(pm){
-		  if(pm.user.id === vm.cUser.id){
-			  vm.perfMember = pm;
-			  vm.performance = pm.performance;
-		  }
-	  })
- }
-
-   vm.$onInit=function(){
-      vm.detPerformance();
- 	  };
-
-  // for testing
-  // vm.debate;
-  // vm.performance;
-  // debateService.getDebate(29).then(function(res){
-	// vm.debate = res.data;
-  // })
-  // performanceService.getPerformance(24).then(function(res){
-	// vm.performance = res.data;
-  //
-  // })
-  // pmService.getPerformanceMember(16).then(function(res){
-	// vm.perfMember = res.data;
-  // })
-  // End Testing
 
 
+  var path = $location.path().split("/");
+  debateService.indexDebateFull(path[path.length-1])
+  	.then(function(res) {
+  		vm.cUser = authenticationService.currentUser();
+  		vm.debatefull = res.data;
+  			vm.debatefull.performance_members.forEach(function(pm){
+  				if(pm.user.id === vm.cUser.id){
+  					vm.perfMember = pm;
+  					vm.performance = pm.performance;
+  				}
+  			})
+  	});
+ 	  
   vm.instArg = function(){
 	  console.log("in instArg. vm.arg = ")
 
@@ -61,6 +45,7 @@ function argFormController(authenticationService, userService, formatService, ar
 	  argumentService.createArgument(arg).then(function(res){
 		  vm.newText = null;
 		  vm.newRef = null;
+
 	  })
   }
 
@@ -69,9 +54,9 @@ function argFormController(authenticationService, userService, formatService, ar
   var turnCount = 0;
 
 
-  vm.$onInit=function(){
-	  turnCount = vm.debatefull.debate.turnCount;
-	  };
+//  vm.$onInit=function(){
+//	  turnCount = vm.debatefull.debate.turnCount;
+//	  };
 //  $timeout(function(){turnCount = vm.debatefull.debate.turnCount;},300);
 
   vm.turnId = "unknown";
@@ -124,9 +109,9 @@ function argFormController(authenticationService, userService, formatService, ar
 	  })
   }
 
-  vm.$onInit=function(){
-	  vm.turnCalc(vm.debatefull.roster);
-	  };
+//  vm.$onInit=function(){
+//	  vm.turnCalc(vm.debatefull.roster);
+//	  };
 
   vm.currentUser = function(){
     return authenticationService.currentUser();
@@ -159,11 +144,8 @@ app.component('argFormComponent',{
               </form>
             </div>`,
 
-  controller : argFormController,
+  controller : argFormController
 
-  bindings : {
-	  			        debatefull: '<'
-             }
 });
 
 
