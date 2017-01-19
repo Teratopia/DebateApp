@@ -104,13 +104,18 @@ angular.module('ngDebate').component("commentMasterComponent", {
 		  }
 		  
 		  vm.isParticipant = function(){
+			  console.log("in isPart")
+			  console.log(vm.debateData)
+			  console.log(vm.userInfo)
+			  
 			  if(authenticationService.isLoggedIn() === false){
 				  return true;
-			  } else if (vm.debateData && vm.currentUser) {
+			  } else if (vm.debateData && vm.userInfo) {
+				  console.log("in isPart else if")
 				  var participating = false;
 				  var l = vm.debateData.roster.length;
 				  for (var i = 0 ; i < l ; i++) {
-					  if (vm.debateData.roster[i].includes(vm.currentUser.id)) {
+					  if (vm.debateData.roster[i].includes(vm.userInfo.id)) {
 						  participating = true;
 						  break;
 					  }
