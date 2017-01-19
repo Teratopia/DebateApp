@@ -9,8 +9,8 @@ angular.module('ngDebate').factory(
 			service.getArgPerfClass = function(arg, performances) {
 				for (var i = 0; i < performances.length; i++) {
 					if (arg.perfMember.performance.id === performances[i].id) {
-						console.log(arg.perfMember.performance);
-						console.log(performances);
+//						console.log(arg.perfMember.performance);
+//						console.log(performances);
 						if (i === 0) {
 // 							console.log(colors[i] + " arg-right");
 							return colors[i] + " arg-right";

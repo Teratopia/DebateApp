@@ -59,7 +59,7 @@ app.component('debateComponent',{
             <div class="container-fluid" ng-if="$ctrl.ddLoaded === true">
                <div class="row">
                    <div class="col-lg-7 col-md-7" style="padding:0px;">
-                       <div>
+                       <div style="overflow-y:auto;">
                            <div class="col-md-12">
                                <div class="row">
                                    <div class="col-md-12">
@@ -71,7 +71,6 @@ app.component('debateComponent',{
                                <debate-info-component debate="$ctrl.debateData.debate"></debate-info-component>
                            </div>
                            <comment-master-component debate-data="$ctrl.debateData"></comment-master-component>
-
                        </div>
                    </div>
                    <div class="col-lg-5 col-md-5">
@@ -104,8 +103,8 @@ app.component('debateComponent',{
 //        <com-form-component ng-show="!$ctrl.isParticipant()" allComments="$ctrl.allComments" debatefull="$ctrl.debatefull"></com-form-component>
 //    </div>
 //</div>
-           
-//           
+
+//
 //           ---
 //           <div class="row">
 //               <div class="col-md-12">
