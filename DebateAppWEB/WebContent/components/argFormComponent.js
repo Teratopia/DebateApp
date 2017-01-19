@@ -5,7 +5,7 @@ function argFormController(authenticationService, userService, formatService, ar
 														// as parameter
 
   var vm = this;
-  vm.cUser = function(){authenticationService.getCurrentUser();}
+  vm.cUser = function(){return authenticationService.getCurrentUser();}
   vm.argumentText = 'type argument';
   vm.hrefText = 'insert URL';
   vm.userInfo = authenticationService.currentUser();
@@ -14,7 +14,7 @@ function argFormController(authenticationService, userService, formatService, ar
   vm.newRef = "";
 
   // Commented for testing
-   vm.performance;
+  vm.performance = "";
  vm.detPerformance = function(){
 	  vm.debatefull.performance_members.forEach(function(pm){
 		  if(pm.user.id === vm.cUser.id){
@@ -48,7 +48,7 @@ function argFormController(authenticationService, userService, formatService, ar
 	  console.log("in instArg. vm.arg = ")
 
 	  var arg = {
-			  'user' : vm.userInfo,
+			  'user' : vm.currentUser,
 			  'perfMember' : vm.perfMember,
 			  'text' : vm.newText,
 			  'linkRef' : vm.newRef,
@@ -56,6 +56,7 @@ function argFormController(authenticationService, userService, formatService, ar
 			  'team' : vm.performance.team
 	  }
 
+		console.log("HERE IS THE ARG OBJECT: ")
 	  console.log(arg);
 	  argumentService.createArgument(arg).then(function(res){
 		  vm.newText = null;
@@ -128,7 +129,7 @@ function argFormController(authenticationService, userService, formatService, ar
 	  };
 
   vm.currentUser = function(){
-    return authenticationService.currentUser()
+    return authenticationService.currentUser();
   }
 
   vm.highlight = function(x,y){
@@ -142,13 +143,15 @@ function argFormController(authenticationService, userService, formatService, ar
 }
 
 app.component('argFormComponent',{
-  template: `<div class="form-box">
+  template: `<div>TURN ID: {{$ctrl.turnId}}</div>
+						 <div>CURRENT USER ID: {{$ctrl.currentUser.id}}</div>
+						 <div class="form-box">
               <form>
                 <div>
                   <textarea id="arg-text" ng-class="$ctrl.highlight($ctrl.turnId,$ctrl.currentUser.id)" placeholder="{{$ctrl.argumentText}}" ng-model="$ctrl.newText" class="arg-text-form"></textarea>
                 </div>
                 <div>
-                  <input id="args-submit" ng-class="$ctrl.highlight($ctrl.turnId,$ctrl.currentUser.id)" ng-disabled="$ctrl.turnId != $ctrl.currentUser.id" ng-click="$ctrl.instArg() ; $ctrl.turnCalc($ctrl.debatefull.roster)" type="submit" value="Send">
+                  <input id="args-submit" ng-class="$ctrl.highlight($ctrl.turnId,$ctrl.currentUser.id)" ng-click="$ctrl.instArg() ; $ctrl.turnCalc($ctrl.debatefull.roster)" type="submit" value="Send">
                 </div>
                 <div style="overflow: hidden; padding-right: .35em;">
                   <input type="text" ng-class="$ctrl.highlight($ctrl.turnId,$ctrl.currentUser.id)" placeholder="{{$ctrl.hrefText}}" ng-model="$ctrl.newRef" id="arg-href-link" class="href-link"/>
@@ -162,3 +165,6 @@ app.component('argFormComponent',{
 	  			        debatefull: '<'
              }
 });
+
+
+// ng-disabled="$ctrl.turnId != $ctrl.currentUser.id"
