@@ -108,6 +108,7 @@ public class UserDAO implements UserDAOI {
 			newUser = mapper.readValue(userJson, User.class);
 		}catch(Exception e){
 			System.out.println(e);
+		      return null;
 		}
 
 	    String rawPassword = newUser.getPassword();
