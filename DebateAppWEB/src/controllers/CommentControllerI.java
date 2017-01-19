@@ -12,6 +12,9 @@ import entities.Comment;
 
 public interface CommentControllerI {
 	public Collection<Comment> index(HttpServletRequest req, HttpServletResponse res);
+	
+	public Collection<Comment> indexByDebate(HttpServletRequest req, HttpServletResponse res, @PathVariable("id") int id);
+
 
 	public Comment show(HttpServletRequest req, HttpServletResponse res, @PathVariable("id") int id);
 

@@ -16,7 +16,7 @@ angular.module('ngDebate').component("ctComponent", {
 		</div>
 	</div>
 	<div ng-show="$ctrl.noTwoPerfs()">
-		<h4>Waiting for Opponent</h4>
+		<h5>Waiting for Opponent</h5>
 	</div>
 		`,
 

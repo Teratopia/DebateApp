@@ -27,8 +27,6 @@ public class VoteDAO implements VoteDAOI{
 	@Override
 	public Collection<Vote> indexByDebate(int debId) {
 		
-		Debate d = em.find(Debate.class, debId);
-		
 		String query = "select t from Vote t where t.debate = "+debId;
 		Collection<Vote> Votes = em.createQuery(query, Vote.class).getResultList();
 		return Votes;

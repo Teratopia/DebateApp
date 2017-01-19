@@ -7,6 +7,8 @@ import entities.Comment;
 public interface CommentDAOI {
 
 	public Collection<Comment> index();
+	
+	public Collection<Comment> indexByDebate(int debId);
 
 	public Comment show(int id);
 

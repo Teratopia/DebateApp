@@ -4,6 +4,7 @@ function debateController(authenticationService, $timeout) { // authenticationSe
 																// as parameter
   var vm = this;
   vm.currentUser = authenticationService.currentUser();
+  vm.allComments;
 
   vm.guest = function(){
     if(vm.currentUser === undefined){
@@ -13,24 +14,21 @@ function debateController(authenticationService, $timeout) { // authenticationSe
     }
   }
 
-  vm.canComment = function(){
-	  
-	  return vm.isParticipant();
-	  
-  }
-
   vm.isParticipant = function(){
+	  var flag = false;
     if(vm.currentUser !== undefined){
       vm.debatefull.roster.forEach(function(team){
         team.forEach(function(member){
-          console.log("PARTICIPANTS:" + member)
+//          console.log("PARTICIPANTS:" + member)
           if(member===vm.currentUser.id){
-            return true;
+            flag = true;
           }
         });
       });
     }
-    return false;
+//    console.log("IS PARTICIPANT:")
+//    console.log(flag);
+    return flag;
     }
 }
 
@@ -50,19 +48,7 @@ app.component('debateComponent',{
                                </div>
                                <debate-info-component debate="$ctrl.debatefull.debate"></debate-info-component>
                            </div>
-                           <div class="col-md-12">
-                               <div class="row">
-                                   <div class="col-md-12">
-                                       <p style="font-size:1em;">Commentary:</p>
-                                       <div class="comments-display-screen"></div>
-                                   </div>
-                               </div>
-                               <div class="row">
-                                   <div class="col-md-12" ng-show="$ctrl.isParticipant()" >
-                                       <com-form-component></com-form-component>
-                                   </div>
-                               </div>
-                           </div>
+                           <comment-master-component debatefull="$ctrl.debatefull"></comment-master-component>
                        </div>
                    </div>
                    <div class="col-lg-5 col-md-5">
@@ -91,6 +77,22 @@ app.component('debateComponent',{
   controller : debateController,
 
   bindings : {
-                debatefull: '<'
+                debatefull: '<',
               }
 });
+
+
+
+//<div class="col-md-12">
+//<div class="row">
+//    <div class="col-md-12">
+//        <p style="font-size:1em;">Commentary:</p>
+//        <debate-comment-component debatefull="$ctrl.debatefull" allComments="$ctrl.allComments"></debate-comment-component>
+//    </div>
+//</div>
+//<div class="row">
+//    <div class="col-md-12" ng-show="!$ctrl.isParticipant()" >
+//        <com-form-component ng-show="!$ctrl.isParticipant()" allComments="$ctrl.allComments" debatefull="$ctrl.debatefull"></com-form-component>
+//    </div>
+//</div>
+//</div>

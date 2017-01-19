@@ -8,16 +8,11 @@ function comFormController(authenticationService, userService, formatService, co
   vm.userInfo = authenticationService.currentUser();
   vm.newText = "";
   vm.newRef = "";
-
-  
-  //for testing
   vm.debate;
-  debateService.getDebate(29).then(function(res){
-	  vm.debate = res.data;
-  })
-  //End Testing
-//  vm.debate = vm.debatefull.debate;
   
+  vm.$onInit =function(){
+	  vm.debate = vm.debatefull.debate;
+  }
   
   vm.instCom = function(){
 	  console.log("in instCom. com = ")
@@ -34,6 +29,7 @@ function comFormController(authenticationService, userService, formatService, co
 	  commentService.createComment(com).then(function(res){
 		  vm.newText = null;
 		  vm.newRef = null;
+		  vm.allComments.push(res.data);
 	  })
   }
   
@@ -54,13 +50,10 @@ app.component('comFormComponent',{
               </form>
             </div>`,
 
-  controller : comFormController
+  controller : comFormController,
 
-  //Commented for testing
-  //  ,
-//
-//  bindings : {
-//	  			        debatefull: '<',
-//	  			        cUser : '<'
-//              }
+  bindings : {
+	  			        debatefull: '<',
+	  			        allComments : '='
+              }
 });
