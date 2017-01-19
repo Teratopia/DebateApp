@@ -18,11 +18,11 @@ function argumentMasterController(authenticationService, userService, formatServ
   vm.leftRight = null;
   vm.debatefull = "";
 
-	document.getElementById('arg-text').addEventListener('keydown', function(e) {
-		if(e.keyCode == 13 && e.metaKey) {
-			this.form.submit();
-		}
-	});
+	// document.getElementById('arg-text').addEventListener('keydown', function(e) {
+	// 	if(e.keyCode == 13 && e.metaKey) {
+	// 		this.form.submit();
+	// 	}
+	// });
 
   var path = $location.path().split("/");
   debateService.indexDebateFull(path[path.length-1])
@@ -37,7 +37,7 @@ function argumentMasterController(authenticationService, userService, formatServ
 	  })
 	  vm.allArgs = vm.debatefull.arguments;
   });
-  
+
   function updateArgs(){
 	  debateService.indexDebateFull(path[path.length-1])
 	  .then(function(res) {
@@ -47,7 +47,7 @@ function argumentMasterController(authenticationService, userService, formatServ
 		  vm.allArgs = vm.debatefull.arguments;
 	  })
   }
-  
+
   $interval(updateArgs, 5000);
 
   vm.assignClass = function(arg, performances){
