@@ -1,7 +1,7 @@
 var app = angular.module('ngDebate');
 
 function argumentMasterController(authenticationService, userService, formatService, argumentService,
-		debateService, performanceService, pmService, $location, $timeout) { // authenticationService
+		debateService, performanceService, pmService, $location, $timeout, $interval) { // authenticationService
 														// as parameter
 
   var vm = this;
@@ -35,18 +35,15 @@ function argumentMasterController(authenticationService, userService, formatServ
 			  vm.performance = pm.performance;
 		  }
 	  })
-//	  console.log("in indexDebFull, debatefull=");
-//	  console.log(vm.debatefull);
-//	  console.log("in indexDebFull, debatefull.arguments=");
-//	  console.log(vm.debatefull.arguments);
 	  vm.allArgs = vm.debatefull.arguments;
-//	  console.log("vm.allArgs=");
-//	  console.log(vm.allArgs);
   });
   
   function updateArgs(){
 	  debateService.indexDebateFull(path[path.length-1])
 	  .then(function(res) {
+		  vm.debatefull = res.data;
+		  console.log()
+		  console.log(vm.debatefull.arguments)
 		  vm.allArgs = vm.debatefull.arguments;
 	  })
   }
