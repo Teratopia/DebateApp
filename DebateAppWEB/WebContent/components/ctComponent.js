@@ -20,7 +20,7 @@ angular.module('ngDebate').component("ctComponent", {
 	</div>
 		`,
 
-	controller : function(authenticationService, voteService, performanceService, debateService, $location){
+	controller : function(authenticationService, voteService, performanceService, debateService, $location, $interval){
 		var vm = this;
 		vm.leftVotes = 1;
 		vm.rightVotes = 1;
@@ -58,6 +58,16 @@ angular.module('ngDebate').component("ctComponent", {
 
 			}
 	  	});
+	  
+	  function updateVotes(){
+		  voteService.indexVotesByDebate(vm.debate).then(function(res) {
+			  vm.hasVoted = res.data;
+			  console.log("hasVoted:")
+			  console.log(vm.hasVoted)
+		  })
+	  }
+	  
+	  $interval(updateVotes, 5000);
 
 		vm.noTwoPerfs = function(){
 			if (!vm.debate) return false;

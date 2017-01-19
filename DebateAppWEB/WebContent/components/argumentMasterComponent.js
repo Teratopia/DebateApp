@@ -1,7 +1,7 @@
 var app = angular.module('ngDebate');
 
 function argumentMasterController(authenticationService, userService, formatService, argumentService,
-		debateService, performanceService, pmService, $location, $timeout, $interval) { // authenticationService
+		debateService, performanceService, pmService, $location, $timeout, $interval, $timeout) { // authenticationService
 														// as parameter
 
   var vm = this;

@@ -38,7 +38,7 @@ angular.module('ngDebate').component("commentMasterComponent", {
 	`,
 
 	controller : function(authenticationService, userService, formatService, commentService,
-			debateService, $location){
+			debateService, $location, $interval){
 
 		var vm = this;
 		  vm.classCode = null;
@@ -69,6 +69,16 @@ angular.module('ngDebate').component("commentMasterComponent", {
 					  vm.allComments = res.data;
 				  })
 		  	});
+		  
+		  function updateComs(){
+			  commentService.indexCommentsByDebate(vm.debateData.debate.id).then(function(res){
+				  vm.allComments = res.data;
+				  console.log("all comments:")
+				  console.log(vm.allComments)
+			  })
+		  }
+		  
+		  $interval(updateComs, 5000);
 
 		  vm.instCom = function(){
 			  console.log("in instCom. com = ")
