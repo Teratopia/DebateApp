@@ -148,5 +148,6 @@ app.component('argFormComponent',{
 
 });
 
+//ng-disabled="$ctrl.turnId != $ctrl.currentUser.id"
 
 // ng-disabled="$ctrl.turnId != $ctrl.currentUser.id"
