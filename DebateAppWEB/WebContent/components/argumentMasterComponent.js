@@ -1,7 +1,7 @@
 var app = angular.module('ngDebate');
 
 function argumentMasterController(authenticationService, userService, formatService, argumentService,
-		debateService, performanceService, pmService, $location, $timeout) { // authenticationService
+		debateService, performanceService, pmService, $interval, $location, $timeout) { // authenticationService
 														// as parameter
 
   var vm = this;
@@ -47,7 +47,7 @@ function argumentMasterController(authenticationService, userService, formatServ
   function updateArgs(){
 	  debateService.indexDebateFull(path[path.length-1])
 	  .then(function(res) {
-		  vm.allArgs = vm.debatefull.arguments;
+		  vm.debatefull = res.data;
 	  })
   }
   
