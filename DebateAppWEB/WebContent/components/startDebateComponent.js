@@ -78,9 +78,9 @@ angular.module('ngDebate').component("startDebateComponent", {
 		var vm = this;
 		
 		categoryService.indexCategories().then(function(res) {
-        	console.log("in perf promise");
-        	console.log(res.data);
-        	console.log(res);
+//        	console.log("in perf promise");
+//        	console.log(res.data);
+//        	console.log(res);
         	vm.cats =  res.data;
 		}).then(function(res){
 			
@@ -99,8 +99,8 @@ angular.module('ngDebate').component("startDebateComponent", {
 		vm.hideIndex = 1;
 		
 		vm.addCat = function(cat){
-			console.log("add cat 1:")
-			console.log(cat);
+//			console.log("add cat 1:")
+//			console.log(cat);
 			var flag = false;
 			var index = 0;
 			var startSplice;
@@ -116,8 +116,8 @@ angular.module('ngDebate').component("startDebateComponent", {
 			} else {
 				vm.catsBox.splice(startSplice, 1);
 			}
-			console.log("addCat -- CATS:");
-			console.log(vm.catsBox);
+//			console.log("addCat -- CATS:");
+//			console.log(vm.catsBox);
 			
 		}
 		
@@ -150,9 +150,9 @@ angular.module('ngDebate').component("startDebateComponent", {
 			}
 			console.log(iss);
 			issueService.createIssue(iss).then(function(res) {
-            	console.log("in perf promise");
-            	console.log(res.data);
-            	console.log(res);
+//            	console.log("in perf promise");
+//            	console.log(res.data);
+//            	console.log(res);
             	vm.issue =  res.data;
 			})
 			vm.hideIndex = 2;
@@ -173,9 +173,9 @@ angular.module('ngDebate').component("startDebateComponent", {
 			}
 			
 			rulesService.createRules(rul).then(function(res) {
-            	console.log("in perf promise");
-            	console.log(res.data);
-            	console.log(res);
+//            	console.log("in perf promise");
+//            	console.log(res.data);
+//            	console.log(res);
             	vm.rules =  res.data;
 			})
 			
@@ -196,8 +196,8 @@ angular.module('ngDebate').component("startDebateComponent", {
 		}
 		
 		vm.instantiateDebate = function(){
-			console.log("inst debate, issue:");
-			console.log(vm.issue);
+//			console.log("inst debate, issue:");
+//			console.log(vm.issue);
 			var deb = {
 					'issue' : vm.issue,
 					'rules' : vm.rules,
@@ -205,9 +205,9 @@ angular.module('ngDebate').component("startDebateComponent", {
 			}
 			
 			debateService.createDebate(deb).then(function(res) {
-            	console.log("in perf promise");
-            	console.log(res.data);
-            	console.log(res);
+//            	console.log("in perf promise");
+//            	console.log(res.data);
+//            	console.log(res);
             	vm.debate =  res.data;
 			})
 		}
@@ -218,9 +218,9 @@ angular.module('ngDebate').component("startDebateComponent", {
 			}
 			
 			teamService.createTeam(t).then(function(res) {
-            	console.log("in perf promise");
-            	console.log(res.data);
-            	console.log(res);
+//            	console.log("in perf promise");
+//            	console.log(res.data);
+//            	console.log(res);
             	vm.team =  res.data;
 			})
 			vm.hideIndex = 4;
@@ -247,10 +247,10 @@ angular.module('ngDebate').component("startDebateComponent", {
 				'role' : null
 			}
 
-			console.log('CURRENT USER: #################################');
-			console.log(vm.currentUser);
-			console.log('IPAM: #################################');
-			console.log(instPAM);
+//			console.log('CURRENT USER: #################################');
+//			console.log(vm.currentUser);
+//			console.log('IPAM: #################################');
+//			console.log(instPAM);
 			
 			performanceService.instPerformanceAndMember(instPAM);
 		}

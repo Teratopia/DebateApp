@@ -39,6 +39,15 @@ function argumentMasterController(authenticationService, userService, formatServ
 	  console.log(vm.allArgs)
 	  
   });
+  
+  function updateArgs(){
+	  debateService.indexDebateFull(path[path.length-1])
+	  .then(function(res) {
+		  vm.allArgs = vm.debatefull.arguments;
+	  })
+  }
+  
+  $interval(updateArgs, 5000);
 
   vm.assignClass = function(arg, performances){
     return formatService.getArgPerfClass(arg, performances);
@@ -58,8 +67,8 @@ function argumentMasterController(authenticationService, userService, formatServ
 				  break;
 			  }
 		  }
-		  console.log("is participant:")
-		  console.log(participating)
+		 //  console.log("is participant:")
+// 		  console.log(participating)
 		  return participating;
 	  	}
 }

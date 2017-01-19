@@ -84,8 +84,8 @@ app.factory('authenticationService', function($window, $http) {
 			var token = service.getToken();
 			var payload = JSON.parse($window.atob(token.split('.')[1]));
 
-			console.log("PAYLOAD: #####################");
-			console.log(payload);
+//			console.log("PAYLOAD: #####################");
+//			console.log(payload);
 
 			return {
 				id : payload.user_id,
