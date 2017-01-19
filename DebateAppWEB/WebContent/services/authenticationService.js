@@ -40,12 +40,15 @@ app.factory('authenticationService', function($window, $http) {
 
 		return $http({
 			method : 'POST',
-			url : 'api/user',
+			url : 'api/signup',
 			dataType : 'json',
 			headers : {
 				'Content-Type' : 'application/json',
 			},
 			data : user
+		}).then(function(response) {
+			service.saveToken(response.data.jwt);
+			return response;
 		})
 
 	};

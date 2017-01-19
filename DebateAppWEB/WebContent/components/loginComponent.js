@@ -61,7 +61,10 @@ angular.module('ngDebate').component("loginComponent", {
     		 console.log('IN COMP SIGNUP RESPONSE:');
     		 console.log(response);
     		 vm.jwt = response.data.jwt;
+    		 console.log("COMPT SIGNUP JWT: ")
+    		 console.log(response.data.jwt)
     		 authenticationService.saveToken(vm.jwt);
+    		 
     	 })
      }
  }

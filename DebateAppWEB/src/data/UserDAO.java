@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import entities.Issue;
 import entities.User;
 
 
@@ -116,6 +117,9 @@ public class UserDAO implements UserDAOI {
 	    newUser.setPassword(encodedPassword);
 	    em.persist(newUser);
 	    em.flush();
+	    
+	    String query = "select i from User i where i.id=(select max(id) from User)";
+		newUser = em.createQuery(query, User.class).getSingleResult();
 
 	    return newUser;
 	  }
