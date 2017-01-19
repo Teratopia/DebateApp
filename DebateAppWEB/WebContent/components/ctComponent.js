@@ -35,7 +35,6 @@ angular.module('ngDebate').component("ctComponent", {
 					'performance' : null
 				}];
 
-
 	  var path = $location.path().split("/");
 	  debateService.indexDebateFull(path[path.length-1])
 	  	.then(function(res) {
@@ -69,9 +68,9 @@ angular.module('ngDebate').component("ctComponent", {
 //		vm.$onInit = function(){
 			console.log("on init in ctComp. vm.debateData:")
 			console.log(vm.debateData)
-			
+
 //		}
-		
+
 		vm.noTwoPerfs = function(){
 			if (!vm.debate) return false;
 			if(vm.debate.performances.length <2){
@@ -80,7 +79,7 @@ angular.module('ngDebate').component("ctComponent", {
 				return false;
 			}
 		}
-		
+
 		vm.hideButtons = function(){
 			
 			if(authenticationService.isLoggedIn() === false){
@@ -192,7 +191,7 @@ angular.module('ngDebate').component("ctComponent", {
 
 		}
 	},
-	
+
 	bindings : {
 		debateData : '<'
 	}

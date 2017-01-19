@@ -8,7 +8,7 @@ function debateController(authenticationService, $timeout, $scope, debateService
   vm.ddLoaded = false;
 
   vm.isInDebate = false;
-  
+
   vm.debateData = {
 		  debate : {
 			  performances : [],
@@ -42,7 +42,7 @@ function debateController(authenticationService, $timeout, $scope, debateService
 		  return participating;
 	  	}
   }
-  
+
   var path = $location.path().split("/");
   debateService.indexDebateFull(path[path.length-1])
   	.then(function(res) {
