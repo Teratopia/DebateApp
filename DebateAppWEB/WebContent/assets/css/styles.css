@@ -38,8 +38,9 @@
 
 .args-display-screen {
 	overflow: hidden;
+	overflow-y:auto;
 	margin: 5px;
-	min-height: 375px;
+	height: 375px;
 	overflow-y: scroll;
 	background: -webkit-linear-gradient(top, rgba(127, 127, 127, 0.5) 0%,
 		rgba(127, 127, 127, 0.5) 98.5%, rgba(0, 102, 96, 0.5) 100%);
@@ -98,6 +99,7 @@ div.panel-heading {
 
 .arg-holder {
 	margin-top: 5px;
+	margin-bottom: 3px;
 	position: relative;
 }
 
@@ -196,7 +198,7 @@ div.panel-heading {
 	float: left;
 }
 
-.arg-text-form {
+.arg-text-form, .com-text-form {
 	background-color: rgba(127, 127, 127, 0.25);
 	overflow: hidden;
 	overflow-y: scroll;

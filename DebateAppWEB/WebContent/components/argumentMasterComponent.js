@@ -1,7 +1,7 @@
 var app = angular.module('ngDebate');
 
 function argumentMasterController(authenticationService, userService, formatService, argumentService,
-		debateService, performanceService, pmService, $location) { // authenticationService
+		debateService, performanceService, pmService, $location, $timeout) { // authenticationService
 														// as parameter
 
   var vm = this;
@@ -14,10 +14,15 @@ function argumentMasterController(authenticationService, userService, formatServ
   vm.newRef = "";
   vm.performance = "";
   vm.allArgs = "";
-
   vm.classCode = null;
   vm.leftRight = null;
   vm.debatefull = "";
+
+	document.getElementById('arg-text').addEventListener('keydown', function(e) {
+		if(e.keyCode == 13 && e.metaKey) {
+			this.form.submit();
+		}
+	});
 
   var path = $location.path().split("/");
   debateService.indexDebateFull(path[path.length-1])
@@ -30,14 +35,13 @@ function argumentMasterController(authenticationService, userService, formatServ
 			  vm.performance = pm.performance;
 		  }
 	  })
-	  console.log("in indexDebFull, debatefull=")
-	  console.log(vm.debatefull)
-	  console.log("in indexDebFull, debatefull.arguments=")
-	  console.log(vm.debatefull.arguments);
+//	  console.log("in indexDebFull, debatefull=");
+//	  console.log(vm.debatefull);
+//	  console.log("in indexDebFull, debatefull.arguments=");
+//	  console.log(vm.debatefull.arguments);
 	  vm.allArgs = vm.debatefull.arguments;
-	  console.log("vm.allArgs=")
-	  console.log(vm.allArgs)
-	  
+//	  console.log("vm.allArgs=");
+//	  console.log(vm.allArgs);
   });
   
   function updateArgs(){
@@ -56,7 +60,7 @@ function argumentMasterController(authenticationService, userService, formatServ
   vm.isRight=function(args, performances){
     return formatService.getArgNumClass(args, performances);
   }
-  
+
   vm.isParticipant = function(){
 	  	if (vm.debatefull && vm.cUser) {
 		  var participating = false;
@@ -72,7 +76,7 @@ function argumentMasterController(authenticationService, userService, formatServ
 		  return participating;
 	  	}
 }
-  
+
 //  var path = $location.path().split("/");
 //  debateService.indexDebateFull(path[path.length-1])
 //  	.then(function(res) {
@@ -80,8 +84,8 @@ function argumentMasterController(authenticationService, userService, formatServ
 //  		vm.debatefull = res.data;
 //  	});
 
- 	  
- 	  
+
+
   vm.instArg = function(){
 	  console.log("in instArg. vm.arg = ")
 
@@ -94,14 +98,15 @@ function argumentMasterController(authenticationService, userService, formatServ
 			  'team' : vm.performance.team
 	  }
 
-	  console.log(arg);
-	  argumentService.createArgument(arg).then(function(res){
+//	  console.log(arg);
+	  argumentService.createArgument(arg)
+	  .then(function(res){
 		  vm.newText = null;
 		  vm.newRef = null;
-		  console.log("in create arg, res.data = ")
-		  console.log(res.data)
+//		  console.log("in create arg, res.data = ")
+//		  console.log(res.data)
 		  vm.allArgs.push(res.data);
-	  })
+	  });
   }
 
 
@@ -184,22 +189,22 @@ function argumentMasterController(authenticationService, userService, formatServ
 
 app.component('argumentMasterComponent',{
   template: `
-  
+
 	<div class="row">
       <div class="col-md-12">
-		<div class="args-display-screen">
-		      <div ng-repeat="argument in $ctrl.allArgs">
+		<div class="args-display-screen" scroll-glue>
+		      <div ng-repeat="argument in $ctrl.allArgs | orderBy: 'timeStamp'">
 		        <div class="row arg-holder">
 		          <div ng-class="$ctrl.assignClass(argument, $ctrl.debatefull.debate.performances)">
 		      	  <div ng-class="$ctrl.isRight(argument, $ctrl.debatefull.debate.performances)">{{$index}}</div>
 		              <div class="pad-arg-text">
-		                {{argument.text}} 
+		                {{argument.text}}
 		                <div style="font-size:.7em">({{argument.user.username}})</div>
 		              </div>
 		           </div>
 		         </div>
 		      </div>
-		    </div>                           
+		    </div>
 		    </div>
            </div>
            <div class="row" ng-show="$ctrl.isParticipant()">
@@ -216,7 +221,7 @@ app.component('argumentMasterComponent',{
                   			<input type="text" ng-class="$ctrl.highlight($ctrl.turnId,$ctrl.currentUser.id)" placeholder="{{$ctrl.hrefText}}" ng-model="$ctrl.newRef" id="arg-href-link" class="href-link"/>
                 		</div>
               		</form>
-            	</div>                           
+            	</div>
           		</div>
          	</div>
 
@@ -225,5 +230,5 @@ app.component('argumentMasterComponent',{
   controller : argumentMasterController
 
 //ng-disabled="$ctrl.turnId != $ctrl.currentUser.id"
-	
+
 });
