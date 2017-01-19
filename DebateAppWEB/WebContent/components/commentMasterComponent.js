@@ -52,12 +52,6 @@ angular.module('ngDebate').component("commentMasterComponent", {
 		  vm.newRef = "";
 		  vm.debate;
 
-			document.getElementById('arg-text').addEventListener('keydown', function(e) {
-				if(e.keyCode == 13 && e.metaKey) {
-					this.form.submit();
-				}
-			});
-
 		  var path = $location.path().split("/");
 		  debateService.indexDebateFull(path[path.length-1])
 		  	.then(function(res) {

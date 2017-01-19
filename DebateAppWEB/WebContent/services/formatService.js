@@ -7,11 +7,22 @@ angular.module('ngDebate').factory(
 					"thistle", "lemon-chiffon", "sea-green", "drab" ];
 
 			service.getArgPerfClass = function(arg, performances) {
+
+				function compare(a,b) {
+				  if (a.id < b.id)
+				    return -1;
+				  if (a.id > b.id)
+				    return 1;
+				  return 0;
+				}
+
+				performances.sort(compare);
+
 				for (var i = 0; i < performances.length; i++) {
 					if (arg.perfMember.performance.id === performances[i].id) {
-						console.log(arg.perfMember.user.id);
+//						console.log(arg.perfMember.performance);
 //						console.log(performances);
-						if (arg.perfMember.user.id === authenticationService.currentUser().id) {
+						if (i === 0) {
 // 							console.log(colors[i] + " arg-right");
 							return colors[i] + " arg-right";
 						} else {
@@ -31,9 +42,20 @@ angular.module('ngDebate').factory(
 			}
 
 			service.getArgNumClass = function(arg, performances) {
+
+				function compare(a,b) {
+				  if (a.id < b.id)
+				    return -1;
+				  if (a.id > b.id)
+				    return 1;
+				  return 0;
+				}
+
+				performances.sort(compare);
+				
 				for (var i = 0; i < performances.length; i++) {
 					if (arg.perfMember.performance.id === performances[i].id) {
-						if (arg.perfMember.user.id === authenticationService.currentUser().id) {
+						if (i === 0) {
 							return "arg-index-number-right";
 						} else {
 							return "arg-index-number-left";
