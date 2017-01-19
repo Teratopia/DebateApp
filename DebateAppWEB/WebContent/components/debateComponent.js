@@ -6,7 +6,7 @@ function debateController(authenticationService, $timeout, $scope, debateService
   vm.currentUser = authenticationService.currentUser();
 
   vm.isInDebate = false;
-  
+
   vm.debateData = {
 		  debate : {
 			  performances : [],
@@ -40,7 +40,7 @@ function debateController(authenticationService, $timeout, $scope, debateService
 		  return participating;
 	  	}
   }
-  
+
   var path = $location.path().split("/");
   debateService.indexDebateFull(path[path.length-1])
   	.then(function(res) {
@@ -86,7 +86,7 @@ app.component('debateComponent',{
                                <p style="font-size:1.5em;">Live Debate Feed (viewing as {{$ctrl.guest()}}):</p>
                            </div>
                            <div class="col-md-12">
-								<ct-component debatefull = "$ctrl.debateData"></ct-component>
+						                   
                            </div>
                        </div>
                        <div class="row">
@@ -105,7 +105,4 @@ app.component('debateComponent',{
 
   controller : debateController
 
-//  bindings : {
-//	  debateData: '<'
-//            }
 });

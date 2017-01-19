@@ -41,7 +41,7 @@ angular.module('ngDebate').component("ctComponent", {
 			vm.performance1 = vm.debatefull.debate.performances[0];
 			vm.performance2 = vm.debatefull.debate.performances[1];
 			vm.debate = vm.debatefull.debate;
-			
+
 			if(vm.hasVoted === undefined && vm.debate !== undefined){
 				console.log("in init if")
 				voteService.indexVotesByDebate(vm.debate).then(function(res) {
@@ -61,7 +61,7 @@ angular.module('ngDebate').component("ctComponent", {
 
 			}
 		}
-		
+
 		vm.noTwoPerfs = function(){
 			if(vm.debate.performances.length <2){
 				return true;
@@ -69,7 +69,7 @@ angular.module('ngDebate').component("ctComponent", {
 				return false;
 			}
 		}
-		
+
 		vm.hideButtons = function(){
 				var flag = false;
 			vm.debatefull.performance_members.forEach(function(pm){
@@ -175,7 +175,7 @@ angular.module('ngDebate').component("ctComponent", {
 
 		}
 	},
-	
+
 	bindings : {
 		debatefull : '<'
 	}
