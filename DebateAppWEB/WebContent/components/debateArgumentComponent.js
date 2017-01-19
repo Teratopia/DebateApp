@@ -1,9 +1,10 @@
 var app = angular.module('ngDebate');
 
-function debateArgumentController(authenticationService, debateService, formatService) { // authenticationService as parameter
+function debateArgumentController(authenticationService, debateService, formatService, $location) { // authenticationService as parameter
   var vm = this;
   vm.classCode = null;
   vm.leftRight = null;
+  vm.debatefull = "";
 
   vm.assignClass = function(arg, performances){
     return formatService.getArgPerfClass(arg, performances);
@@ -12,6 +13,14 @@ function debateArgumentController(authenticationService, debateService, formatSe
   vm.isRight=function(args, performances){
     return formatService.getArgNumClass(args, performances);
   }
+  
+  var path = $location.path().split("/");
+  debateService.indexDebateFull(path[path.length-1])
+  	.then(function(res) {
+  		vm.cUser = authenticationService.currentUser();
+  		vm.debatefull = res.data;
+  	});
+  
 }
 
 //Add filter on ng-repeat to sort by timestamp?
@@ -30,9 +39,11 @@ app.component('debateArgumentComponent',{
                 </div>
               </div>`,
 
-  controller : debateArgumentController,
-
-  bindings : {
-                debatefull: '<'
-              }
+  controller : debateArgumentController
+  
+//  ,
+//
+//  bindings : {
+//                debatefull: '<'
+//              }
 });

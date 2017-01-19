@@ -83,16 +83,7 @@ app.component('debateComponent',{
 								<ct-component debate-data="$ctrl.debateData"></ct-component>
                            </div>
                        </div>
-                       <div class="row">
-                           <div class="col-md-12">
-                                <debate-argument-component debatefull="$ctrl.debateData"></debate-argument-component>
-                           </div>
-                       </div>
-                       <div class="row">
-                           <div class="col-md-12">
-                               <arg-form-component ng-show="$ctrl.isParticipant()" debatefull="$ctrl.debateData"></arg-form-component>
-                           </div>
-                       </div>
+                     <argument-master-component></argument-master-component>
                    </div>
                </div>
            </div>`,
@@ -113,3 +104,17 @@ app.component('debateComponent',{
 //        <com-form-component ng-show="!$ctrl.isParticipant()" allComments="$ctrl.allComments" debatefull="$ctrl.debatefull"></com-form-component>
 //    </div>
 //</div>
+           
+//           
+//           ---
+//           <div class="row">
+//               <div class="col-md-12">
+//                    <debate-argument-component debatefull="$ctrl.debateData"></debate-argument-component>
+//               </div>
+//           </div>
+//           <div class="row">
+//               <div class="col-md-12">
+//                   <arg-form-component ng-show="$ctrl.isParticipant()" debatefull="$ctrl.debateData"></arg-form-component>
+//               </div>
+//           </div>
+//           ---

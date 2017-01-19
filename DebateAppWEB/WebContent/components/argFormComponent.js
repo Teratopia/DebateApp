@@ -143,5 +143,7 @@ app.component('argFormComponent',{
             </div>`,
 
   controller : argFormController
+
+//ng-disabled="$ctrl.turnId != $ctrl.currentUser.id"
 	
 });
