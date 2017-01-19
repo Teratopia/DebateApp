@@ -27,12 +27,12 @@ function argFormController(authenticationService, userService, formatService, ar
   				}
   			})
   	});
- 	  
+
   vm.instArg = function(){
 	  console.log("in instArg. vm.arg = ")
 
 	  var arg = {
-			  'user' : vm.currentUser,
+			  'user' : vm.currentUser(),
 			  'perfMember' : vm.perfMember,
 			  'text' : vm.newText,
 			  'linkRef' : vm.newRef,
