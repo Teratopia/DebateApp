@@ -47,10 +47,8 @@ app.factory('authenticationService', function($window, $http) {
 			},
 			data : user
 		})
-    .then(function(res){
-      service.login(res.data);
-    })
-};
+
+	};
 
 	service.unauthorizeUser = function() {
 
