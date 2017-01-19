@@ -50,10 +50,8 @@ app.factory('authenticationService', function($window, $http) {
 			service.saveToken(response.data.jwt);
 			return response;
 		})
-    .then(function(res){
-      service.login(res.data);
-    })
-};
+
+	};
 
 	service.unauthorizeUser = function() {
 
