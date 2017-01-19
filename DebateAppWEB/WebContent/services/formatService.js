@@ -12,10 +12,10 @@ angular.module('ngDebate').factory(
 						console.log(arg.perfMember.performance);
 						console.log(performances);
 						if (i === 0) {
-							console.log(colors[i] + " arg-right");
+// 							console.log(colors[i] + " arg-right");
 							return colors[i] + " arg-right";
 						} else {
-							console.log(colors[i] + " arg-left");
+// 							console.log(colors[i] + " arg-left");
 							return colors[i] + " arg-left";
 						}
 					}
