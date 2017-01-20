@@ -14,6 +14,14 @@ angular.module('ngDebate').factory(
 			  return 0;
 			}
 
+			service.getTheme = function(theme){
+				if(theme){
+					return "light-theme";
+				}else{
+					return "dark-theme";
+				}
+			}
+			
 			service.getBarClass = function(index) {
 						if (index === 0) {
  							return colors[0] + " bar-right";

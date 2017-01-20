@@ -58,11 +58,18 @@
 <script src="components/ctComponent.js"></script>
 <script src="components/commentMasterComponent.js"></script>
 <script src="components/argumentMasterComponent.js"></script>
+<script>
+angular.module('ngDebate').controller('LoginController', function($scope, $location, $window, $rootScope) {
+	   $scope.user = {};
+	   $rootScope.bodylayout = 'dark-theme';
+
+	   //others code 
+	});
+</script>
 </head>
 
-<body
-	style="font-size: 14px; line-height: 1.42857143; color: #dfe8ee; background-color: #1e2021;">
-	<app-component></app-component>
+<body ng-controller="LoginController" style="font-size: 14px; line-height: 1.42857143;" class="{{$root.bodylayout}}">
+	<app-component theme="$root.bodylayout"></app-component>
 </body>
 
 </html>

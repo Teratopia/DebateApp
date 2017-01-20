@@ -147,7 +147,7 @@
 }
 
 .navigation-clean.navbar-inverse .navbar-nav > li > a:focus, .navigation-clean.navbar-inverse .navbar-nav > li > a:hover {
-  color:#fff !important;
+  color:#fff;
   background-color:transparent;
 }
 
@@ -168,4 +168,3 @@
     color:#fff;
   }
 }
-
