@@ -3,11 +3,11 @@ angular.module('ngDebate').component("ctComponent", {
 	template : `
 	<div class="row" style="overflow: hidden;margin:0px 5px;" ng-hide="$ctrl.noTwoPerfs()">
 		<div style="float:right" ng-hide="$ctrl.hideButtons()">
-			<button ng-click="$ctrl.logVote($ctrl.performance2)" style="width:50px;height:25px">Blue</button>
+			<a><button ng-click="$ctrl.logVote($ctrl.performance2)" style="width:50px;height:25px">Yellow</button></a>
 		</div>
 		<div style="overflow: hidden;">
 			<div style="float:left" ng-hide="$ctrl.hideButtons()">
-				<button ng-click="$ctrl.logVote($ctrl.performance1)" style="width:50px;height:25px">Red</button>
+				<a><button ng-click="$ctrl.logVote($ctrl.performance1)" style="width:50px;height:25px">Blue</button></a>
 			</div>
 			<div style="overflow: hidden;">
 				<div style="width: {{$ctrl.leftBarPercentage()}}%;margin-right:-1px;border-right:1px solid #fff;height:25px;background-color:red;float:left;"></div>
@@ -42,6 +42,8 @@ angular.module('ngDebate').component("ctComponent", {
 	  		vm.ddLoaded = true;
 	  		vm.performance1 = vm.debateData.debate.performances[0];
 			vm.performance2 = vm.debateData.debate.performances[1];
+			vm.performer1 = vm.debateData.debate.performances[0].team.name;
+			vm.performer2 = vm.debateData.debate.performances[1].team.name;
 			vm.debate = vm.debateData.debate;
 			
 			if(vm.hasVoted === undefined && vm.debate !== undefined){
