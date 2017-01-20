@@ -10,8 +10,8 @@ angular.module('ngDebate').component("ctComponent", {
 				<button ng-click="$ctrl.logVote($ctrl.performance1)" style="width:50px;height:25px">Red</button>
 			</div>
 			<div style="overflow: hidden;">
-				<div style="width: {{$ctrl.leftBarPercentage()}}%;margin-right:-1px;border-right:1px solid #fff;height:25px;background-color:red;float:left;"></div>
-				<div style="width: {{100-$ctrl.leftBarPercentage()}}%;margin-left:-1px;border-left:1px solid #fff;height:25px;background-color:blue;float:right;"></div>
+				<div style="width: {{$ctrl.leftBarPercentage()}}%" ng-class="$ctrl.getBarClass(1)"></div>
+				<div style="width: {{100-$ctrl.leftBarPercentage()}}%" ng-class="$ctrl.getBarClass(0)"></div>
 			</div>
 		</div>
 	</div>
@@ -20,8 +20,9 @@ angular.module('ngDebate').component("ctComponent", {
 	</div>
 		`,
 
-	controller : function(authenticationService, voteService, performanceService, debateService, $location, $interval){
+	controller : function(authenticationService, voteService, performanceService, debateService, formatService, $location, $interval){
 		var vm = this;
+		vm.getBarClass = function(x){return formatService.getBarClass(x)};
 		vm.leftVotes = 1;
 		vm.rightVotes = 1;
 		vm.user = authenticationService.currentUser();
@@ -43,7 +44,7 @@ angular.module('ngDebate').component("ctComponent", {
 	  		vm.performance1 = vm.debateData.debate.performances[0];
 			vm.performance2 = vm.debateData.debate.performances[1];
 			vm.debate = vm.debateData.debate;
-			
+
 			if(vm.hasVoted === undefined && vm.debate !== undefined){
 				voteService.indexVotesByDebate(vm.debate).then(function(res) {
 	            	var votesCast =  res.data;
@@ -58,7 +59,7 @@ angular.module('ngDebate').component("ctComponent", {
 
 			}
 	  	});
-	  
+
 	  function updateVotes(){
 		  voteService.indexVotesByDebate(vm.debate).then(function(res) {
 			  vm.hasVoted = res.data;
@@ -66,7 +67,7 @@ angular.module('ngDebate').component("ctComponent", {
 			  console.log(vm.hasVoted)
 		  })
 	  }
-	  
+
 	  $interval(updateVotes, 5000);
 
 		vm.noTwoPerfs = function(){
@@ -79,11 +80,11 @@ angular.module('ngDebate').component("ctComponent", {
 		}
 
 		vm.hideButtons = function(){
-			
+
 			if(authenticationService.isLoggedIn() === false){
 				return true;
 			} else {
-				
+
 					var flag = false;
 				vm.debateData.performance_members.forEach(function(pm){
 					if(vm.user !== undefined){

@@ -1,6 +1,6 @@
 var app = angular.module('ngDebate');
 
-function navController(authenticationService) {
+function navController(authenticationService, formatService) {
   var vm = this;
   vm.isCollapsed = true;
   vm.checkLogin = function(x){
@@ -8,6 +8,10 @@ function navController(authenticationService) {
 	  };
   vm.logout = function(){
 	  authenticationService.logout();
+  }
+  
+  vm.theme = function(x){
+	  return formatService.getTheme(x);
   }
 }
 
@@ -17,6 +21,11 @@ app.component('navComponent',{
                       <div class="container-fluid">
                           <div class="navbar-header">
                               <a class="navbar-brand navbar-link" href="#!/categories" style="padding:0px;margin:0px 0px 0px 0px;"><img src="assets/img/Quib-Logo-WHITE.png" style="float:left;border-radius:5px;border:1px solid rgb(169,169,169);"></a>
+                              
+                                      <label class="switch">
+									    <input type="checkbox" ng-model="" checked>
+									    <div class="slider round"></div>
+									  </label>
                               <button class="navbar-toggle collapsed" ng-click="$ctrl.isCollapsed = !$ctrl.isCollapsed"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
                           </div>
                           <div class="collapse navbar-collapse" uib-collapse="$ctrl.isCollapsed" id="navcol-1">

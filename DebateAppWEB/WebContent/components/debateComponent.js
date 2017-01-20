@@ -63,7 +63,7 @@ app.component('debateComponent',{
                            <div class="col-md-12">
                                <div class="row">
                                    <div class="col-md-12">
-                                       <div style="height:2.5em">
+                                       <div style="height:2.54em">
                                            <p style="font-size:1.5em">{{$ctrl.debateData.debate.issue.title}}</p>
                                        </div>
                                    </div>
@@ -79,7 +79,7 @@ app.component('debateComponent',{
                                <p style="font-size:1.5em;">Live Debate Feed (viewing as {{$ctrl.guest()}}):</p>
                            </div>
                            <div class="col-md-12">
-								<ct-component debate-data="$ctrl.debateData"></ct-component>
+							                    <ct-component debate-data="$ctrl.debateData"></ct-component>
                            </div>
                        </div>
                      <argument-master-component></argument-master-component>
