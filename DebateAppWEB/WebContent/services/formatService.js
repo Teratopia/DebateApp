@@ -6,15 +6,23 @@ angular.module('ngDebate').factory(
 					"pale-golden-rod", "light-green", "pale-turquoise",
 					"thistle", "lemon-chiffon", "sea-green", "drab" ];
 
-			service.getArgPerfClass = function(arg, performances) {
+			function compare(a,b) {
+			  if (a.id < b.id)
+			    return -1;
+			  if (a.id > b.id)
+			    return 1;
+			  return 0;
+			}
 
-				function compare(a,b) {
-				  if (a.id < b.id)
-				    return -1;
-				  if (a.id > b.id)
-				    return 1;
-				  return 0;
+			service.getBarClass = function(index) {
+						if (index === 0) {
+ 							return colors[0] + " bar-right";
+						} else {
+ 							return colors[1] + " bar-left";
+						}
 				}
+
+			service.getArgPerfClass = function(arg, performances) {
 
 				performances.sort(compare);
 
@@ -43,16 +51,8 @@ angular.module('ngDebate').factory(
 
 			service.getArgNumClass = function(arg, performances) {
 
-				function compare(a,b) {
-				  if (a.id < b.id)
-				    return -1;
-				  if (a.id > b.id)
-				    return 1;
-				  return 0;
-				}
-
 				performances.sort(compare);
-				
+
 				for (var i = 0; i < performances.length; i++) {
 					if (arg.perfMember.performance.id === performances[i].id) {
 						if (i === 0) {
