@@ -52,6 +52,7 @@ function debateController(authenticationService, $timeout, $scope, debateService
   		vm.ddLoaded = true;
   	});
 
+
 }
 
 app.component('debateComponent',{

@@ -4,7 +4,7 @@ app.config(function($routeProvider){ // $routeProvider is an Angular service
   console.log("INSIDE config");
   $routeProvider
 		.when('/', {
-			template: `<login-component></login-component>` // use templateURL to reference a different file
+			template: `<categories-component></categories-component>` // use templateURL to reference a different file
 		})
 		.when('/login', {
 			template: `<login-component></login-component>` // use templateURL to reference a different file
@@ -34,8 +34,8 @@ app.config(function($routeProvider){ // $routeProvider is an Angular service
 			template: `<start-debate-component></start-debate-component>` // use templateURL to reference a different file
 		})
 		.when('/join/:id', {
-			template: `<join-debate-component debate="$resolve.myData"></join-debate-component>`
-				,
+			template: `<join-debate-component debate="$resolve.myData"></join-debate-component>`,
+      
 			resolve : {
 //				     auth : function(authenticationService) {
 //				       // use an authService to perform an authentication check
