@@ -1,36 +1,39 @@
 angular.module('ngDebate').component("categoriesComponent", {
 
 	template: `<nav-component></nav-component>
-	
+
 		<h5>Filter by:</h5>
-		<column ng-repeat="cat in $ctrl.cats"> {{cat.title}} 
+		<column ng-repeat="cat in $ctrl.cats"> {{cat.title}}
 		<input type="checkbox" ng-click="$ctrl.filterDebates(cat)"></column>
 		<br><br>
-	
-        <v-accordion class="vAccordion--default">
-         <v-pane ng-repeat="deb in $ctrl.debates">
-           <v-pane-header ng-click="hideButtons = !hideButtons">
-			{{deb.issue.title}} 
-           </v-pane-header>
-           <v-pane-content>
-           <span ng-show="{{deb.performances.length}} < 2 && $ctrl.logged()"><a href="#!/join/{{deb.id}}"><button>Join</button></a></span>
-			<a href="#!/debate/{{deb.id}}"><button>View</button></a>
-                                   <h4>Description: </h4>
-                                  	{{deb.issue.description}}<br>
-                                  	<span ng-show="deb.issue.linkRef"><h4>Reference:</h4>
-									<a href="{{deb.issue.linkRef}}">{{deb.issue.linkRef}}</a><br></span>
-									<h4>Categories: </h4>
-                                   	<span ng-repeat="cat in $ctrl.getCats(deb.issue.issCats)">{{cat.title}} </span>
-                                   <h4>Stances:</h4>
-                                   <ol>
-                                   	<li ng-repeat="per in deb.performances">{{per.stance}}</li>
-                                   </ol>
-           </v-pane-content>
-         </v-pane>
-       </v-accordion>`,
-	
+	      <v-accordion class="vAccordion--default">
+	       <v-pane ng-repeat="deb in $ctrl.debates">
+	         <v-pane-header ng-click="hideButtons = !hideButtons">
+					 		{{deb.issue.title}}
+	         </v-pane-header>
+	         <v-pane-content>
+	         	<span ng-show="{{deb.performances.length}} < 2 && $ctrl.logged()">
+							<a href="#!/join/{{deb.id}}"><button>Join</button></a></span>
+							<a href="#!/debate/{{deb.id}}"><button>View</button>
+							</a>
+	            <h4>Description:
+							</h4>
+	                  {{deb.issue.description}}<br>
+	          	<span ng-show="deb.issue.linkRef">
+							<h4>Reference:</h4>
+							<a href="{{deb.issue.linkRef}}">{{deb.issue.linkRef}}</a><br></span>
+							<h4>Categories: </h4>
+	            <span ng-repeat="cat in $ctrl.getCats(deb.issue.issCats)">{{cat.title}} </span>
+	            <h4>Stances:</h4>
+	            <ol>
+	            	<li ng-repeat="per in deb.performances">{{per.stance}}</li>
+	            </ol>
+	         </v-pane-content>
+	       </v-pane>
+	     </v-accordion>`,
+
 	controller : function(categoryService, issueService, debateService, authenticationService){
-		
+
 		var vm = this;
 		vm.logged = function(){
 			return authenticationService.isLoggedIn();
@@ -40,29 +43,29 @@ angular.module('ngDebate').component("categoriesComponent", {
 		vm.allDebates;
 		vm.debates;
 		vm.filterCats = [];
-		
+
 		categoryService.indexCategories()
 			.then(function(res) {
 				    vm.cats = res.data;
 				    console.log("IN .indexCategories");
 				    console.log(vm.cats);
 				})
-		
+
 		issueService.indexIssues()
 			.then(function(res) {
 			    console.log("IN .indexIssues");
 			    vm.issues = res.data;
 			    console.log(vm.issues);
 			})
-		
+
 		debateService.indexDebates()
 			.then(function(res) {
 				    console.log("IN .THEN");
 				    vm.allDebates = res.data;
 				    vm.debates = res.data;
 				    console.log(vm.debates);
-				})	
-				
+				})
+
 		vm.getCats = function(issCats){
 			var catArray = [];
 			issCats.forEach(function(ic1){
@@ -76,11 +79,11 @@ angular.module('ngDebate').component("categoriesComponent", {
 			});
 			return catArray;
 		}
-		
+
 		vm.filterDebates = function(cat1){
 			var index = 0;
 			var found = false;
-			
+
 			vm.filterCats.forEach(function(cat2){
 				if(cat1.id === cat2.id){
 					found = true;
@@ -89,7 +92,7 @@ angular.module('ngDebate').component("categoriesComponent", {
 					index++;
 				}
 			})
-			
+
 			if(found === true){
 				console.log("in found");
 				console.log(index);
@@ -99,9 +102,9 @@ angular.module('ngDebate').component("categoriesComponent", {
 				console.log(index);
 				vm.filterCats.push(cat1);
 			}
-			
+
 			var filteredDebates = [];
-			
+
 			vm.allDebates.forEach(function(deb){
 				var there = false;
 				if(there === false){
@@ -122,11 +125,11 @@ angular.module('ngDebate').component("categoriesComponent", {
 				}
 			})
 			vm.debates = filteredDebates;
-			
+
 			if(vm.filterCats.length === 0){
 				vm.debates = vm.allDebates;
 			}
-			
+
 //			vm.allDebates.forEach(function(deb){
 //				var there = false;
 //				if(there === false && deb.issue.issCats !== undefined && deb.issue.issCats.length > 0){
@@ -151,7 +154,7 @@ angular.module('ngDebate').component("categoriesComponent", {
 //					})
 //				}
 //			})
-			
+
 //			vm.allDebates.forEach(function(deb){
 //				var there = false;
 //				if(there === false && deb.issue !== undefined && deb.issue.categories !== undefined){
@@ -169,10 +172,10 @@ angular.module('ngDebate').component("categoriesComponent", {
 //				});
 //				}
 //			});
-			
-			
+
+
 		}
-				
+
 		vm.joinDebate = function(){
 			console.log("joindebate");
 		}
@@ -180,7 +183,7 @@ angular.module('ngDebate').component("categoriesComponent", {
 		vm.viewDebate = function(){
 			console.log("joindebate");
 		}
-	
+
 		vm.createDebate = function(){
 			console.log("createDebate");
 		}

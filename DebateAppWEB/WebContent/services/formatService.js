@@ -6,14 +6,6 @@ angular.module('ngDebate').factory(
 					"pale-golden-rod", "light-green", "pale-turquoise",
 					"thistle", "lemon-chiffon", "sea-green", "drab" ];
 
-			function compare(a,b) {
-			  if (a.id < b.id)
-			    return -1;
-			  if (a.id > b.id)
-			    return 1;
-			  return 0;
-			}
-
 			service.getTheme = function(theme){
 				if(theme){
 					return "light-theme";
@@ -21,7 +13,7 @@ angular.module('ngDebate').factory(
 					return "dark-theme";
 				}
 			}
-			
+
 			service.getBarClass = function(index) {
 						if (index === 0) {
  							return colors[0] + " bar-right";
@@ -31,8 +23,6 @@ angular.module('ngDebate').factory(
 				}
 
 			service.getArgPerfClass = function(arg, performances) {
-
-				performances.sort(compare);
 
 				for (var i = 0; i < performances.length; i++) {
 					if (arg.perfMember.performance.id === performances[i].id) {
@@ -58,8 +48,6 @@ angular.module('ngDebate').factory(
 			}
 
 			service.getArgNumClass = function(arg, performances) {
-
-				performances.sort(compare);
 
 				for (var i = 0; i < performances.length; i++) {
 					if (arg.perfMember.performance.id === performances[i].id) {

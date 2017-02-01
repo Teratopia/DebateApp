@@ -24,26 +24,42 @@ function argumentMasterController(authenticationService, userService, formatServ
 	// 	}
 	// });
 
+	//compare to sort performances prior to submition to formatting to avoid O(n^2)
+
+
+	function compare(a,b) {
+		if (a.id < b.id)
+			return -1;
+		if (a.id > b.id)
+			return 1;
+		return 0;
+	}
+
   var path = $location.path().split("/");
   debateService.indexDebateFull(path[path.length-1])
   .then(function(res) {
 	  vm.cUser = authenticationService.currentUser();
 	  vm.debatefull = res.data;
-	  vm.debatefull.performance_members.forEach(function(pm){
-		  if(pm.user.id === vm.cUser.id){
-			  vm.perfMember = pm;
-			  vm.performance = pm.performance;
-		  }
-	  })
+		vm.allperformances = vm.debatefull.debate.performances;
+		vm.allperformances.sort(compare);
 	  vm.allArgs = vm.debatefull.arguments;
+	  vm.debatefull.performance_members.forEach(function(pm){
+			try{
+				console.log("Checking to see if user is a debate participant");
+				if(vm.cUser.id !== undefined && pm.user.id === vm.cUser.id){
+					vm.perfMember = pm;
+					vm.performance = pm.performance;
+				}
+			} catch(e){
+				console.error(e + ": likely cause is that no user is logged in and page is being viewed as a guest.");
+			}
+	  })
   });
 
   function updateArgs(){
 	  debateService.indexDebateFull(path[path.length-1])
 	  .then(function(res) {
 		  vm.debatefull = res.data;
-		  console.log()
-		  console.log(vm.debatefull.arguments)
 		  vm.allArgs = vm.debatefull.arguments;
 	  })
   }
@@ -187,40 +203,40 @@ function argumentMasterController(authenticationService, userService, formatServ
 app.component('argumentMasterComponent',{
   template: `
 
-	<div class="row">
-      <div class="col-md-12">
-		<div class="args-display-screen" scroll-glue>
+		<div class="row">
+    	<div class="col-md-12">
+				<div class="args-display-screen" scroll-glue>
 		      <div ng-repeat="argument in $ctrl.allArgs | orderBy: 'timeStamp'">
 		        <div class="row arg-holder">
-		          <div ng-class="$ctrl.assignClass(argument, $ctrl.debatefull.debate.performances)">
-		      	  <div ng-class="$ctrl.isRight(argument, $ctrl.debatefull.debate.performances)">{{$index}}</div>
+		          <div ng-class="$ctrl.assignClass(argument, $ctrl.allperformances)">
+		      	  	<div ng-class="$ctrl.isRight(argument, $ctrl.allperformances)">{{$index}}</div>
 		              <div class="pad-arg-text">
 		                {{argument.text}}
 		                <div style="font-size:.7em">({{argument.user.username}})</div>
 		              </div>
-		           </div>
-		         </div>
-		      </div>
-		    </div>
-		    </div>
-           </div>
-           <div class="row" ng-show="$ctrl.isParticipant()">
-               <div class="col-md-12">
-				<div class="form-box">
-              		<form>
-                		<div>
-                  			<textarea id="arg-text" ng-class="$ctrl.highlight($ctrl.turnId,$ctrl.currentUser.id)" placeholder="{{$ctrl.argumentText}}" ng-model="$ctrl.newText" class="arg-text-form"></textarea>
-                		</div>
-                		<div>
-                  			<input id="args-submit" ng-class="$ctrl.highlight($ctrl.turnId,$ctrl.currentUser.id)" ng-click="$ctrl.instArg() ; $ctrl.turnCalc($ctrl.debatefull.roster)" type="submit" value="Send">
-                		</div>
-                		<div style="overflow: hidden; padding-right: .35em;">
-                  			<input type="text" ng-class="$ctrl.highlight($ctrl.turnId,$ctrl.currentUser.id)" placeholder="{{$ctrl.hrefText}}" ng-model="$ctrl.newRef" id="arg-href-link" class="href-link"/>
-                		</div>
-              		</form>
-            	</div>
-          		</div>
-         	</div>
+		           	</div>
+		         	</div>
+		      	</div>
+		    	</div>
+	    	</div>
+     	</div>
+     		<div class="row" ng-show="$ctrl.isParticipant()">
+         	<div class="col-md-12">
+						<div class="form-box">
+        			<form>
+          			<div>
+            			<textarea id="arg-text" ng-class="$ctrl.highlight($ctrl.turnId,$ctrl.currentUser.id)" placeholder="{{$ctrl.argumentText}}" ng-model="$ctrl.newText" class="arg-text-form"></textarea>
+          			</div>
+          			<div>
+            			<input id="args-submit" ng-class="$ctrl.highlight($ctrl.turnId,$ctrl.currentUser.id)" ng-click="$ctrl.instArg() ; $ctrl.turnCalc($ctrl.debatefull.roster)" type="submit" value="Send">
+          			</div>
+          			<div style="overflow: hidden; padding-right: .35em;">
+            			<input type="text" ng-class="$ctrl.highlight($ctrl.turnId,$ctrl.currentUser.id)" placeholder="{{$ctrl.hrefText}}" ng-model="$ctrl.newRef" id="arg-href-link" class="href-link"/>
+          			</div>
+        			</form>
+      			</div>
+    			</div>
+   			</div>
 
 `,
 

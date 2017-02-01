@@ -36,30 +36,39 @@ angular.module('ngDebate').component("ctComponent", {
 					'performance' : null
 				}];
 
+		function compare(a,b) {
+			if (a.id < b.id)
+				return -1;
+			if (a.id > b.id)
+				return 1;
+			return 0;
+		}
+
 	  var path = $location.path().split("/");
 	  debateService.indexDebateFull(path[path.length-1])
 	  	.then(function(res) {
 	  		vm.debateData = res.data;
 	  		vm.ddLoaded = true;
-	  		vm.performance1 = vm.debateData.debate.performances[0];
-			vm.performance2 = vm.debateData.debate.performances[1];
-			vm.performer1 = vm.debateData.debate.performances[0].team.name;
-			vm.performer2 = vm.debateData.debate.performances[1].team.name;
-			vm.debate = vm.debateData.debate;
+				vm.allperformances = vm.debateData.debate.performances;
+				vm.allperformances.sort(compare);
+				vm.debate = vm.debateData.debate;
+	  		vm.performance1 = vm.allperformances[0];
+				vm.performance2 = vm.allperformances[1];
+				vm.performer1 = vm.allperformances[0].team.name;
+				vm.performer2 = vm.allperformances[1].team.name;
 
-			if(vm.hasVoted === undefined && vm.debate !== undefined){
-				voteService.indexVotesByDebate(vm.debate).then(function(res) {
-	            	var votesCast =  res.data;
-	            	if(votesCast === undefined){
-	            		vm.hasVoted = vm.dummyArray;
-	            	} else {
-	            		vm.hasVoted = votesCast;
-	            		vm.countLeft();
-	            		vm.countRight();
-	            	}
-				})
-
-			}
+				if(vm.hasVoted === undefined && vm.debate !== undefined){
+					voteService.indexVotesByDebate(vm.debate).then(function(res) {
+          	var votesCast =  res.data;
+          	if(votesCast === undefined){
+          		vm.hasVoted = vm.dummyArray;
+          	} else {
+          		vm.hasVoted = votesCast;
+          		vm.countLeft();
+          		vm.countRight();
+          	}
+					})
+				}
 	  	});
 
 	  function updateVotes(){
@@ -89,11 +98,13 @@ angular.module('ngDebate').component("ctComponent", {
 
 					var flag = false;
 				vm.debateData.performance_members.forEach(function(pm){
-					if(vm.user !== undefined){
-						if(pm.user.id === vm.user.id){
-							flag = true
+						try{
+							if(pm.user.id === vm.user.id){
+								flag = true
+							}
+						} catch(e){
+							console.error(e + ": likely cause is that no user is logged in and page is being viewed as a guest.");
 						}
-					}
 				})
 				if(flag === true){
 					return true;
@@ -150,9 +161,13 @@ angular.module('ngDebate').component("ctComponent", {
 			vm.hasVoted.forEach(function(v){
 				console.log("hasVoted foreach v = ")
 				console.log(v)
-				if(vm.user.id === v.user.id){
-					flag = true;
-					presentVote = v;
+				try{
+					if(vm.user.id === v.user.id){
+						flag = true;
+						presentVote = v;
+					}
+				} catch(e){
+					console.error(e + ": likely cause is that no user is logged in and page is being viewed as a guest.");
 				}
 			})
 
