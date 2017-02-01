@@ -8,8 +8,6 @@ public interface PerformanceDAOI {
 
 	public Collection<Performance> index();
 	
-	public Collection<Performance> indexByUser(int id);
-
 	public Performance show(int id);
 
 	public Performance update(int id, String todoJson);

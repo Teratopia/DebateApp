@@ -9,11 +9,14 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import entities.Debate;
 import entities.Rules;
 
 public interface DebateControllerI {
 
 	public Collection<Rules> index(HttpServletRequest req, HttpServletResponse res);
+	
+	public Collection<Debate> indexByUser(HttpServletRequest req, HttpServletResponse res, @PathVariable("id") int id);
 
 	public Rules show(HttpServletRequest req, HttpServletResponse res, @PathVariable("id") int id);
 
