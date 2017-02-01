@@ -9,11 +9,23 @@ function debateInfoController(authenticationService, issueService, formatService
   vm.getPerformanceClass = function(performance, performances){
     return formatService.getPerformanceClass(performance, performances);
   }
+
+  vm.sortPerformances = function(performances){
+    return performances.sort(compare)
+  }
+
+	function compare(a,b) {
+		if (a.id < b.id)
+			return -1;
+		if (a.id > b.id)
+			return 1;
+		return 0;
+	}
 }
 
 app.component('debateInfoComponent',{
   template: `<v-accordion class="vAccordion--default" multiple>
-              <v-pane>
+              <v-pane expanded>
                 <v-pane-header>
                   Description
                 </v-pane-header>
@@ -23,12 +35,12 @@ app.component('debateInfoComponent',{
                   <div ng-repeat="category in popCategories($ctrl.debate.issue.id)">{{category}}</div>
                 </v-pane-content>
               </v-pane>
-              <v-pane>
+              <v-pane expanded>
                 <v-pane-header>
                   Stances
                 </v-pane-header>
                 <v-pane-content>
-                  <div ng-repeat="performance in $ctrl.debate.performances">
+                  <div ng-repeat="performance in $ctrl.sortPerformances($ctrl.debate.performances)">
 	  				<div class="row">
                     	<div ng-class="$ctrl.getPerformanceClass($index)" style="width:90%;margin:0px 0px 10px 0px">
                     		<div class="pad-arg-text">
