@@ -372,3 +372,19 @@ input:checked+.slider:before {
 	width: 80px;
 	margin: 0px 8px 9px 8px;
 }
+
+.desc-wrapper {
+	overflow: hidden;
+}
+
+.desc-right {
+	overflow: hidden;
+	margin: 6px 0px 0px 0px;
+	padding: 0;
+}
+
+.desc-left {
+	float: left;
+	width: 105px;
+	margin: 0px 0px 0px 0px;
+}
