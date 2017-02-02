@@ -11,8 +11,8 @@ angular.module('ngDebate').component("startDebateComponent", {
 			<input type="text" placeholder="Issue Title" ng-model="issTitle"/><br><br>
 			<input type="text" placeholder="Issue Description" ng-model="issDesc"/><br><br>
 			<input type="text" placeholder="Issue Link" ng-model="issLink"/><br><br>
-			<span ng-repeat="cat in $ctrl.cats">{{cat.title}} <input type="checkbox" ng-click="$ctrl.addCat(cat)"/>  </span>
-			<br>
+			<span ng-repeat="cat in $ctrl.cats">{{cat.title}} <input type="checkbox" ng-click="$ctrl.addCat(cat)"/>&nbsp&nbsp&nbsp</span>
+			<br><br>
 			<button ng-click="$ctrl.instantiateIssue(issTitle, issDesc, issLink)"><a>Post Issue</a></button>
 			</div>
 			
