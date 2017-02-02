@@ -78,20 +78,3 @@ angular.module('ngDebate').component("loginComponent", {
  }
 });
 
-
-//<div style="font-size:14px;line-height:1.42857143;color:#333;background-color:#1e2021;">
-//<nav class="navbar navbar-inverse navigation-clean" style="margin-bottom:10px;background-color:#1e2021;">
-//    <div class="container-fluid">
-//        <div class="navbar-header">
-//            <a class="navbar-brand navbar-link" href="./" style="padding:0px;margin:0px 0px 0px 0px;"><img src="assets/img/Quib-Logo-WHITE.png" style="float:left;border-radius:5px;border:1px solid rgb(169,169,169);"></a>
-//            <button class="navbar-toggle collapsed" ng-click="$ctrl.isCollapsed = !$ctrl.isCollapsed; log()"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
-//        </div>
-//        <div class="collapse navbar-collapse" uib-collapse="$ctrl.isCollapsed" id="navcol-1">
-//            <ul class="nav navbar-nav navbar-right"><!--
-//                <li class="active" role="presentation"><a href="#">First Item</a></li> -->
-//                <li class="line_item" role="presentation"><a href="#!/about">About </a></li>
-//            </ul>
-//        </div>
-//    </div>
-//</nav>
-//</div>

@@ -3,8 +3,8 @@ angular.module('ngDebate').component("categoriesComponent", {
 	template: `<nav-component></nav-component>
 
 		<h5>Filter by:</h5>
-		<column ng-repeat="cat in $ctrl.cats"> {{cat.title}}
-		<input type="checkbox" ng-click="$ctrl.filterDebates(cat)"></column>
+		<column ng-repeat="cat in $ctrl.cats | orderBy:'title'"> {{cat.title}}
+		<input type="checkbox" ng-click="$ctrl.filterDebates(cat)">&nbsp&nbsp</column>
 		<br><br>
 	      <v-accordion class="vAccordion--default">
 	       <v-pane ng-repeat="deb in $ctrl.debates">
