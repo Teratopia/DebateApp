@@ -31,7 +31,7 @@ app.component('navComponent',{
                                   <li class="line_item" role="presentation" ng-show="$ctrl.checkLogin()"><a ng-class="$root.bodylayout" href="#!/startDebate">New Quib</a></li>
 									<li class="line_item" role="presentation"><a ng-class="$root.bodylayout" href="#!/categories">Browse Quibs</a></li>
 
-                                  <li ng-hide="$ctrl.checkLogin()" class="line_item" role="presentation"><a ng-class="$root.bodylayout" href="#">Log In</a></li>
+                                  <li ng-hide="$ctrl.checkLogin()" class="line_item" role="presentation"><a ng-class="$root.bodylayout" href="./login">Log In</a></li>
                                   <li ng-show="$ctrl.checkLogin()" class="dropdown open" uib-dropdown keyboard-nav><a class="dropdown-toggle" ng-class="$root.bodylayout" uib-dropdown-toggle aria-expanded="true" href="#">Profile <span class="caret"></span></a>
                                       <ul class="dropdown-menu" uib-dropdown-menu role="menu">
                                           <li class="sub_line_item " role="presentation"><a href="#!/secure/profile">View Profile</a></li>

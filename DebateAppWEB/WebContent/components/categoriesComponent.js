@@ -8,26 +8,32 @@ angular.module('ngDebate').component("categoriesComponent", {
 		<br><br>
 	      <v-accordion class="vAccordion--default">
 	       <v-pane ng-repeat="deb in $ctrl.debates">
-	         <v-pane-header ng-click="hideButtons = !hideButtons">
-					 		{{deb.issue.title}}
+	         <v-pane-header ng-click="hideButtons = !hideButtons" style="padding:0">
+					 	 <div style="clear: both;">
+							 		<div style="margin:7px 0px 0px 0px;float:left;position:relative;padding-left:5px;">
+										<img src="assets/img/Quib-Logo-WHITE.png" ngclass="$root.bodylayout" style="height:30px;float:left;border-radius:5px;border:1px solid rgb(169,169,169);">
+									</div>
+		 					 		<div style="margin:4px 0px 0px 0px;float:left;position:relative;padding-left:15px">
+		 								<h4>Issue: {{deb.issue.title}}</h4>
+		 							</div>
+		 					 		<div style="margin:4px 0px 0px 0px;float:left;position:relative;padding-left:15px">
+		 								<h4 style="float:left;position:relative">Description: {{deb.issue.description}}</h4>
+									</div>
+				 	   </div>
+						 <span ng-show="deb.issue.linkRef">
 	         </v-pane-header>
 	         <v-pane-content>
 	         	<span ng-show="{{deb.performances.length}} < 2 && $ctrl.logged()">
 							<a href="#!/join/{{deb.id}}"><button>Join</button></a></span>
 							<a href="#!/debate/{{deb.id}}"><button>View</button>
 							</a>
-	            <h4>Description:
-							</h4>
-	                  {{deb.issue.description}}<br>
-	          	<span ng-show="deb.issue.linkRef">
 							<h4>Reference:</h4>
 							<a href="{{deb.issue.linkRef}}">{{deb.issue.linkRef}}</a><br></span>
-							<h4>Categories: </h4>
-	            <span ng-repeat="cat in $ctrl.getCats(deb.issue.issCats)">{{cat.title}} </span>
+							<h4>Categories: </h4><span ng-repeat="cat in $ctrl.getCats(deb.issue.issCats)">{{cat.title}} </span>
 	            <h4>Stances:</h4>
-	            <ol>
-	            	<li ng-repeat="per in deb.performances">{{per.stance}}</li>
-	            </ol>
+		            <ol>
+		            	<li ng-repeat="per in deb.performances">{{per.stance}}</li>
+		            </ol>
 	         </v-pane-content>
 	       </v-pane>
 	     </v-accordion>`,
