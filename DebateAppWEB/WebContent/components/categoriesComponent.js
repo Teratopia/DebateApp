@@ -6,35 +6,79 @@ angular.module('ngDebate').component("categoriesComponent", {
 		<column ng-repeat="cat in $ctrl.cats | orderBy:'title'"> {{cat.title}}
 		<input type="checkbox" ng-click="$ctrl.filterDebates(cat)">&nbsp&nbsp</column>
 		<br><br>
-	      <v-accordion class="vAccordion--default">
-	       <v-pane ng-repeat="deb in $ctrl.debates">
-	         <v-pane-header ng-click="hideButtons = !hideButtons" class="category-header">
-					 	 <div class="cat-wrapper">
-							 	<div class="category-left">
-								 	<img src="assets/img/Quib-Logo-WHITE.png" ngclass="$root.bodylayout" style="height:80px;float:left;border-radius:5px;border:1px solid rgb(169,169,169);">
-							 	</div>
-	 					 		<div class="category-right">
-	 								<h4 style="margin-top: 0px;margin-bottom: 0px;">Issue: {{deb.issue.title}}</h4>
-									<h5 style="margin:5px 0px;float:left;position:relative">Description: {{deb.issue.description}}</h5>
-								</div>
-				 	   </div>
-						 <span ng-show="deb.issue.linkRef">
-	         </v-pane-header>
-	         <v-pane-content>
-	         	<span ng-show="{{deb.performances.length}} < 2 && $ctrl.logged()">
-							<a href="#!/join/{{deb.id}}"><button>Join</button></a></span>
-							<a href="#!/debate/{{deb.id}}"><button>View</button>
-							</a>
-							<h4>Reference:</h4>
-							<a href="{{deb.issue.linkRef}}">{{deb.issue.linkRef}}</a><br></span>
-							<h4>Categories: </h4><span ng-repeat="cat in $ctrl.getCats(deb.issue.issCats)">{{cat.title}} </span>
-	            <h4>Stances:</h4>
-		            <ol>
-		            	<li ng-repeat="per in deb.performances">{{per.stance}}</li>
-		            </ol>
-	         </v-pane-content>
-	       </v-pane>
-	     </v-accordion>`,
+		<div class="container-fluid" style="padding:0;margin:0">
+	    <div class="row" style="padding:0;margin:0">
+		      <v-accordion class="vAccordion--default">
+						<div class="col-sm-12 col-md-6">
+							<v-pane ng-repeat="deb in $ctrl.debates" ng-if="$index<$ctrl.debates.length/2">
+								<v-pane-header ng-click="hideButtons = !hideButtons | " class="category-header" >
+									<div class="cat-wrapper">
+										<div class="category-left">
+											<img src="assets/img/Quib-Logo-WHITE.png" ngclass="$root.bodylayout" style="height:80px;float:left;border-radius:5px;border:1px solid rgb(169,169,169);">
+										</div>
+										<div class="category-right">
+											<h4 style="margin-top: 0px;margin-bottom: 0px;">{{$index}} Issue: {{deb.issue.title}}</h4>
+											<h5 style="margin:5px 0px;float:left;position:relative">Description: {{deb.issue.description}}</h5>
+										</div>
+									</div>
+								</v-pane-header>
+								<v-pane-content>
+									<div class="col-sm-12">
+										<span ng-show="{{deb.performances.length}} < 2 && $ctrl.logged()">
+											<a href="#!/join/{{deb.id}}"><button>Join</button></a>
+										</span>
+										<a href="#!/debate/{{deb.id}}">
+											<button>View</button>
+										</a>
+										<h4>Reference:</h4>
+										<a href="{{deb.issue.linkRef}}">{{deb.issue.linkRef}}</a>
+										<h4>Categories: </h4>
+										<span ng-repeat="cat in $ctrl.getCats(deb.issue.issCats)">{{cat.title}}</span>
+										<h4>Stances:</h4>
+										<ol>
+											<li ng-repeat="per in deb.performances">{{per.stance}}</li>
+										</ol>
+									</div>
+								</v-pane-content>
+			     		</v-pane>
+						 </div>
+
+	 						<div class="col-sm-12 col-md-6">
+	 							<v-pane ng-repeat="deb in $ctrl.debates" ng-if="$index>=$ctrl.debates.length/2">
+	 								<v-pane-header ng-click="hideButtons = !hideButtons | " class="category-header" >
+	 									<div class="cat-wrapper">
+	 										<div class="category-left">
+	 											<img src="assets/img/Quib-Logo-WHITE.png" ngclass="$root.bodylayout" style="height:80px;float:left;border-radius:5px;border:1px solid rgb(169,169,169);">
+	 										</div>
+	 										<div class="category-right">
+	 											<h4 style="margin-top: 0px;margin-bottom: 0px;">{{$index}} Issue: {{deb.issue.title}}</h4>
+	 											<h5 style="margin:5px 0px;float:left;position:relative">Description: {{deb.issue.description}}</h5>
+	 										</div>
+	 									</div>
+	 								</v-pane-header>
+	 								<v-pane-content>
+	 									<div class="col-sm-12">
+	 										<span ng-show="{{deb.performances.length}} < 2 && $ctrl.logged()">
+	 											<a href="#!/join/{{deb.id}}"><button>Join</button></a>
+	 										</span>
+	 										<a href="#!/debate/{{deb.id}}">
+	 											<button>View</button>
+	 										</a>
+	 										<h4>Reference:</h4>
+	 										<a href="{{deb.issue.linkRef}}">{{deb.issue.linkRef}}</a>
+	 										<h4>Categories: </h4>
+	 										<span ng-repeat="cat in $ctrl.getCats(deb.issue.issCats)">{{cat.title}}</span>
+	 										<h4>Stances:</h4>
+	 										<ol>
+	 											<li ng-repeat="per in deb.performances">{{per.stance}}</li>
+	 										</ol>
+	 									</div>
+	 								</v-pane-content>
+	 			     		</v-pane>
+	 						 </div>
+			     </v-accordion>
+			 </div>
+		 </div>`,
 
 	controller : function(categoryService, issueService, debateService, authenticationService){
 
@@ -47,6 +91,7 @@ angular.module('ngDebate').component("categoriesComponent", {
 		vm.allDebates;
 		vm.debates;
 		vm.filterCats = [];
+
 
 		categoryService.indexCategories()
 			.then(function(res) {
@@ -130,48 +175,62 @@ angular.module('ngDebate').component("categoriesComponent", {
 			})
 			vm.debates = filteredDebates;
 
-			if(vm.filterCats.length === 0){
-				vm.debates = vm.allDebates;
-			}
+//			if(vm.filterCats.length === 0) { vm.debates = vm.allDebates; }
+// vm.allDebates.forEach(
+// function(deb){ var there = false;
+									// if(there === false && deb.issue.issCats
+									// !== unde
+// fined &&
+																// deb.issue.issCats
+// .length
+																							// >
+																							// 0){
+																							// console.log("1a");
+// deb.issue.issCats.forEach(fun
+// ction(ic){ if(there
+// === false){ console.log("2a");
+// vm.filterIds.forEach(funct
+// ion(id){ if(there ==
+// = false){ console.
+// log("3a"); consol
+// e.log(deb); console.log(ic)
+// ; if(ic.category.id ===
+													// id
+// ){
+															// console.log("4a
+// there!")
+														// console.log(deb);
+// filteredDebat
+// es.push(deb);
 
-//			vm.allDebates.forEach(function(deb){
-//				var there = false;
-//				if(there === false && deb.issue.issCats !== undefined && deb.issue.issCats.length > 0){
-//					console.log("1a");
-//					deb.issue.issCats.forEach(function(ic){
-//						if(there === false){
-//							console.log("2a");
-//							vm.filterIds.forEach(function(id){
-//								if(there === false){
-//									console.log("3a");
-//									console.log(deb);
-//									console.log(ic);
-//									if(ic.category.id === id){
-//										console.log("4a there!")
-//										console.log(deb);
-//										filteredDebates.push(deb);
-//										there = true;
-//									}
-//								}
-//							})
-//						}
-//					})
-//				}
-//			})
-
-//			vm.allDebates.forEach(function(deb){
-//				var there = false;
-//				if(there === false && deb.issue !== undefined && deb.issue.categories !== undefined){
-//				deb.issue.categories.forEach(function(cat){
-//					if(there === false){
-//					vm.filterIds.forEach(function(id){
-//						if(there === false){
-//							if(cat.id === id){
-//								filteredDebates.push(deb);
-//								there = true;
-//							}
-//						}
-//					});
+//									// there = tru
+// e;
+// }
+// }
+//							// }) } }) } })
+// vm.allDebates.forEach(
+// function(deb){ var there = false;
+									// if(there === false && deb.issue !==
+									// undefined
+// &&
+																// deb.issue.categories
+																// !==
+																// undefined){
+																// deb.
+// issue.categories.forEach(fun
+// ction(cat){ if(there ===
+												// false){
+// vm.filterIds.forEach(fun
+// ction(id){ if(there
+// === false){ if(cat.id === id
+// ){ filteredDeb
+// ates.push(d
+// eb);
+// there
+// = true; /
+// / }
+//						// }
+//});
 //					}
 //				});
 //				}
@@ -191,4 +250,5 @@ angular.module('ngDebate').component("categoriesComponent", {
 		vm.createDebate = function(){
 			console.log("createDebate");
 		}
-	 } });
+	 }
+ });
