@@ -29,6 +29,14 @@ public class DebateDAO implements DebateDAOI {
 		Collection<Debate> debates = em.createQuery(query, Debate.class).getResultList();
 		return debates;
 	}
+	
+	@Override
+	public Collection<Debate> indexByUser(int id) {
+//		String query = "select p, p.Debate_id from Performance p LEFT join PerformanceMember pm on p.id = pm.performance.id where pm.user.id = "+id;
+		String query = "select d from Debate d left join Performance p on p.debate.id = d.id left join PerformanceMember pm on pm.performance.id = p.id where pm.user.id = " +id;
+		List<Debate> cats = em.createQuery(query, Debate.class).getResultList();
+		return cats;
+	}
 
 	@Override
 	public Map<String, Object> indexArgs(int id) {

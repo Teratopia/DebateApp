@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import data.DebateDAOI;
 import entities.Debate;
+import entities.Performance;
 
 @RestController
 public class DebateController {
@@ -27,6 +28,12 @@ public class DebateController {
 	@RequestMapping(path = "debate", method = RequestMethod.GET)
 	public Collection<Debate> index(HttpServletRequest req, HttpServletResponse res) {
 		return debateDAO.index();
+	}
+	
+	// Respond to request by returning all Performances
+	@RequestMapping(path = "debate/user/{id}", method = RequestMethod.GET)
+	public Collection<Debate> indexByUser(HttpServletRequest req, HttpServletResponse res, @PathVariable("id") int id) {
+		return debateDAO.indexByUser(id);
 	}
 
 	// Respond to request by returning single, specific Debate

@@ -30,13 +30,6 @@ public class PerformanceDAO implements PerformanceDAOI {
 	}
 
 	@Override
-	public Collection<Performance> indexByUser(int id) {
-		String query = "select p from Performance p join Team t on p.team.id = t.id join team_roster r on t.id = r.team_id join User u on r.user_id = u.id where u.id = "+id;
-		List<Performance> cats = em.createQuery(query, Performance.class).getResultList();
-		return cats;
-	}
-
-	@Override
 	public Performance show(int id) {
 		Performance Performance= em.find(Performance.class, id);
 		return Performance;

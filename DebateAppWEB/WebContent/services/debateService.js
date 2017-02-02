@@ -24,6 +24,16 @@ angular.module('ngDebate').factory('debateService', function($http, authenticati
 		})
 
   };
+  
+  service.indexByUser = function(id){
+		return $http({
+			method : 'GET',
+			url : 'api/debate/user/'+id,
+			headers : {
+				'x-access-token' : authenticationService.getToken()
+			}
+		})
+	}
 
   service.getDebate = function(id){
 

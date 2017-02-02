@@ -8,6 +8,8 @@ import entities.Debate;
 public interface DebateDAOI {
 
 	public Collection<Debate> index();
+	
+	public Collection<Debate> indexByUser(int id);
 
 	public Map<String, Object> indexArgs(int id);
 

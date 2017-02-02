@@ -13,7 +13,7 @@ angular.module('ngDebate').factory('performanceService',
 				})
 
 			};
-
+			
 			service.getPerformance = function(id) {
 
 				return $http({

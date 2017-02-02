@@ -12,10 +12,10 @@ angular.module('ngDebate').component("loginComponent", {
                             <input style="text-align: center" class="form-control" type="password" name="password" ng-model="post.password" placeholder="Password" required ng-minlength="6" ng-maxlength="42">
                         </div>
                         <div class="form-group">
-                            <a href="#!/categories"><button class="btn btn-primary btn-block" ng-click="$ctrl.login(post.username, post.password); post.username = ''; post.password='';">Log In</button></a>
+                           <button class="btn btn-primary btn-block" ng-click="$ctrl.login(post.username, post.password); post.username = ''; post.password='';">Log In</button>
                         </div>
                         <div class="form-group">
-                            <a href="#!/categories"><button class="btn btn-primary btn-block" ng-click="$ctrl.signup(post.username, post.password); post.username = ''; post.password='';">Sign Up</button></a>
+                            <button class="btn btn-primary btn-block" ng-click="$ctrl.signup(post.username, post.password); post.username = ''; post.password='';">Sign Up</button>
                         </div>
                     		<div style="height:60px;font-size:12px;color:#e09182;text-align:center">
                            <div ng-show="logForm.password.$dirty && logForm.username.$invalid ">
@@ -29,7 +29,7 @@ angular.module('ngDebate').component("loginComponent", {
                 </div>
 
  `,
- controller : function(authenticationService){
+ controller : function(authenticationService, $location){
 	 var vm = this;
 
 	 vm.isCollapsed = true;
@@ -47,6 +47,9 @@ angular.module('ngDebate').component("loginComponent", {
      		console.log(response);
      		vm.jwt = response.data.jwt;
      		authenticationService.saveToken(vm.jwt);
+     		}).then(function(res){
+     			console.log("IN SECOND");
+     			$location.path('/categories');
      		})
      }
 
@@ -54,6 +57,8 @@ angular.module('ngDebate').component("loginComponent", {
     	 var user = {
     			 'username' : uname,
     			 'password' : pword,
+    			 'lawfulchaotic' : 5,
+    			 'goodevil' : 5,
     			 'type' : 'USER'
     	 }
 
@@ -65,7 +70,10 @@ angular.module('ngDebate').component("loginComponent", {
     		 console.log(response.data.jwt)
     		 authenticationService.saveToken(vm.jwt);
     		 
-    	 })
+    	 }).then(function(res){
+  			console.log("IN SECOND");
+ 			$location.path('/categories');
+ 		})
      }
  }
 });

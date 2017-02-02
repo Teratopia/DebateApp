@@ -12,7 +12,7 @@ angular.module('ngDebate').factory('pmService', function($http, authenticationSe
 		})
 
   };
-
+  
   service.getPerformanceMember = function(id){
 
 	  return $http({
