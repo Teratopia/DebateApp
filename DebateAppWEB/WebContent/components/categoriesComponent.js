@@ -8,17 +8,15 @@ angular.module('ngDebate').component("categoriesComponent", {
 		<br><br>
 	      <v-accordion class="vAccordion--default">
 	       <v-pane ng-repeat="deb in $ctrl.debates">
-	         <v-pane-header ng-click="hideButtons = !hideButtons" style="padding:0">
-					 	 <div style="clear: both;">
-							 		<div style="margin:7px 0px 0px 0px;float:left;position:relative;padding-left:5px;">
-										<img src="assets/img/Quib-Logo-WHITE.png" ngclass="$root.bodylayout" style="height:30px;float:left;border-radius:5px;border:1px solid rgb(169,169,169);">
-									</div>
-		 					 		<div style="margin:4px 0px 0px 0px;float:left;position:relative;padding-left:15px">
-		 								<h4>Issue: {{deb.issue.title}}</h4>
-		 							</div>
-		 					 		<div style="margin:4px 0px 0px 0px;float:left;position:relative;padding-left:15px">
-		 								<h4 style="float:left;position:relative">Description: {{deb.issue.description}}</h4>
-									</div>
+	         <v-pane-header ng-click="hideButtons = !hideButtons" class="category-header">
+					 	 <div class="cat-wrapper">
+							 	<div class="category-left">
+								 	<img src="assets/img/Quib-Logo-WHITE.png" ngclass="$root.bodylayout" style="height:80px;float:left;border-radius:5px;border:1px solid rgb(169,169,169);">
+							 	</div>
+	 					 		<div class="category-right">
+	 								<h4 style="margin-top: 0px;margin-bottom: 0px;">Issue: {{deb.issue.title}}</h4>
+									<h5 style="margin:5px 0px;float:left;position:relative">Description: {{deb.issue.description}}</h5>
+								</div>
 				 	   </div>
 						 <span ng-show="deb.issue.linkRef">
 	         </v-pane-header>
