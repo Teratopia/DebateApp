@@ -31,23 +31,23 @@ public class AuthenticationController implements AuthenticationControllerI {
 	public Map<String, String> login(HttpServletRequest req, HttpServletResponse res, @RequestBody String userJson) {
 
 		ObjectMapper mapper = new ObjectMapper();
-		User u = null;
+		User user= null;
 
 		try {
-			u = mapper.readValue(userJson, User.class);
+			user= mapper.readValue(userJson, User.class);
 		} catch (Exception e) {
 			System.out.println(e);
 		}
 
 		try {
-			u = userDao.login(u);
+			user= userDao.login(user);
 		} catch (Exception e) {
 			e.printStackTrace();
 			res.setStatus(401);
 			return null;
 		}
 
-		String jws = jwtGen.generateUserJwt(u);
+		String jws = jwtGen.generateUserJwt(user);
 		Map<String, String> responseJson = new HashMap<>();
 		responseJson.put("jwt", jws);
 		return responseJson;
