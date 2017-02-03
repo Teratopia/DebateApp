@@ -17,8 +17,8 @@ angular.module('ngDebate').component("categoriesComponent", {
 											<img src="assets/img/Quib-Logo-WHITE.png" ngclass="$root.bodylayout" style="height:80px;float:left;border-radius:5px;border:1px solid rgb(169,169,169);">
 										</div>
 										<div class="category-right">
-											<h4 style="margin-top: 0px;margin-bottom: 0px;">{{$index}} Issue: {{deb.issue.title}}</h4>
-											<h5 style="margin:5px 0px;float:left;position:relative">Description: {{deb.issue.description}}</h5>
+											<h4 style="margin-top: 0px;margin-bottom: 0px;"> Issue: <i>{{deb.issue.title}}</i></h4>
+											<h5 style="margin:5px 0px;float:left;position:relative">Description: <i>{{deb.issue.description}}</i></h5>
 										</div>
 									</div>
 								</v-pane-header>
@@ -68,25 +68,25 @@ angular.module('ngDebate').component("categoriesComponent", {
 						 </div>
 	 						<div class="col-sm-12 col-md-6">
 	 							<v-pane ng-repeat="deb in $ctrl.debates" ng-if="$index>=$ctrl.debates.length/2">
-	 								<v-pane-header ng-click="hideButtons = !hideButtons | " class="category-header" >
-	 									<div class="cat-wrapper">
-	 										<div class="category-left">
-	 											<img src="assets/img/Quib-Logo-WHITE.png" ngclass="$root.bodylayout" style="height:80px;float:left;border-radius:5px;border:1px solid rgb(169,169,169);">
-	 										</div>
-	 										<div class="category-right">
-	 											<h4 style="margin-top: 0px;margin-bottom: 0px;">{{$index}} Issue: {{deb.issue.title}}</h4>
-	 											<h5 style="margin:5px 0px;float:left;position:relative">Description: {{deb.issue.description}}</h5>
-	 										</div>
-	 									</div>
-	 								</v-pane-header>
-	 								<v-pane-content>
-	 									<div style="padding: 0px 15px;margin-bottom: -10px;border-bottom: 2px solid #00909b;">
-	 										<span ng-show="{{deb.performances.length}} < 2 && $ctrl.logged()">
-	 											<a href="#!/join/{{deb.id}}"><button style="margin: 5px 0px;">Join</button></a>
-	 										</span>
-	 										<a href="#!/debate/{{deb.id}}">
-	 											<button style="margin: 5px 0px;">View</button>
-	 										</a>
+									<v-pane-header ng-click="hideButtons = !hideButtons | " class="category-header" >
+										<div class="cat-wrapper">
+											<div class="category-left">
+												<img src="assets/img/Quib-Logo-WHITE.png" ngclass="$root.bodylayout" style="height:80px;float:left;border-radius:5px;border:1px solid rgb(169,169,169);">
+											</div>
+											<div class="category-right">
+												<h4 style="margin-top: 0px;margin-bottom: 0px;"> Issue: <i>{{deb.issue.title}}</i></h4>
+												<h5 style="margin:5px 0px;float:left;position:relative">Description: <i>{{deb.issue.description}}</i></h5>
+											</div>
+										</div>
+									</v-pane-header>
+									<v-pane-content>
+										<div style="padding: 0px 15px;margin-bottom: -10px;border-bottom: 2px solid #00909b;">
+											<span ng-show="{{deb.performances.length}} < 2 && $ctrl.logged()">
+												<a href="#!/join/{{deb.id}}"><button style="margin: 5px 0px;">Join</button></a>
+											</span>
+											<a href="#!/debate/{{deb.id}}">
+												<button style="margin: 5px 0px;">View</button>
+											</a>
 
 											<div class="desc-wrapper">
 												<div class="desc-left">
@@ -119,10 +119,10 @@ angular.module('ngDebate').component("categoriesComponent", {
 												</div>
 											</div>
 
-	 									</div>
-	 								</v-pane-content>
-	 			     		</v-pane>
-	 						 </div>
+										</div>
+									</v-pane-content>
+				     		</v-pane>
+							 </div>
 			     </v-accordion>
 			 </div>
 		 </div>`,

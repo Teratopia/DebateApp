@@ -28,7 +28,7 @@ angular.module('ngDebate').component("profileComponent", {
 											<img src="assets/img/Quib-Logo-WHITE.png" ngclass="$root.bodylayout" style="height:80px;float:left;border-radius:5px;border:1px solid rgb(169,169,169);">
 										</div>
 										<div class="category-right">
-											<h4 style="margin-top: 0px;margin-bottom: 0px;">{{$index}} Issue: {{deb.issue.title}}</h4>
+											<h4 style="margin-top: 0px;margin-bottom: 0px;"> Issue: {{deb.issue.title}}</h4>
 											<h5 style="margin:5px 0px;float:left;position:relative">Description: {{deb.issue.description}}</h5>
 										</div>
 									</div>
@@ -85,7 +85,7 @@ angular.module('ngDebate').component("profileComponent", {
 	 											<img src="assets/img/Quib-Logo-WHITE.png" ngclass="$root.bodylayout" style="height:80px;float:left;border-radius:5px;border:1px solid rgb(169,169,169);">
 	 										</div>
 	 										<div class="category-right">
-	 											<h4 style="margin-top: 0px;margin-bottom: 0px;">{{$index}} Issue: {{deb.issue.title}}</h4>
+	 											<h4 style="margin-top: 0px;margin-bottom: 0px;"> Issue: {{deb.issue.title}}</h4>
 	 											<h5 style="margin:5px 0px;float:left;position:relative">Description: {{deb.issue.description}}</h5>
 	 										</div>
 	 									</div>
