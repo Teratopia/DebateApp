@@ -2,8 +2,8 @@ angular.module('ngDebate').component("categoriesComponent", {
 
 	template: `<nav-component></nav-component>
 
-		<h5>Filter by:</h5>
-		<column ng-repeat="cat in $ctrl.cats | orderBy:'title'"> {{cat.title}}
+		<h5 style="margin:10px">Filter by:</h5>
+		<column style="padding:10px" ng-repeat="cat in $ctrl.cats | orderBy:'title'"> {{cat.title}}
 		<input type="checkbox" ng-click="$ctrl.filterDebates(cat)">&nbsp&nbsp</column>
 		<br><br>
 		<div class="container-fluid" style="padding:0;margin:0">
