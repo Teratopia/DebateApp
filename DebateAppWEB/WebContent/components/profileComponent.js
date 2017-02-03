@@ -10,7 +10,7 @@ angular.module('ngDebate').component("profileComponent", {
 					<h5>Total number of debates: {{$ctrl.debates.length}}</h5>
 					<h5>Alignment: {{$ctrl.lawfulness}} {{$ctrl.goodness}}</h5>
 					<br>
-					<div style="border-bottom: 2px solid white;margin:0px 0px 10px 0px">
+					<div style="border-bottom: 2px solid #D8D8D8;margin:0px 0px 10px 0px">
 						<h3>Your Debates:</h3>
 					</div>
 				</div>

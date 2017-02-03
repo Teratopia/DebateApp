@@ -25,14 +25,14 @@ app.component('navComponent',{
                               <button class="navbar-toggle collapsed" ng-click="$ctrl.isCollapsed = !$ctrl.isCollapsed"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
                           </div>
                           <div class="collapse navbar-collapse" uib-collapse="$ctrl.isCollapsed" id="navcol-1">
-                              <ul class="nav navbar-nav navbar-right"><!--
-                                  <li class="active" role="presentation" ng-show="$ctrl.checkLogin()"><a ng-class="$root.bodylayout" href="#">First Item</a></li> -->
-                                  <li class="line_item" role="presentation"><a ng-class="$root.bodylayout" href="#!/about">About </a></li>
-                                  <li class="line_item" role="presentation" ng-show="$ctrl.checkLogin()"><a ng-class="$root.bodylayout" href="#!/startDebate">New Quib</a></li>
-									<li class="line_item" role="presentation"><a ng-class="$root.bodylayout" href="#!/categories">Browse Quibs</a></li>
+                              <ul class="nav navbar-nav navbar-right">
+                                  <!--<li class="active" role="presentation" ng-show="$ctrl.checkLogin()"><a ng-class="$root.bodylayout" href="#">First Item</a></li> -->
+                                  <li class="line_item" role="presentation"><a ng-class="$root.bodylayout" style="background-color: transparent !important;" href="#!/about">About </a></li>
+                                  <li class="line_item" role="presentation" ng-show="$ctrl.checkLogin()"><a ng-class="$root.bodylayout" style="background-color: transparent !important;" href="#!/startDebate">New Quib</a></li>
+									<li class="line_item" role="presentation"><a ng-class="$root.bodylayout" style="background-color: transparent !important;" href="#!/categories">Browse Quibs</a></li>
 
-                                  <li ng-hide="$ctrl.checkLogin()" class="line_item" role="presentation"><a ng-class="$root.bodylayout" href="#!/login">Log In</a></li>
-                                  <li ng-show="$ctrl.checkLogin()" class="dropdown open" uib-dropdown keyboard-nav><a class="dropdown-toggle" ng-class="$root.bodylayout" uib-dropdown-toggle aria-expanded="true" href="#">Profile <span class="caret"></span></a>
+                                  <li ng-hide="$ctrl.checkLogin()" class="line_item" role="presentation"><a ng-class="$root.bodylayout" style="background-color: transparent !important;" href="#!/login">Log In</a></li>
+                                  <li ng-show="$ctrl.checkLogin()" class="dropdown open" uib-dropdown keyboard-nav><a class="dropdown-toggle" ng-class="$root.bodylayout" style="background-color: transparent !important;" uib-dropdown-toggle aria-expanded="true" href="#">Profile <span class="caret"></span></a>
                                       <ul class="dropdown-menu" uib-dropdown-menu role="menu">
                                           <li class="sub_line_item " role="presentation"><a href="#!/secure/profile">View Profile</a></li>
                                           <li class="sub_line_item " role="presentation"><a href="#" ng-click="$ctrl.logout()">Log Out</a></li>
