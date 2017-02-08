@@ -6,4 +6,4 @@ Quibblur is a project built in Eclipse and Atom using HTML, CSS, Bootstrap, Java
 
 The initial website was created by Johnathon Borgia and Kyle Ennis over 8 days at Skill Distillery coding bootcamp.
 
-For easy log-in, use 'testu7' as your Username and 'testpass' as your Password.
+For easy log-in, use 'testu7' as your username and 'testpass' as your password.
