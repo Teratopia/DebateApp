@@ -1,6 +1,6 @@
 package entities;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,7 +27,7 @@ public class Argument {
 	private PerformanceMember perfMember;
 	private String text;
 	@Column(name = "time_stamp")
-	private Date timeStamp;
+	private Timestamp timeStamp;
 	@Column(name = "linkref")
 	private String linkRef;
 	@ManyToOne
@@ -77,11 +77,11 @@ public class Argument {
 		this.text = text;
 	}
 
-	public Date getTimeStamp() {
+	public Timestamp getTimeStamp() {
 		return timeStamp;
 	}
 
-	public void setTimeStamp(Date timeStamp) {
+	public void setTimeStamp(Timestamp timeStamp) {
 		this.timeStamp = timeStamp;
 	}
 

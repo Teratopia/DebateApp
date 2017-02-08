@@ -40,7 +40,9 @@ public class DebateDAO implements DebateDAOI {
 
 	@Override
 	public Map<String, Object> indexArgs(int id) {
+		System.out.println("GETTING INFORMATION FOR DEBATE ID: " + id);
 		Debate debate = em.find(Debate.class, id);
+		System.out.println(debate);
 		String queryArgs = "SELECT a " 
 					+ "FROM Argument AS a " 
 					+ "JOIN a.perfMember AS pm "
@@ -54,6 +56,10 @@ public class DebateDAO implements DebateDAOI {
 		Collection<PerformanceMember> performanceMembers = em.createQuery(queryPerformanceMembers, PerformanceMember.class).setParameter(1, id).getResultList();
 
 		List<List> roster = new ArrayList<>();
+		
+		System.out.println(debate.getIssue().getTitle() + " " + debate.getId());
+		
+		
 		for (Performance performance : debate.getPerformances()) {
 			List<Integer> members = new ArrayList<>();
 			for (PerformanceMember performanceMember : performanceMembers) {

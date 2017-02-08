@@ -27,7 +27,7 @@ CREATE TABLE `argument` (
   `team_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `pm_id` int(11) NOT NULL,
-  `time_stamp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `time_stamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `text` varchar(512) NOT NULL,
   `linkref` varchar(1012) DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -36,7 +36,7 @@ CREATE TABLE `argument` (
   KEY `pm_id` (`pm_id`),
   CONSTRAINT `argument_ibfk_1` FOREIGN KEY (`team_id`) REFERENCES `team` (`id`),
   CONSTRAINT `argument_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
-  CONSTRAINT `argument_ibfk_3` FOREIGN KEY (`pm_id`) REFERENCES `performance` (`id`)
+  CONSTRAINT `argument_ibfk_3` FOREIGN KEY (`pm_id`) REFERENCES `performance_member` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -85,7 +85,7 @@ CREATE TABLE `comment` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `debate_id` int(11) NOT NULL,
-  `time_stamp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `time_stamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `text` varchar(256) NOT NULL,
   `linkref` varchar(1012) DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -116,7 +116,7 @@ CREATE TABLE `debate` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `issue_id` int(11) NOT NULL,
   `rules_id` int(11) NOT NULL,
-  `timeStamp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `timeStamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `winner_id` int(11) DEFAULT NULL,
   `turn_count` int(11) DEFAULT '0',
   PRIMARY KEY (`id`),
@@ -380,7 +380,7 @@ CREATE TABLE `vote` (
   `debate_id` int(11) NOT NULL,
   `performance_id` int(11) NOT NULL,
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `time_stamp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `time_stamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `debate_id` (`debate_id`),
   KEY `user_id` (`user_id`),

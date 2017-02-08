@@ -1,6 +1,7 @@
 package entities;
 
-import java.util.Date;
+
+import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -59,7 +60,7 @@ public class Debate {
 //	commented b/c persistence error caused by one to many above
 //	@Column(name = "winner_id")
 //	private Performance winner;
-	private Date timeStamp;
+	private Timestamp timeStamp;
 	@Column(name = "turn_count")
 	private int turnCount;
 
@@ -79,11 +80,11 @@ public class Debate {
 		this.comments = comments;
 	}
 
-	public Date getTimeStamp() {
+	public Timestamp getTimeStamp() {
 		return timeStamp;
 	}
 
-	public void setTimeStamp(Date timeStamp) {
+	public void setTimeStamp(Timestamp timeStamp) {
 		this.timeStamp = timeStamp;
 	}
 

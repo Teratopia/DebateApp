@@ -50,18 +50,3 @@ app.component('navComponent',{
   }
 
 });
-
-//<li class="dropdown open" uib-dropdown keyboard-nav><a class="dropdown-toggle" uib-dropdown-toggle aria-expanded="true" href="#"  ng-show="$ctrl.checkLogin()">Search Quibs<span class="caret"></span></a>
-//<ul class="dropdown-menu" uib-dropdown-menu role="menu">
-//    <li class="sub_line_item" role="presentation"><a href="#">Insert Search Bar Here</a></li>
-//</ul>
-//</li>
-//<li class="dropdown open" uib-dropdown keyboard-nav><a class="dropdown-toggle" uib-dropdown-toggle aria-expanded="true" href="#" ng-show="$ctrl.checkLogin()">Quibagories<span class="caret"></span></a>
-//<ul class="dropdown-menu" uib-dropdown-menu role="menu">
-//    <li class="sub_line_item" role="presentation"><a href="#">Quibagory 1</a></li>
-//    <li class="sub_line_item" role="presentation"><a href="#">Quibagory 2</a></li>
-//    <li class="sub_line_item" role="presentation"><a href="#">Quibagory 3</a></li>
-//    <li class="sub_line_item " role="presentation"><a href="#">Quibagory 4</a></li>
-//    <li class="sub_line_item " role="presentation"><a href="#">Quibagory 5</a></li>
-//</ul>
-//</li>

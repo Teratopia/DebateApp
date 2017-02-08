@@ -1,6 +1,6 @@
 package entities;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,7 +25,7 @@ public class Vote {
 	@JoinColumn(name = "performance_id")
 	private Performance performance;
 	@Column(name = "time_stamp")
-	private Date timeStamp;
+	private Timestamp timeStamp;
 
 	public Vote() {
 	}
@@ -54,11 +54,11 @@ public class Vote {
 		this.debate = debate;
 	}
 
-	public Date getTimeStamp() {
+	public Timestamp getTimeStamp() {
 		return timeStamp;
 	}
 
-	public void setTimeStamp(Date timeStamp) {
+	public void setTimeStamp(Timestamp timeStamp) {
 		this.timeStamp = timeStamp;
 	}
 
