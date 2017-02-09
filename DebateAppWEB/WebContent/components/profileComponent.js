@@ -5,7 +5,7 @@ angular.module('ngDebate').component("profileComponent", {
 	<nav-component></nav-component>
 		<div class="container-fluid">
 			<div class="row">
-					<div class="col-sm-12">
+				<div class="col-sm-12">
 					<h2>{{$ctrl.user.username}}'s profile</h2>
 					<h5>Total number of debates: {{$ctrl.debates.length}}</h5>
 					<h5>Alignment: {{$ctrl.lawfulness}} {{$ctrl.goodness}}</h5>
