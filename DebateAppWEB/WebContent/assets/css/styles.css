@@ -366,11 +366,21 @@ input:checked+.slider:before {
 	margin: 2px 16px 0px 5px;
 	padding: 0;
 }
+.category-right > h4 {
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
 
 .category-left {
 	float: left;
 	width: 80px;
 	margin: 0px 8px 9px 8px;
+}
+
+.category-right > h5 {
+	margin:5px 0px;
+	float:left;
+	position:relative;
 }
 
 .desc-wrapper {
@@ -383,10 +393,23 @@ input:checked+.slider:before {
 	padding: 0;
 }
 
+.desc-right > div {
+	 display: inline-block; 
+	 margin: 0px 7px 0px 1px;
+}
+
+.desc-right > div > ol {
+	-webkit-padding-start: 17px;
+}
+
 .desc-left {
 	float: left;
 	width: 105px;
 	margin: 0px 0px 0px 0px;
+}
+
+.desc-left > h4 {
+	margin:5px 0px 2px 0px;
 }
 
 .video-container {
@@ -408,4 +431,33 @@ input:checked+.slider:before {
 
 .about-vidinfo {
 	margin: 20px 0px 0px 0px;
+}
+
+column {
+	padding: 10px;
+}
+
+.noPadNoMorg {
+	padding:0px;
+	margin:0px;
+}
+.quibPaneImage {
+	height:80px;
+	float:left;
+	border-radius:5px;
+	border:1px solid rgb(169,169,169);
+}
+
+.vPaneContentWrapper {
+	padding: 0px 15px;
+	margin-bottom: -10px;
+	border-bottom: 2px solid #00909b;
+}
+
+.quibButton {
+	margin: 5px 0px;
+}
+
+#filterHeader{
+	margin:10px;
 }
