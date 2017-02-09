@@ -3,71 +3,72 @@ angular.module('ngDebate').component("startDebateComponent", {
 	template : `
 	
 		<nav-component></nav-component>
+		
 		<h2>Start a Debate</h2>
 		<form name="sdForm" novalidate>
 		
 			<div ng-show="$ctrl.showDivs(1)">
-			<h5>Issue</h5>
-			<input type="text" placeholder="Issue Title" ng-model="issTitle"/><br><br>
-			<input type="text" placeholder="Issue Description" ng-model="issDesc"/><br><br>
-			<input type="text" placeholder="Issue Link" ng-model="issLink"/><br><br>
-			<span ng-repeat="cat in $ctrl.cats">{{cat.title}} <input type="checkbox" ng-click="$ctrl.addCat(cat)"/>&nbsp&nbsp&nbsp</span>
-			<br><br>
-			<button ng-click="$ctrl.instantiateIssue(issTitle, issDesc, issLink)"><a>Post Issue</a></button>
+				<h5>Issue</h5>
+				<input type="text" placeholder="Issue Title" ng-model="issTitle"/><br><br>
+				<input type="text" placeholder="Issue Description" ng-model="issDesc"/><br><br>
+				<input type="text" placeholder="Issue Link" ng-model="issLink"/><br><br>
+				<span ng-repeat="cat in $ctrl.cats">{{cat.title}} <input type="checkbox" ng-click="$ctrl.addCat(cat)"/>&nbsp&nbsp&nbsp</span>
+				<br><br>
+				<button ng-click="$ctrl.instantiateIssue(issTitle, issDesc, issLink)"><a>Post Issue</a></button>
 			</div>
 			
 			<div ng-show="$ctrl.showDivs(2)">
-			<h5>Rules</h5>
-			<select ng-model="ruleApt">
-				<option value="" disabled selected>Arguments per Turn</option>
-				<option ng-repeat="opt in $ctrl.aptOptions" value="{{opt}}" name="opt">{{opt}}</option>
-				<option value="100" name="Unlimited">
-			</select><br><br>
-			<input type="text" placeholder="Characters per Argument" name="ruleCpt"/><br><br>
-			<select ng-model="tLimit">
-				<option value="" disabled selected>Time Limit</option>
-				<option value="300" name="five">5 Minutes</option>
-				<option value="600" name="ten">10 Minutes</option>
-				<option value="900" name="fifteen">15 Minutes</option>
-				<option value="1800" name="thirty">30 Minutes</option>
-				<option value="3600" name="1hour">1 Hour</option>
-				<option value="7200" name="2hour">2 Hours</option>
-				<option value="14400" name="4hour">4 Hours</option>
-				<option value="28800" name="8hour">8 Hours</option>
-				<option value="57600" name="16hour">16 Hours</option>
-				<option value="115200" name="32hour">32 Hours</option>
-				<option value="230400" name="3day">3 Days</option>
-				<option value="100" name="None">
-			</select><br><br>
-			<select ng-model="vtWin">
-				<option value="" disabled selected>Votes to Win</option>
-				<option value="5" name="None">5</option>
-				<option value="10" name="None">10</option>
-				<option value="25" name="None">25</option>
-				<option value="50" name="None">50</option>
-				<option value="100" name="None">100</option>
-				<option value="250" name="None">250</option>
-				<option value="500" name="None">500</option>
-				<option value="1000" name="None">1000</option>
-			</select><br><br>
-			Opening Statements Enabled <input type="checkbox" ng-model="oStatements"/><br><br>
-			References Enabled <input type="checkbox" ng-model="refsEnabled"/><br><br>
-			Viewer Comments Visable <input type="checkbox" ng-model="vcsVisable"/><br><br>
-			Private Debate<input type="checkbox" ng-model="pDebate"/><br><br>
-			
-			<button ng-click="$ctrl.instantiateRules(ruleApt, ruleCpt, tLimit, oStatements, refsEnabled, vtWin, vcsVisable, pDebate)"><a>Set Rules</a></button>
+				<h5>Rules</h5>
+				<select ng-model="ruleApt">
+					<option value="" disabled selected>Arguments per Turn</option>
+					<option ng-repeat="opt in $ctrl.aptOptions" value="{{opt}}" name="opt">{{opt}}</option>
+					<option value="100" name="Unlimited">
+				</select><br><br>
+				<input type="text" placeholder="Characters per Argument" name="ruleCpt"/><br><br>
+				<select ng-model="tLimit">
+					<option value="" disabled selected>Time Limit</option>
+					<option value="300" name="five">5 Minutes</option>
+					<option value="600" name="ten">10 Minutes</option>
+					<option value="900" name="fifteen">15 Minutes</option>
+					<option value="1800" name="thirty">30 Minutes</option>
+					<option value="3600" name="1hour">1 Hour</option>
+					<option value="7200" name="2hour">2 Hours</option>
+					<option value="14400" name="4hour">4 Hours</option>
+					<option value="28800" name="8hour">8 Hours</option>
+					<option value="57600" name="16hour">16 Hours</option>
+					<option value="115200" name="32hour">32 Hours</option>
+					<option value="230400" name="3day">3 Days</option>
+					<option value="100" name="None">
+				</select><br><br>
+				<select ng-model="vtWin">
+					<option value="" disabled selected>Votes to Win</option>
+					<option value="5" name="None">5</option>
+					<option value="10" name="None">10</option>
+					<option value="25" name="None">25</option>
+					<option value="50" name="None">50</option>
+					<option value="100" name="None">100</option>
+					<option value="250" name="None">250</option>
+					<option value="500" name="None">500</option>
+					<option value="1000" name="None">1000</option>
+				</select><br><br>
+				Opening Statements Enabled <input type="checkbox" ng-model="oStatements"/><br><br>
+				References Enabled <input type="checkbox" ng-model="refsEnabled"/><br><br>
+				Viewer Comments Visable <input type="checkbox" ng-model="vcsVisable"/><br><br>
+				Private Debate<input type="checkbox" ng-model="pDebate"/><br><br>
+				
+				<button ng-click="$ctrl.instantiateRules(ruleApt, ruleCpt, tLimit, oStatements, refsEnabled, vtWin, vcsVisable, pDebate)"><a>Set Rules</a></button>
 
 			</div>
 			
 			<div ng-show="$ctrl.showDivs(3)">
-			<h5>Your Team</h5>
-			<input type="text" ng-model="$ctrl.defaultTeamName"/><br>
-			<input type="text" placeholder="Your Stance on This Issue" ng-model="perfStance"/><br><br>
-			<button ng-click="$ctrl.instantiateTeam($ctrl.defaultTeamName); $ctrl.instantiateDebate()"><a>Create Team</a></button>
+				<h5>Your Team</h5>
+				<input type="text" ng-model="$ctrl.defaultTeamName"/><br>
+				<input type="text" placeholder="Your Stance on This Issue" ng-model="perfStance"/><br><br>
+				<button ng-click="$ctrl.instantiateTeam($ctrl.defaultTeamName); $ctrl.instantiateDebate()"><a>Create Team</a></button>
 			</div>
-			
+				
 			<div ng-show="$ctrl.showDivs(4)">
-			<button ng-click="$ctrl.instantiatePerformanceMember(perfStance)"><a href="#!/categories">Start Debate</button></a><br><br>
+				<button ng-click="$ctrl.instantiatePerformanceMember(perfStance)"><a href="#!/categories">Start Debate</button></a><br><br>
 			</div>
 			
 		</form>
