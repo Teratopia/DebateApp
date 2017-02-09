@@ -14,10 +14,10 @@ function navController(authenticationService, formatService, $rootScope) {
 
 app.component('navComponent',{
   template: ` <div>
-                  <nav class="navbar navbar-inverse navigation-clean" ng-class="$root.bodylayout" style="margin-bottom:10px;">
+                  <nav class="navbar navbar-inverse navigation-clean" ng-class="$root.bodylayout">
                       <div class="container-fluid" >
                           <div class="navbar-header">
-                              <a class="navbar-brand navbar-link" href="#!/categories" style="padding:0px;margin:0px 0px 0px 0px;"><img src="assets/img/Quib-Logo-WHITE.png" ngclass="$root.bodylayout" style="float:left;border-radius:5px;border:1px solid rgb(169,169,169);"></a>
+                              <a class="navbar-brand navbar-link" href="#!/categories"><img src="assets/img/Quib-Logo-WHITE.png" ngclass="$root.bodylayout" style="border-radius:5px;border:1px solid rgb(169,169,169);"></a>
                                       <label class="switch">
 									    <input type="checkbox" ng-model="$root.bodylayout" ng-true-value="'dark-theme'" ng-false-value="'light-theme'">
 									    <div class="slider round"></div>

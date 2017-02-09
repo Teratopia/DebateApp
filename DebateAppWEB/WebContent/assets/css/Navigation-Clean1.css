@@ -2,6 +2,8 @@
   background:#fff;
   padding-top:10px;
   padding-bottom:10px;
+  padding-left:10px;
+  padding-right:10px;
   color:#333;
   border-radius:0;
   box-shadow:none;
@@ -26,6 +28,8 @@
 .navigation-clean .navbar-brand {
   font-weight:bold;
   color:inherit;
+  padding:0px;
+  margin:10px 0px 0px 0px;
 }
 
 .navigation-clean .navbar-brand:hover {
@@ -168,3 +172,10 @@
     color:#fff;
   }
 }
+
+.navbar .navbar-inverse .navigation-clean {
+	margin-bottom:10px;
+}
+
+
+
