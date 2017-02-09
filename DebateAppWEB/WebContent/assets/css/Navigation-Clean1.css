@@ -2,6 +2,8 @@
   background:#fff;
   padding-top:10px;
   padding-bottom:10px;
+  padding-left:10px;
+  padding-right:10px;
   color:#333;
   border-radius:0;
   box-shadow:none;
@@ -26,6 +28,8 @@
 .navigation-clean .navbar-brand {
   font-weight:bold;
   color:inherit;
+  padding:0px;
+  margin:10px 0px 0px 0px;
 }
 
 .navigation-clean .navbar-brand:hover {
@@ -41,6 +45,8 @@
   display:inline-block;
   margin-right:10px;
   width:auto;
+  border-radius:5px;
+  border:1px solid rgb(169,169,169);
 }
 
 .navigation-clean .navbar-toggle {
@@ -86,6 +92,7 @@
 .navigation-clean.navbar .navbar-nav > li > a {
   padding-left:18px;
   padding-right:18px;
+  background-color: transparent !important; 
 }
 
 .navigation-clean.navbar-default .navbar-nav > li > a {
@@ -168,3 +175,11 @@
     color:#fff;
   }
 }
+
+.navbar .navbar-inverse .navigation-clean {
+	margin-bottom:10px;
+}
+
+
+
+
