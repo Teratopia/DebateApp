@@ -45,6 +45,8 @@
   display:inline-block;
   margin-right:10px;
   width:auto;
+  border-radius:5px;
+  border:1px solid rgb(169,169,169);
 }
 
 .navigation-clean .navbar-toggle {
@@ -90,6 +92,7 @@
 .navigation-clean.navbar .navbar-nav > li > a {
   padding-left:18px;
   padding-right:18px;
+  background-color: transparent !important; 
 }
 
 .navigation-clean.navbar-default .navbar-nav > li > a {
@@ -176,6 +179,7 @@
 .navbar .navbar-inverse .navigation-clean {
 	margin-bottom:10px;
 }
+
 
 
 
