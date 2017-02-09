@@ -457,3 +457,7 @@ column {
 .quibButton {
 	margin: 5px 0px;
 }
+
+#filterHeader{
+	margin:10px;
+}
