@@ -5,68 +5,68 @@ angular.module('ngDebate').component("profileComponent", {
 	<nav-component></nav-component>
 		<div class="container-fluid">
 			<div class="row">
-					<div class="col-sm-12">
+				<div class="col-sm-12">
 					<h2>{{$ctrl.user.username}}'s profile</h2>
 					<h5>Total number of debates: {{$ctrl.debates.length}}</h5>
 					<h5>Alignment: {{$ctrl.lawfulness}} {{$ctrl.goodness}}</h5>
 					<br>
-					<div style="border-bottom: 2px solid #D8D8D8;margin:0px 0px 10px 0px">
+					<div id="debateHeader">
 						<h3>Your Debates:</h3>
 					</div>
 				</div>
 			</div>
 		</div>
 
-		<div class="container-fluid" style="padding:0;margin:0">
-	    <div class="row" style="padding:0;margin:0">
+		<div class="container-fluid noPadNoMarg">
+	    <div class="row noPadNoMarg">
 		      <v-accordion class="vAccordion--default">
 						<div class="col-sm-12 col-md-6">
 							<v-pane ng-repeat="deb in $ctrl.debates" ng-if="$index<$ctrl.debates.length/2">
 								<v-pane-header ng-click="hideButtons = !hideButtons | " class="category-header" >
 									<div class="cat-wrapper">
 										<div class="category-left">
-											<img src="assets/img/Quib-Logo-WHITE.png" ngclass="$root.bodylayout" style="height:80px;float:left;border-radius:5px;border:1px solid rgb(169,169,169);">
+											<img src="assets/img/Quib-Logo-WHITE.png" ngclass="$root.bodylayout" class="quibPaneImage">
 										</div>
 										<div class="category-right">
-											<h4 style="margin-top: 0px;margin-bottom: 0px;"> Issue: {{deb.issue.title}}</h4>
-											<h5 style="margin:5px 0px;float:left;position:relative">Description: {{deb.issue.description}}</h5>
+											<h4> Issue: {{deb.issue.title}}</h4>
+											<h5>Description: {{deb.issue.description}}</h5>
 										</div>
 									</div>
 								</v-pane-header>
 								<v-pane-content>
-									<div style="padding: 0px 15px;margin-bottom: -10px;border-bottom: 2px solid #00909b;">
+									<div class="vPaneContentWrapper">
 										<span ng-show="{{deb.performances.length}} < 2 && $ctrl.logged()">
-											<a href="#!/join/{{deb.id}}"><button style="margin: 5px 0px;">Join</button></a>
+											<a href="#!/join/{{deb.id}}"><button class="quibButton">Join</button></a>
 										</span>
 										<a href="#!/debate/{{deb.id}}">
-											<button style="margin: 5px 0px;">View</button>
+											<button class="quibButton">View</button>
 										</a>
 
 										<div class="desc-wrapper">
 											<div class="desc-left">
-												<h4 style="margin:5px 0px 2px 0px;">Reference: </h4>
+												<h4>Reference: </h4>
 											</div>
 											<div class="desc-right">
-												<div style="display: inline-block; margin: 0px 7px 0px 1px;" ng-repeat="cat in $ctrl.getCats(deb.issue.issCats)"><a href="{{deb.issue.linkRef}}">{{deb.issue.linkRef}}</a></div>
+												<div ng-repeat="cat in $ctrl.getCats(deb.issue.issCats)"><a href="{{deb.issue.linkRef}}">{{deb.issue.linkRef}}</a></div>
 											</div>
 										</div>
 
 										<div class="desc-wrapper">
 											<div class="desc-left">
-												<h4 style="margin:5px 0px 2px 0px;">Categories: </h4>
+												<h4>Categories: </h4>
 											</div>
 											<div class="desc-right">
-												<div style="display: inline-block; margin: 0px 7px 0px 1px;" ng-repeat="cat in $ctrl.getCats(deb.issue.issCats)">{{cat.title}} </div>
+												<div ng-repeat="cat in $ctrl.getCats(deb.issue.issCats)">{{cat.title}} </div>
 											</div>
 										</div>
 
 										<div class="desc-wrapper">
 											<div class="desc-left">
-												<h4 style="margin:5px 0px 2px 0px;">Stances: </h4>
+												<h4>Stances: </h4>
 											</div>
 											<div class="desc-right">
-												<div style="display: inline-block; margin: 0px 7px 0px 1px;">
-													<ol style="-webkit-padding-start: 17px">
+												<div>
+													<ol>
 														<li ng-repeat="per in deb.performances">{{per.stance}}</li>
 													</ol>
 												</div>
@@ -82,48 +82,48 @@ angular.module('ngDebate').component("profileComponent", {
 	 								<v-pane-header ng-click="hideButtons = !hideButtons | " class="category-header" >
 	 									<div class="cat-wrapper">
 	 										<div class="category-left">
-	 											<img src="assets/img/Quib-Logo-WHITE.png" ngclass="$root.bodylayout" style="height:80px;float:left;border-radius:5px;border:1px solid rgb(169,169,169);">
+	 											<img src="assets/img/Quib-Logo-WHITE.png" ngclass="$root.bodylayout" class="quibPaneImage">
 	 										</div>
 	 										<div class="category-right">
-	 											<h4 style="margin-top: 0px;margin-bottom: 0px;"> Issue: {{deb.issue.title}}</h4>
-	 											<h5 style="margin:5px 0px;float:left;position:relative">Description: {{deb.issue.description}}</h5>
+	 											<h4> Issue: {{deb.issue.title}}</h4>
+	 											<h5>Description: {{deb.issue.description}}</h5>
 	 										</div>
 	 									</div>
 	 								</v-pane-header>
 	 								<v-pane-content>
-	 									<div style="padding: 0px 15px;margin-bottom: -10px;border-bottom: 2px solid #00909b;">
+	 									<div class="vPaneContentWrapper">
 	 										<span ng-show="{{deb.performances.length}} < 2 && $ctrl.logged()">
-	 											<a href="#!/join/{{deb.id}}"><button style="margin: 5px 0px;">Join</button></a>
+	 											<a href="#!/join/{{deb.id}}"><button class="quibButton">Join</button></a>
 	 										</span>
 	 										<a href="#!/debate/{{deb.id}}">
-	 											<button style="margin: 5px 0px;">View</button>
+	 											<button class="quibButton">View</button>
 	 										</a>
 
 											<div class="desc-wrapper">
 												<div class="desc-left">
-													<h4 style="margin:5px 0px 2px 0px;">Reference: </h4>
+													<h4>Reference: </h4>
 												</div>
 												<div class="desc-right">
-													<div style="display: inline-block; margin: 0px 7px 0px 1px;" ng-repeat="cat in $ctrl.getCats(deb.issue.issCats)"><a href="{{deb.issue.linkRef}}">{{deb.issue.linkRef}}</a></div>
+													<div ng-repeat="cat in $ctrl.getCats(deb.issue.issCats)"><a href="{{deb.issue.linkRef}}">{{deb.issue.linkRef}}</a></div>
 												</div>
 											</div>
 
 											<div class="desc-wrapper">
 												<div class="desc-left">
-													<h4 style="margin:5px 0px 2px 0px;">Categories: </h4>
+													<h4>Categories: </h4>
 												</div>
 												<div class="desc-right">
-													<div style="display: inline-block; margin: 0px 7px 0px 1px;" ng-repeat="cat in $ctrl.getCats(deb.issue.issCats)">{{cat.title}} </div>
+													<div ng-repeat="cat in $ctrl.getCats(deb.issue.issCats)">{{cat.title}} </div>
 												</div>
 											</div>
 
 											<div class="desc-wrapper">
 												<div class="desc-left">
-													<h4 style="margin:5px 0px 2px 0px;">Stances: </h4>
+													<h4>Stances: </h4>
 												</div>
 												<div class="desc-right">
-													<div style="display: inline-block; margin: 0px 7px 0px 1px;">
-														<ol style="-webkit-padding-start: 17px">
+													<div>
+														<ol>
 															<li ng-repeat="per in deb.performances">{{per.stance}}</li>
 														</ol>
 													</div>
