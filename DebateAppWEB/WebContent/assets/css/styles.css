@@ -466,3 +466,44 @@ column {
 	border-bottom: 2px solid #D8D8D8;
 	margin:0px 0px 10px 0px"
 }
+
+.performanceWrapper {
+	width:90%;margin:0px 0px 10px 0px
+}
+
+#commentaryHeader {
+	font-size:1em
+}
+
+#URLInputWrapper {
+	overflow: hidden; 
+	padding-right: .35em;
+}
+
+.voteBarWrapper {
+	overflow: hidden;
+	margin:0px 5px;
+}
+#yellowButtonWrapper {
+	float:right;
+}
+
+#blueButtonWrapper {
+	float:left;
+}
+.voteButton {
+	width:50px;height:25px
+}
+
+.overflowHidden {
+	overflow: hidden;
+}
+
+.userNameWrapper {
+	font-size:.7em;
+}
+
+.hrefInputWrapper {
+	overflow: hidden; 
+	padding-right: .35em;
+}

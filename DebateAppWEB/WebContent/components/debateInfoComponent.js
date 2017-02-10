@@ -42,7 +42,7 @@ app.component('debateInfoComponent',{
                 <v-pane-content>
                   <div ng-repeat="performance in $ctrl.sortPerformances($ctrl.debate.performances)">
 	  				<div class="row">
-                    	<div ng-class="$ctrl.getPerformanceClass($index)" style="width:90%;margin:0px 0px 10px 0px">
+                    	<div ng-class="$ctrl.getPerformanceClass($index)" class="performanceWrapper">
                     		<div class="pad-arg-text">
                       			{{performance.team.name}}: {{performance.stance}}
                     		</div>

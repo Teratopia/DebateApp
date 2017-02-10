@@ -80,7 +80,7 @@ app.component('debateComponent',{
                                <p style="font-size:1.5em;">Live Debate Feed (viewing as {{$ctrl.guest()}}):</p>
                            </div>
                            <div class="col-md-12">
-							                    <ct-component debate-data="$ctrl.debateData"></ct-component>
+							   <ct-component debate-data="$ctrl.debateData"></ct-component>
                            </div>
                        </div>
                      <argument-master-component></argument-master-component>

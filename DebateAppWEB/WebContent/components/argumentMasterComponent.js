@@ -212,7 +212,7 @@ app.component('argumentMasterComponent',{
 		      	  	<div ng-class="$ctrl.isRight(argument, $ctrl.allperformances)">{{$index}}</div>
 		              <div class="pad-arg-text">
 		                {{argument.text}}
-		                <div style="font-size:.7em">({{argument.user.username}})</div>
+		                <div class="userNameWrapper">({{argument.user.username}})</div>
 		              </div>
 		           	</div>
 		         	</div>
@@ -230,7 +230,7 @@ app.component('argumentMasterComponent',{
           			<div>
             			<input id="args-submit" ng-class="$ctrl.highlight($ctrl.turnId,$ctrl.currentUser.id)" ng-click="$ctrl.instArg() ; $ctrl.turnCalc($ctrl.debatefull.roster)" type="submit" value="Send">
           			</div>
-          			<div style="overflow: hidden; padding-right: .35em;">
+          			<div class="hrefInputWrapper">
             			<input type="text" ng-class="$ctrl.highlight($ctrl.turnId,$ctrl.currentUser.id)" placeholder="{{$ctrl.hrefText}}" ng-model="$ctrl.newRef" id="arg-href-link" class="href-link"/>
           			</div>
         			</form>
