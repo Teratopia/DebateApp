@@ -3,10 +3,9 @@ angular.module('ngDebate').component("startDebateComponent", {
 	template : `
 	
 		<nav-component></nav-component>
-		
+		<div class = "container-fluid">
 		<h2>Start a Debate</h2>
 		<form name="sdForm" novalidate>
-		
 			<div ng-show="$ctrl.showDivs(1)">
 				<h5>Issue</h5>
 				<input type="text" placeholder="Issue Title" ng-model="issTitle"/><br><br>
@@ -14,7 +13,7 @@ angular.module('ngDebate').component("startDebateComponent", {
 				<input type="text" placeholder="Issue Link" ng-model="issLink"/><br><br>
 				<span ng-repeat="cat in $ctrl.cats">{{cat.title}} <input type="checkbox" ng-click="$ctrl.addCat(cat)"/>&nbsp&nbsp&nbsp</span>
 				<br><br>
-				<button ng-click="$ctrl.instantiateIssue(issTitle, issDesc, issLink)"><a>Post Issue</a></button>
+				<button ng-click="$ctrl.instantiateIssue(issTitle, issDesc, issLink)" class="quibButton">Post Issue</button>
 			</div>
 			
 			<div ng-show="$ctrl.showDivs(2)">
@@ -22,7 +21,7 @@ angular.module('ngDebate').component("startDebateComponent", {
 				<select ng-model="ruleApt">
 					<option value="" disabled selected>Arguments per Turn</option>
 					<option ng-repeat="opt in $ctrl.aptOptions" value="{{opt}}" name="opt">{{opt}}</option>
-					<option value="100" name="Unlimited">
+				
 				</select><br><br>
 				<input type="text" placeholder="Characters per Argument" name="ruleCpt"/><br><br>
 				<select ng-model="tLimit">
@@ -38,7 +37,7 @@ angular.module('ngDebate').component("startDebateComponent", {
 					<option value="57600" name="16hour">16 Hours</option>
 					<option value="115200" name="32hour">32 Hours</option>
 					<option value="230400" name="3day">3 Days</option>
-					<option value="100" name="None">
+					
 				</select><br><br>
 				<select ng-model="vtWin">
 					<option value="" disabled selected>Votes to Win</option>
@@ -56,7 +55,7 @@ angular.module('ngDebate').component("startDebateComponent", {
 				Viewer Comments Visable <input type="checkbox" ng-model="vcsVisable"/><br><br>
 				Private Debate<input type="checkbox" ng-model="pDebate"/><br><br>
 				
-				<button ng-click="$ctrl.instantiateRules(ruleApt, ruleCpt, tLimit, oStatements, refsEnabled, vtWin, vcsVisable, pDebate)"><a>Set Rules</a></button>
+				<button ng-click="$ctrl.instantiateRules(ruleApt, ruleCpt, tLimit, oStatements, refsEnabled, vtWin, vcsVisable, pDebate)">Set Rules</button>
 
 			</div>
 			
@@ -64,14 +63,15 @@ angular.module('ngDebate').component("startDebateComponent", {
 				<h5>Your Team</h5>
 				<input type="text" ng-model="$ctrl.defaultTeamName"/><br>
 				<input type="text" placeholder="Your Stance on This Issue" ng-model="perfStance"/><br><br>
-				<button ng-click="$ctrl.instantiateTeam($ctrl.defaultTeamName); $ctrl.instantiateDebate()"><a>Create Team</a></button>
+				<button ng-click="$ctrl.instantiateTeam($ctrl.defaultTeamName); $ctrl.instantiateDebate()">Create Team</button>
 			</div>
 				
 			<div ng-show="$ctrl.showDivs(4)">
-				<button ng-click="$ctrl.instantiatePerformanceMember(perfStance)"><a href="#!/categories">Start Debate</button></a><br><br>
+				<button ng-click="$ctrl.instantiatePerformanceMember(perfStance)"><a href="#!/categories">Start Debate</a></button><br><br>
 			</div>
 			
 		</form>
+		</div>
 	
 	`,
 	controller : function(categoryService, authenticationService, issueService, debateService, teamService,
