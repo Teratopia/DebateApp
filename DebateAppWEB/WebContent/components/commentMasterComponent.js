@@ -5,7 +5,7 @@ angular.module('ngDebate').component("commentMasterComponent", {
 		<div class="col-md-12">
                <div class="row">
                    <div class="col-md-12">
-                       <p style="font-size:1em;">Commentary:</p>
+                       <p id="commentaryHeader">Commentary:</p>
                        <div class="comments-display-screen">
 						<div ng-repeat="comment in $ctrl.allComments | orderBy:'timeStamp'">
           				{{comment.user.username}} says: {{comment.text}}
@@ -25,7 +25,7 @@ angular.module('ngDebate').component("commentMasterComponent", {
   									<input id="args-submit" ng-click="$ctrl.instCom()" type="submit"
   									value="Send">
 								</div>
-								<div style="overflow: hidden; padding-right: .35em;">
+								<div id="URLInputWrapper">
   									<input type="text" placeholder="{{$ctrl.hrefText}}"
   									ng-model="$ctrl.newRef" id="arg-href-link" class="href-link"/>
 								</div>

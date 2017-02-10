@@ -1,15 +1,15 @@
 angular.module('ngDebate').component("ctComponent", {
 
 	template : `
-	<div class="row" style="overflow: hidden;margin:0px 5px;" ng-hide="$ctrl.noTwoPerfs()">
-		<div style="float:right" ng-hide="$ctrl.hideButtons()">
-			<a><button ng-click="$ctrl.logVote($ctrl.performance2)" style="width:50px;height:25px">Yellow</button></a>
+	<div class="row voteBarWrapper" ng-hide="$ctrl.noTwoPerfs()">
+		<div id="yellowButtonWrapper" ng-hide="$ctrl.hideButtons()">
+			<a><button ng-click="$ctrl.logVote($ctrl.performance2)" class="voteButton">Yellow</button></a>
 		</div>
-		<div style="overflow: hidden;">
-			<div style="float:left" ng-hide="$ctrl.hideButtons()">
-				<a><button ng-click="$ctrl.logVote($ctrl.performance1)" style="width:50px;height:25px">Blue</button></a>
+		<div class="overflowHidden">
+			<div id="blueButtonWrapper" ng-hide="$ctrl.hideButtons()">
+				<a><button ng-click="$ctrl.logVote($ctrl.performance1)" class="voteButton">Blue</button></a>
 			</div>
-			<div style="overflow: hidden;">
+			<div class="overflowHidden">
 				<div style="width: {{$ctrl.leftBarPercentage()}}%" ng-class="$ctrl.getBarClass(1)"></div>
 				<div style="width: {{100-$ctrl.leftBarPercentage()}}%" ng-class="$ctrl.getBarClass(0)"></div>
 			</div>
