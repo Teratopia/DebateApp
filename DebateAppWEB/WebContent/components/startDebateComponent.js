@@ -8,15 +8,15 @@ angular.module('ngDebate').component("startDebateComponent", {
 		<form id="new-quib" name="sdForm" novalidate>
 			<div ng-show="$ctrl.showDivs(1)" >
 				<h4>Issue:</h4>
-				<div class="col-md-12 col-lg-8">
+				<div class="col-md-12 col-lg-8 noPadNoMorg">
 					<div>
-						<input type="text" class="light-theme" placeholder="Issue Title" ng-model="issTitle"/>
+						<input type="text" required ng-minlength="6" ng-maxlength="41" class="light-theme" placeholder="Issue Title" ng-model="issTitle"/>
 					</div>
 					<div>
-						<textarea name="issDesc" form="new-quib" placeholder="Issue Description"></textarea>
+						<textarea name="issDesc" required ng-minlength="6" ng-maxlength="255" form="new-quib" placeholder="Issue Description"></textarea>
 					</div>
 					<div>
-						<input type="text" class="light-theme" placeholder="Issue Link" ng-model="issLink"/>
+						<input type="text" ng-minlength="6" ng-maxlength="41" class="light-theme" placeholder="Issue Link" ng-model="issLink"/>
 					</div>
 					<div>
 						<category ng-repeat="cat in $ctrl.cats">
@@ -26,7 +26,9 @@ angular.module('ngDebate').component("startDebateComponent", {
 						    </div>
 						</category>
 					</div>
-					<button ng-click="$ctrl.instantiateIssue(issTitle, issDesc, issLink)" class="quibButton">Post Issue</button>
+                    <div class="form-group">
+						<button class="btn btn-primary quibButton" ng-disabled="sdForm.$invalid" ng-click="$ctrl.instantiateIssue(issTitle, issDesc, issLink)">Post Issue</button>
+					</div>
 				</div>
 			</div>
 
