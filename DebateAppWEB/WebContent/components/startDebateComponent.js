@@ -1,27 +1,41 @@
 angular.module('ngDebate').component("startDebateComponent", {
 
 	template : `
-	
+
 		<nav-component></nav-component>
 		<div class = "container-fluid">
-		<h2>Start a Debate</h2>
-		<form name="sdForm" novalidate>
-			<div ng-show="$ctrl.showDivs(1)">
-				<h5>Issue</h5>
-				<input type="text" placeholder="Issue Title" ng-model="issTitle"/><br><br>
-				<input type="text" placeholder="Issue Description" ng-model="issDesc"/><br><br>
-				<input type="text" placeholder="Issue Link" ng-model="issLink"/><br><br>
-				<span ng-repeat="cat in $ctrl.cats">{{cat.title}} <input type="checkbox" ng-click="$ctrl.addCat(cat)"/>&nbsp&nbsp&nbsp</span>
-				<br><br>
-				<button ng-click="$ctrl.instantiateIssue(issTitle, issDesc, issLink)" class="quibButton">Post Issue</button>
+		<h2>Create a New Debate</h2>
+		<form id="new-quib" name="sdForm" novalidate>
+			<div ng-show="$ctrl.showDivs(1)" >
+				<h4>Issue:</h4>
+				<div class="col-md-12 col-lg-8">
+					<div>
+						<input type="text" class="light-theme" placeholder="Issue Title" ng-model="issTitle"/>
+					</div>
+					<div>
+						<textarea name="issDesc" form="new-quib" placeholder="Issue Description"></textarea>
+					</div>
+					<div>
+						<input type="text" class="light-theme" placeholder="Issue Link" ng-model="issLink"/>
+					</div>
+					<div>
+						<category ng-repeat="cat in $ctrl.cats">
+						    <div class="inline-field">
+						        <label for="{{cat.title}}">{{cat.title}} </label>
+						        <input id="{{cat.title}}" type="checkbox" ng-click="$ctrl.addCat(cat)">
+						    </div>
+						</category>
+					</div>
+					<button ng-click="$ctrl.instantiateIssue(issTitle, issDesc, issLink)" class="quibButton">Post Issue</button>
+				</div>
 			</div>
-			
+
 			<div ng-show="$ctrl.showDivs(2)">
 				<h5>Rules</h5>
 				<select ng-model="ruleApt">
 					<option value="" disabled selected>Arguments per Turn</option>
 					<option ng-repeat="opt in $ctrl.aptOptions" value="{{opt}}" name="opt">{{opt}}</option>
-				
+
 				</select><br><br>
 				<input type="text" placeholder="Characters per Argument" name="ruleCpt"/><br><br>
 				<select ng-model="tLimit">
@@ -37,7 +51,7 @@ angular.module('ngDebate').component("startDebateComponent", {
 					<option value="57600" name="16hour">16 Hours</option>
 					<option value="115200" name="32hour">32 Hours</option>
 					<option value="230400" name="3day">3 Days</option>
-					
+
 				</select><br><br>
 				<select ng-model="vtWin">
 					<option value="" disabled selected>Votes to Win</option>
@@ -54,37 +68,37 @@ angular.module('ngDebate').component("startDebateComponent", {
 				References Enabled <input type="checkbox" ng-model="refsEnabled"/><br><br>
 				Viewer Comments Visable <input type="checkbox" ng-model="vcsVisable"/><br><br>
 				Private Debate<input type="checkbox" ng-model="pDebate"/><br><br>
-				
+
 				<button ng-click="$ctrl.instantiateRules(ruleApt, ruleCpt, tLimit, oStatements, refsEnabled, vtWin, vcsVisable, pDebate)">Set Rules</button>
 
 			</div>
-			
+
 			<div ng-show="$ctrl.showDivs(3)">
 				<h5>Your Team</h5>
 				<input type="text" ng-model="$ctrl.defaultTeamName"/><br>
 				<input type="text" placeholder="Your Stance on This Issue" ng-model="perfStance"/><br><br>
 				<button ng-click="$ctrl.instantiateTeam($ctrl.defaultTeamName); $ctrl.instantiateDebate()">Create Team</button>
 			</div>
-				
+
 			<div ng-show="$ctrl.showDivs(4)">
-				<button ng-click="$ctrl.instantiatePerformanceMember(perfStance)"><a href="#!/categories">Start Debate</a></button><br><br>
+				<button ng-click="$ctrl.instantiatePerformanceMember(perfStance)"><a href="#!/debate/{{$ctrl.debate.id}}">Start Debate</a></button><br><br>
 			</div>
-			
+
 		</form>
 		</div>
-	
+
 	`,
 	controller : function(categoryService, authenticationService, issueService, debateService, teamService,
 			performanceService, pmService, rulesService, issCatService){
 		var vm = this;
-		
+
 		categoryService.indexCategories().then(function(res) {
 //        	console.log("in perf promise");
 //        	console.log(res.data);
 //        	console.log(res);
         	vm.cats =  res.data;
 		}).then(function(res){
-			
+
 		console.log("CATS ##################");
 		console.log(vm.cats);
 		})
@@ -98,7 +112,7 @@ angular.module('ngDebate').component("startDebateComponent", {
 		vm.performanceMember;
 		vm.catsBox = [];
 		vm.hideIndex = 1;
-		
+
 		vm.addCat = function(cat){
 //			console.log("add cat 1:")
 //			console.log(cat);
@@ -119,9 +133,9 @@ angular.module('ngDebate').component("startDebateComponent", {
 			}
 //			console.log("addCat -- CATS:");
 //			console.log(vm.catsBox);
-			
+
 		}
-		
+
 		vm.showDivs = function(q){
 			if(q === vm.hideIndex){
 				return true;
@@ -129,7 +143,7 @@ angular.module('ngDebate').component("startDebateComponent", {
 				return false;
 			}
 		}
-		
+
 //		vm.postDebate = function(issTitle, issDesc, issLink, ruleApt, ruleCpt, tLimit, vtWin, oStatements,
 //				refsEnabled, vcsVisable, pDebate, teamName, perfStance){
 //			vm.instantiateIssue(issTitle, issDesc, issLink);
@@ -139,11 +153,11 @@ angular.module('ngDebate').component("startDebateComponent", {
 //			vm.instantiatePerformance(perfStance);
 //			vm.instantiatePerformanceMember();
 //			vm.currentUser = authenticationService.currentUser();
-//			
+//
 //		}
-		
+
 		vm.instantiateIssue = function(title, desc, link){
-			
+
 			var iss = {
 					'title' : title,
 					'description': desc,
@@ -158,7 +172,7 @@ angular.module('ngDebate').component("startDebateComponent", {
 			})
 			vm.hideIndex = 2;
 		}
-		
+
 		vm.instantiateRules = function(apt, cpa, tLimit, oStatements, refOn, winVal, commView, isPrivate){
 			var rul = {
 					'argPerTurn' : apt,
@@ -172,30 +186,30 @@ angular.module('ngDebate').component("startDebateComponent", {
 					'commentsView' : false,
 					'privateDebate' : isPrivate
 			}
-			
+
 			rulesService.createRules(rul).then(function(res) {
 //            	console.log("in perf promise");
 //            	console.log(res.data);
 //            	console.log(res);
             	vm.rules =  res.data;
 			})
-			
+
 			vm.instantiateIssCats();
-			
+
 			vm.hideIndex = 3;
 		}
-		
+
 		vm.instantiateIssCats = function(){
 			vm.catsBox.forEach(function(cat){
 				var issCat = {
 						'category' : cat,
 						'issue' : vm.issue
 				}
-				
+
 				issCatService.createIssCat(issCat);
 			})
 		}
-		
+
 		vm.instantiateDebate = function(){
 //			console.log("inst debate, issue:");
 //			console.log(vm.issue);
@@ -204,7 +218,7 @@ angular.module('ngDebate').component("startDebateComponent", {
 					'rules' : vm.rules,
 					'timeStamp' : new Date()
 			}
-			
+
 			debateService.createDebate(deb).then(function(res) {
 //            	console.log("in perf promise");
 //            	console.log(res.data);
@@ -212,12 +226,12 @@ angular.module('ngDebate').component("startDebateComponent", {
             	vm.debate =  res.data;
 			})
 		}
-		
+
 		vm.instantiateTeam = function(name){
 			var t = {
 					'name': name
 			}
-			
+
 			teamService.createTeam(t).then(function(res) {
 //            	console.log("in perf promise");
 //            	console.log(res.data);
@@ -226,18 +240,18 @@ angular.module('ngDebate').component("startDebateComponent", {
 			})
 			vm.hideIndex = 4;
 		}
-		
+
 //		vm.instantiatePerformance = function(stance){
 //			var per = {
-//					
+//
 //					'debate' : vm.debate,
 //					'team' : vm.team,
 //					'stance' : stance
-//					
+//
 //			}
 //			vm.performance = performanceService.createPerformance(per);
 //		}
-		
+
 		vm.instantiatePerformanceMember = function(stance){
 			var instPAM = {
 				'debateId' : vm.debate.id,
@@ -252,11 +266,10 @@ angular.module('ngDebate').component("startDebateComponent", {
 //			console.log(vm.currentUser);
 //			console.log('IPAM: #################################');
 //			console.log(instPAM);
-			
+
 			performanceService.instPerformanceAndMember(instPAM);
 		}
-		
-	}
-	
-});
 
+	}
+
+});

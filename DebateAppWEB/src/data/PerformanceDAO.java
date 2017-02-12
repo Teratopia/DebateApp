@@ -79,7 +79,7 @@ public class PerformanceDAO implements PerformanceDAOI {
 	
 	@Override
 	@Transactional
-	public void instPAM(String catJson) {
+	public Performance instPAM(String catJson) {
 		
 		ObjectMapper mapper = new ObjectMapper();
 		InstPAM ipam= null;
@@ -104,6 +104,7 @@ public class PerformanceDAO implements PerformanceDAOI {
 		pm.setRole(ipam.getRole());
 		pm.setPerformance(newPerformance);
 		em.persist(pm);
+		return per;
 		
 	}
 		

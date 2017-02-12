@@ -50,8 +50,8 @@ public class PerformanceController implements PerformanceControllerI{
 	}
 	
 	@RequestMapping(path = "pam", method = RequestMethod.POST)
-	public void instPerformanceAndMember(HttpServletRequest req, HttpServletResponse res, @RequestBody String cJson) {
-		performanceDAO.instPAM(cJson);
+	public Performance instPerformanceAndMember(HttpServletRequest req, HttpServletResponse res, @RequestBody String cJson) {
+		return performanceDAO.instPAM(cJson);
 	}
 
 	// Respond to request by destroying/deleting specific Performance and returning

@@ -33,7 +33,6 @@
 .args-display-screen {
 	padding-bottom: 10px;
 	overflow: hidden;
-	overflow-y: auto;
 	margin: 5px;
 	height: 375px;
 	overflow-y: scroll;
@@ -366,7 +365,8 @@ input:checked+.slider:before {
 	margin: 2px 16px 0px 5px;
 	padding: 0;
 }
-.category-right > h4 {
+
+.category-right>h4 {
 	margin-top: 0px;
 	margin-bottom: 0px;
 }
@@ -377,10 +377,10 @@ input:checked+.slider:before {
 	margin: 0px 8px 9px 8px;
 }
 
-.category-right > h5 {
-	margin:5px 0px;
-	float:left;
-	position:relative;
+.category-right>h5 {
+	margin: 5px 0px;
+	float: left;
+	position: relative;
 }
 
 .desc-wrapper {
@@ -393,12 +393,12 @@ input:checked+.slider:before {
 	padding: 0;
 }
 
-.desc-right > div {
-	 display: inline-block; 
-	 margin: 0px 7px 0px 1px;
+.desc-right>div {
+	display: inline-block;
+	margin: 0px 7px 0px 1px;
 }
 
-.desc-right > div > ol {
+.desc-right>div>ol {
 	-webkit-padding-start: 17px;
 }
 
@@ -408,8 +408,8 @@ input:checked+.slider:before {
 	margin: 0px 0px 0px 0px;
 }
 
-.desc-left > h4 {
-	margin:5px 0px 2px 0px;
+.desc-left>h4 {
+	margin: 5px 0px 2px 0px;
 }
 
 .video-container {
@@ -438,14 +438,15 @@ column {
 }
 
 .noPadNoMorg {
-	padding:0px;
-	margin:0px;
+	padding: 0px;
+	margin: 0px;
 }
+
 .quibPaneImage {
-	height:80px;
-	float:left;
-	border-radius:5px;
-	border:1px solid rgb(169,169,169);
+	height: 80px;
+	float: left;
+	border-radius: 5px;
+	border: 1px solid rgb(169, 169, 169);
 }
 
 .vPaneContentWrapper {
@@ -455,44 +456,59 @@ column {
 }
 
 .quibButton {
-	margin: 5px 0px;
+	border: 1px solid #88888;
+	border-radius: 5px;
+	background-color: #374f50; /* Green */
+	border: none;
+	color: white;
+	padding: 10px 25px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 15px 0px;
+	cursor: pointer;
 }
 
-#filterHeader{
-	margin:10px;
+#filterHeader {
+	margin: 10px;
 }
 
 #debateHeader {
 	border-bottom: 2px solid #D8D8D8;
-	margin:0px 0px 10px 0px"
+	margin: 0px 0px 10px 0px;
 }
 
 .performanceWrapper {
-	width:90%;margin:0px 0px 10px 0px
+	width: 90%;
+	margin: 0px 0px 10px 0px
 }
 
 #commentaryHeader {
-	font-size:1em
+	font-size: 1em
 }
 
 #URLInputWrapper {
-	overflow: hidden; 
+	overflow: hidden;
 	padding-right: .35em;
 }
 
 .voteBarWrapper {
 	overflow: hidden;
-	margin:0px 5px;
+	margin: 0px 5px;
 }
+
 #yellowButtonWrapper {
-	float:right;
+	float: right;
 }
 
 #blueButtonWrapper {
-	float:left;
+	float: left;
 }
+
 .voteButton {
-	width:50px;height:25px
+	width: 50px;
+	height: 25px
 }
 
 .overflowHidden {
@@ -500,10 +516,38 @@ column {
 }
 
 .userNameWrapper {
-	font-size:.7em;
+	font-size: .7em;
 }
 
 .hrefInputWrapper {
-	overflow: hidden; 
+	overflow: hidden;
 	padding-right: .35em;
+}
+
+/*Ensure category text and checkboxes are on same line and in same group*/
+
+category{
+	display: inline-block;
+	margin: 5px 10px 5px 0px; 
+}
+.inline-field input, .inline-field label {
+	display: inline-block;
+	margin-bottom: 0; /* I added this after I posted my reply */
+	vertical-align: top; /* Fixes any weird issues in Firefox and IE */
+}
+
+#new-quib input[type=text]{
+	width:100%;
+	margin-bottom: 10px;
+	border: 1px solid #888;
+}
+
+#new-quib textarea{
+	width:100%;
+	padding:0px 1px;
+	margin-bottom: 5px;
+	overflow: hidden;
+	height: 75px;
+	overflow-y: scroll;
+	border: 1px solid #888;
 }

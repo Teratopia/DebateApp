@@ -21,7 +21,7 @@ public interface PerformanceControllerI {
 
 	public Performance destroy(HttpServletRequest req, HttpServletResponse res, int id);
 	
-	public void instPerformanceAndMember(HttpServletRequest req, HttpServletResponse res, @RequestBody String cJson);
+	public Performance instPerformanceAndMember(HttpServletRequest req, HttpServletResponse res, @RequestBody String cJson);
 
 	
 }

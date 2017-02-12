@@ -3,9 +3,14 @@ angular.module('ngDebate').component("categoriesComponent", {
 	template: `<nav-component></nav-component>
 
 		<h5 id="filterHeader">Filter by:</h5>
-		<column ng-repeat="cat in $ctrl.cats | orderBy:'title'"> {{cat.title}}
-			<input type="checkbox" ng-click="$ctrl.filterDebates(cat)">&nbsp&nbsp
-		</column>
+			<div class="col-lg-12">
+				<category ng-repeat="cat in $ctrl.cats | orderBy:'title'">
+				    <div class="inline-field">
+				        <label for="{{cat.title}}">{{cat.title}} </label>
+				        <input id="{{cat.title}}" type="checkbox" ng-click="$ctrl.addCat(cat)">
+				    </div>
+				</category>
+			</div>
 		<br><br>
 		<div class="container-fluid noPadNoMarg">
 	    <div class="row noPadNoMarg">
