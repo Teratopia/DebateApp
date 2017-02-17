@@ -2,6 +2,12 @@
 	cursor: pointer;
 }
 
+@media ( max-width :400px) {
+	.centerif-sm {
+		text-align: center;
+	}
+}
+
 @media ( max-width :767px) {
 	.navigation-clean.navbar-inverse .navbar-collapse, .navigation-clean.navbar-inverse .navbar-form
 		{
@@ -13,6 +19,10 @@
 		-webkit-box-shadow: 0px 0px 4px 2px rgba(255, 255, 255, 0.7);
 		-moz-box-shadow: 0px 0px 4px 2px rgba(255, 255, 255, 0.7);
 		box-shadow: 0px 0px 4px 2px rgba(255, 255, 255, 0.7);
+	}
+	.noPadNoMorg-sm {
+		padding: 0px;
+		margin: 0px;
 	}
 }
 
@@ -263,7 +273,7 @@ div.panel-heading {
 	height: 34px;
 }
 
-.switch input {
+.setting-switch input, .switch input {
 	display: none;
 }
 
@@ -534,7 +544,7 @@ category {
 	border: 1px solid #888;
 }
 
-.quibButton{
+.quibButton {
 	background: #374f50;
 	border: 1px solid #028791;
 	border-radius: 4px;
@@ -546,16 +556,101 @@ category {
 }
 
 .quibButton:hover, .quibButton:active {
-    background: #028791 !important;
-    background-image: initial !important;
-    background-position-x: initial !important;
-    background-position-y: initial !important;
-    background-size: initial !important;
-    background-repeat-x: initial !important;
-    background-repeat-y: initial !important;
-    background-attachment: initial !important;
-    background-origin: initial !important;
-    background-clip: initial !important;
-    background-color: rgb(2, 135, 145) !important;
-    outline: none !important;
+	background: #028791 !important;
+	background-image: initial !important;
+	background-position-x: initial !important;
+	background-position-y: initial !important;
+	background-size: initial !important;
+	background-repeat-x: initial !important;
+	background-repeat-y: initial !important;
+	background-attachment: initial !important;
+	background-origin: initial !important;
+	background-clip: initial !important;
+	background-color: rgb(2, 135, 145) !important;
+	outline: none !important;
+}
+
+.settings-icon {
+	display: inline;
+	height: 30px;
+}
+
+.settings-label {
+	display: inline;
+	font-size: 16px;
+	margin: 0px 5px;
+}
+
+.settings-selector {
+	background-color: #fff;
+	color: #000;
+	width: 50px;
+	height: 30px;
+	float: right;
+}
+
+.settings-box {
+	background-color: rgba(127, 127, 127, 0.25);
+	padding: 10px;
+	margin: 2px 0px;
+	align: middle;
+}
+
+.settings-slider-box {
+	margin: 12px 10px 0px 10px;
+}
+
+#settings-sliderval {
+	padding: 4px;
+	font-size: 16px;
+	color: #028791;
+	width: 50px !important;
+	height: 30px;
+	border: 1px solid #888 !important;
+	border-radius: 4px;
+	background-color: #fff;
+	float: right !important;
+}
+
+/* theme slider */
+#ng-slider .md-thumb:after, #ng-slider .md-track-fill {
+	background-color: teal !important;
+	border-color: teal !important;
+}
+
+/* theme slider */
+#ng-slider .md-focus-thumb, #ng-slider .md-focus-ring {
+	background-color: teal;
+}
+
+/* re-align slider 'dot' to center */
+md-slider .md-thumb-container {
+	top: 0px;
+}
+
+/* set vertical height of slider box */
+md-slider {
+	height: 32px;
+}
+
+#time-selector {
+	width: 100px;
+}
+
+#percent-selector {
+	width: 65px;
+}
+
+.settings-box .switch {
+	margin: 0;
+	float: right;
+	position: relative;
+	display: inline-block;
+	width: 54px;
+	height: 28px;
+}
+
+.settings-box .slider:before {
+	height: 20px;
+	width: 20px;
 }

@@ -6,14 +6,14 @@ angular.module('ngDebate').component("startDebateComponent", {
 		<div class = "container-fluid">
 		<h2>Create a New Debate</h2>
 		<form id="new-quib" name="sdForm" novalidate>
-			<div ng-show="$ctrl.showDivs(1)" >
-				<h4>Issue:</h4>
-				<div class="col-md-12 col-lg-8 noPadNoMorg">
+			<div>
+				<div ng-show="$ctrl.showDivs(1)" class="col-sm-12 col-md-7 noPadNoMorg-sm">
+				<h4>Issue</h4>
 					<div>
-						<input type="text" required ng-minlength="6" ng-maxlength="41" class="light-theme" placeholder="Issue Title" ng-model="issTitle"/>
+						<input type="text" name="issTitle" ng-model="issTitle" required ng-minlength="6" ng-maxlength="41" class="light-theme" placeholder="Issue Title"/>
 					</div>
 					<div>
-						<textarea name="issDesc" required ng-minlength="6" ng-maxlength="255" form="new-quib" placeholder="Issue Description"></textarea>
+						<textarea name="issDesc" ng-model="issDesc" required ng-minlength="6" ng-maxlength="255" form="sdForm" ng-attr-placeholder="Issue Description"></textarea>
 					</div>
 					<div>
 						<input type="text" ng-minlength="6" ng-maxlength="41" class="light-theme" placeholder="Issue Link" ng-model="issLink"/>
@@ -26,53 +26,106 @@ angular.module('ngDebate').component("startDebateComponent", {
 						    </div>
 						</category>
 					</div>
-                    <div class="form-group">
-						<button class="btn btn-primary quibButton" ng-disabled="sdForm.$invalid" ng-click="$ctrl.instantiateIssue(issTitle, issDesc, issLink)">Post Issue</button>
+				</div>
+				<div ng-show="showSettings" class="col-sm-12 col-md-5 noPadNoMorg-sm">
+						<h4>Settings</h5>
+						
+						<div class="settings-box">
+							<img class="settings-icon" src="./assets/img/argument-icon.png" ngclass="$root.bodylayout"></img>
+							<label class="settings-label">Arguments per Turn</label>
+							<select class="settings-selector" ng-model="ruleApt" ng-options="opt for opt in $ctrl.aptOptions">
+							</select>
+						</div>
+						
+						<div class="settings-box">
+							<img class="settings-icon" src="./assets/img/length-icon.png" ngclass="$root.bodylayout"></img>
+							<label class="settings-label">Max Characters / Argument</label>
+					      	<div style="float:right">
+					      		<md-input-container class="noPadNoMorg">
+					        		<input flex="" name="sliderval" id="settings-sliderval" type="number" ng-model="$ctrl.ruleCpt" aria-label="red" aria-controls="sliderCpt">
+								</md-input-container>
+							</div>
+							<div>
+								<md-slider-container>
+									<md-slider flex min="250" max="380" ng-model="$ctrl.ruleCpt" aria-label="red" id="ng-slider">
+									</md-slider>
+							    </md-slider-container>
+							</div>
+						</div>
+						
+						<div class="settings-box">
+							<img class="settings-icon" src="./assets/img/stopwatch-icon.png" ngclass="$root.bodylayout"></img>
+							<label class="settings-label">Time limit</label>
+							<select class="settings-selector" id="time-selector" ng-model="tLimit" ng-options="time.name for time in $ctrl.timeOptions">
+							</select>
+						</div>
+						
+						<div class="settings-box">
+							<img class="settings-icon" src="./assets/img/vote-icon.png" ngclass="$root.bodylayout"></img>
+							<label class="settings-label">Minimum Votes to Win</label>
+							<select class="settings-selector" ng-model="vtWin" ng-options="votes for votes in $ctrl.vtWinOptions">
+							</select>
+						</div>
+						
+						<div class="settings-box">
+							<img class="settings-icon" src="./assets/img/percentage-icon.png" ngclass="$root.bodylayout"></img>
+							<label class="settings-label">Minimum % to Win</label>
+							<select class="settings-selector" id="percent-selector" ng-model="ptWin" ng-options="precent.name for precent in $ctrl.ptWinOptions">
+							</select>
+						</div>
+						<!-- commented out opening statements until determined whether to use -->
+						<!--<div>
+							Opening Statements Enabled <input type="checkbox" ng-model="oStatements"/>
+						</div>-->
+						
+						<div class="settings-box">
+							<img class="settings-icon" src="./assets/img/link-icon.png" ngclass="$root.bodylayout"></img>
+							<label class="settings-label">References Enabled</label>
+							<label class="switch">
+						    	<input type="checkbox" id="refsEnabled" ng-model="refsEnabled" ngclass="$root.bodylayout">
+						    	<div class="slider round"></div>
+						  	</label>
+						</div>
+						
+						<div class="settings-box">
+							<img class="settings-icon" src="./assets/img/visable-icon.png" ngclass="$root.bodylayout"></img>
+							<label class="settings-label">Viewer Comments Visable</label>
+							<label class="switch">
+						    	<input type="checkbox" id="vcsVisable" ng-model="vcsVisable" ngclass="$root.bodylayout">
+						    	<div class="slider round"></div>
+						  	</label>
+						</div>
+						
+						<div class="settings-box">
+							<img class="settings-icon" src="./assets/img/privacy-icon.png" ngclass="$root.bodylayout"></img>
+							<label class="settings-label">Private Debate</label>
+							<label class="switch">
+						    	<input type="checkbox" id="pDebate" ng-model="pDebate" ngclass="$root.bodylayout">
+						    	<div class="slider round"></div>
+						  	</label>
+						</div>
 					</div>
 				</div>
-			</div>
 
-			<div ng-show="$ctrl.showDivs(2)">
-				<h5>Rules</h5>
-				<select ng-model="ruleApt">
-					<option value="" disabled selected>Arguments per Turn</option>
-					<option ng-repeat="opt in $ctrl.aptOptions" value="{{opt}}" name="opt">{{opt}}</option>
-
-				</select><br><br>
-				<input type="text" placeholder="Characters per Argument" name="ruleCpt"/><br><br>
-				<select ng-model="tLimit">
-					<option value="" disabled selected>Time Limit</option>
-					<option value="300" name="five">5 Minutes</option>
-					<option value="600" name="ten">10 Minutes</option>
-					<option value="900" name="fifteen">15 Minutes</option>
-					<option value="1800" name="thirty">30 Minutes</option>
-					<option value="3600" name="1hour">1 Hour</option>
-					<option value="7200" name="2hour">2 Hours</option>
-					<option value="14400" name="4hour">4 Hours</option>
-					<option value="28800" name="8hour">8 Hours</option>
-					<option value="57600" name="16hour">16 Hours</option>
-					<option value="115200" name="32hour">32 Hours</option>
-					<option value="230400" name="3day">3 Days</option>
-
-				</select><br><br>
-				<select ng-model="vtWin">
-					<option value="" disabled selected>Votes to Win</option>
-					<option value="5" name="None">5</option>
-					<option value="10" name="None">10</option>
-					<option value="25" name="None">25</option>
-					<option value="50" name="None">50</option>
-					<option value="100" name="None">100</option>
-					<option value="250" name="None">250</option>
-					<option value="500" name="None">500</option>
-					<option value="1000" name="None">1000</option>
-				</select><br><br>
-				Opening Statements Enabled <input type="checkbox" ng-model="oStatements"/><br><br>
-				References Enabled <input type="checkbox" ng-model="refsEnabled"/><br><br>
-				Viewer Comments Visable <input type="checkbox" ng-model="vcsVisable"/><br><br>
-				Private Debate<input type="checkbox" ng-model="pDebate"/><br><br>
-
-				<button ng-click="$ctrl.instantiateRules(ruleApt, ruleCpt, tLimit, oStatements, refsEnabled, vtWin, vcsVisable, pDebate)">Set Rules</button>
-
+				<div class="row">
+					<div class="col-sm-12">
+		                <div class="form-group centerif-sm" >
+							<button class="btn btn-primary quibButton" ng-disabled="sdForm.$invalid" ng-click="$ctrl.instantiateIssue(issTitle, issDesc, issLink) ; $ctrl.instantiateRules(ruleApt, ruleCpt, tLimit, oStatements, refsEnabled, vtWin, vcsVisable, pDebate)">Post Issue</button>
+						</div>
+						<div>
+							  <a href="" ng-hide = "showSettings" ng-click="showSettings = !showSettings">show settings</a>
+							  <a href="" ng-show = "showSettings" ng-click="showSettings = !showSettings">hide settings</a>
+						</div>
+						<div style="height:60px;font-size:12px;color:#e09182;text-align:center">
+		               		<div ng-show="sdForm.issTitle.$dirty && sdForm.issTitle.$invalid">
+		    	 				<p>Issue title must be between 6 and 42 characters.</p>
+		    		        </div>
+							<div ng-show="sdForm.issDesc.$dirty && sdForm.issDesc.$invalid">
+		    	 				<p>Issue description must be between 6 and 255 characters.</p>
+		     				</div>
+		              	</div>
+	              	</div>
+              	</div>
 			</div>
 
 			<div ng-show="$ctrl.showDivs(3)">
@@ -91,8 +144,16 @@ angular.module('ngDebate').component("startDebateComponent", {
 
 	`,
 	controller : function(categoryService, authenticationService, issueService, debateService, teamService,
-			performanceService, pmService, rulesService, issCatService){
+			performanceService, pmService, rulesService, issCatService, $scope){
 		var vm = this;
+		vm.ruleCpt = 315;
+		
+		vm.numRange = function(min, max, increase){
+			var input = [];
+		    for (var i=min; i<=max; i += increase)
+		      input.push(i);
+		    return input;
+		  }
 
 		categoryService.indexCategories().then(function(res) {
 //        	console.log("in perf promise");
@@ -100,11 +161,86 @@ angular.module('ngDebate').component("startDebateComponent", {
 //        	console.log(res);
         	vm.cats =  res.data;
 		}).then(function(res){
-
-		console.log("CATS ##################");
-		console.log(vm.cats);
+			$scope.ruleApt = vm.aptOptions[0];
+			$scope.tLimit = vm.timeOptions[10];
+			$scope.vtWin = vm.vtWinOptions[2];
+			$scope.ptWin = vm.ptWinOptions[3];
+			console.log(vm.cats);
+			console.log("LOADED CATS ##################");
 		})
+		
+		vm.ptWinOptions = [{
+				name: "55%",
+				val: 55
+			},{
+				name: "60%",
+				val: 60
+			},{
+				name: "65%",
+				val: 65
+			},{
+				name: "70%",
+				val: 70
+			},{
+				name: "75%",
+				val: 75
+			},{
+				name: "80%",
+				val: 80
+			},{
+				name: "85%",
+				val: 85
+			},{
+				name: "90%",
+				val: 90
+			},{
+				name: "95%",
+				val: 95
+			},{
+				name: "100%",
+				val: 100
+			}
+		];
 		vm.aptOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+		vm.vtWinOptions = [5,10,25,50,75,100,250,500,1000];
+		vm.timeOptions = [
+			{
+				name: "5 Minutes",
+				val: 300
+			}, {
+				name: "10 Minutes",
+				val: 600
+			}, {
+				name: "15 Minutes",
+				val: 900
+			}, {
+				name: "30 Minutes",
+				val: 1800
+			}, {
+				name: "1 hour",
+				val: 36000
+			}, {
+				name: "2 hours",
+				val: 72000
+			}, {
+				name: "4 hours",
+				val: 144000
+			}, {
+				name: "8 hours",
+				val: 288000
+			}, {
+				name: "16 hours",
+				val: 57600
+			}, {
+				name: "32 hours",
+				val: 115200
+			}, {
+				name: "3 days",
+				val: 230400
+			}, 
+		];
+								
+
 		vm.defaultTeamName = authenticationService.currentUser().name;
 		vm.currentUser = authenticationService.currentUser();
 		vm.issue;

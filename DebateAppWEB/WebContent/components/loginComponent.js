@@ -18,12 +18,12 @@ angular.module('ngDebate').component("loginComponent", {
                             <button class="btn btn-primary btn-block" ng-disabled="logForm.$invalid" ng-click="$ctrl.signup(post.username, post.password);">Sign Up</button>
                         </div>
                     		<div style="height:60px;font-size:12px;color:#e09182;text-align:center">
-                           <div ng-show="logForm.password.$dirty && logForm.username.$invalid ">
-                    	 				<p>Username must be between 6 and 42 characters.</p>
-                    		         </div>
-                    	 				<div ng-show="logForm.username.$dirty && logForm.password.$dirty && logForm.password.$invalid">
-                    	 				<p>Password must be between 6 and 42 characters.</p>
-                     				</div>
+                           		<div ng-show="logForm.password.$dirty && logForm.username.$invalid ">
+                	 				<p>Username must be between 6 and 42 characters.</p>
+                		         </div>
+            	 				<div ng-show="logForm.username.$dirty && logForm.password.$dirty && logForm.password.$invalid">
+                	 				<p>Password must be between 6 and 42 characters.</p>
+                 				</div>
                           </div>
                      </form>
                 </div>
