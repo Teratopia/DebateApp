@@ -550,7 +550,6 @@ category {
 	border-radius: 4px;
 	padding: 11px 25px;
 	box-shadow: none;
-	margin-top: 26px;
 	text-shadow: none;
 	outline: none;
 }
@@ -653,4 +652,26 @@ md-slider {
 .settings-box .slider:before {
 	height: 20px;
 	width: 20px;
+}
+
+.invalid-box {
+	vertical-align: top;
+}
+
+.invalid {
+	margin: 0px;
+	font-size: 12px;
+	color: #e09182
+}
+
+.inline-block {
+	display: inline-block;
+}
+
+.settings-button-box {
+	margin: 15px 0px 0px 0px;
+}
+
+.center{
+	text-align:center;
 }

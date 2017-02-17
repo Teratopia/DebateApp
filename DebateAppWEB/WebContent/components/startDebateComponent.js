@@ -26,6 +26,23 @@ angular.module('ngDebate').component("startDebateComponent", {
 						    </div>
 						</category>
 					</div>
+					<div class="settings-button-box inline-block hidden-sm hidden-xs">
+						<div class="inline-block">
+							<button class="btn btn-primary quibButton" ng-disabled="sdForm.$invalid" ng-click="$ctrl.instantiateIssue(issTitle, issDesc, issLink) ; $ctrl.instantiateRules(ruleApt, ruleCpt, tLimit, oStatements, refsEnabled, vtWin, vcsVisable, pDebate)">Post Issue</button>
+						</div>
+						<div class="inline-block invalid-box">
+		               		<span ng-show="sdForm.issTitle.$dirty && sdForm.issTitle.$invalid">
+		    	 				<p class="invalid">Issue title must be between 6 and 42 characters.</p>
+		    		        </span>
+							<span ng-show="sdForm.issDesc.$dirty && sdForm.issDesc.$invalid">
+		    	 				<p class="invalid">Issue description must be between 6 and 255 characters.</p>
+		     				</span>
+		              	</div>
+						<div class="settings-button-box">
+							<a href="" ng-hide = "showSettings" ng-click="showSettings = !showSettings">show settings</a>
+							<a href="" ng-show = "showSettings" ng-click="showSettings = !showSettings">hide settings</a>
+						</div>
+	              	</div>
 				</div>
 				<div ng-show="showSettings" class="col-sm-12 col-md-5 noPadNoMorg-sm">
 						<h4>Settings</h5>
@@ -107,24 +124,22 @@ angular.module('ngDebate').component("startDebateComponent", {
 					</div>
 				</div>
 
-				<div class="row">
-					<div class="col-sm-12">
-		                <div class="form-group centerif-sm" >
+				<div class="col-sm-12 noPadNoMorg-sm hidden-md hidden-lg hidden-xl">
+						<div class="center settings-button-box">
 							<button class="btn btn-primary quibButton" ng-disabled="sdForm.$invalid" ng-click="$ctrl.instantiateIssue(issTitle, issDesc, issLink) ; $ctrl.instantiateRules(ruleApt, ruleCpt, tLimit, oStatements, refsEnabled, vtWin, vcsVisable, pDebate)">Post Issue</button>
 						</div>
-						<div>
-							  <a href="" ng-hide = "showSettings" ng-click="showSettings = !showSettings">show settings</a>
-							  <a href="" ng-show = "showSettings" ng-click="showSettings = !showSettings">hide settings</a>
+						<div class="center settings-button-box">
+							<a href="" ng-hide = "showSettings" ng-click="showSettings = !showSettings">show settings</a>
+							<a href="" ng-show = "showSettings" ng-click="showSettings = !showSettings">hide settings</a>
 						</div>
-						<div style="height:60px;font-size:12px;color:#e09182;text-align:center">
-		               		<div ng-show="sdForm.issTitle.$dirty && sdForm.issTitle.$invalid">
-		    	 				<p>Issue title must be between 6 and 42 characters.</p>
-		    		        </div>
-							<div ng-show="sdForm.issDesc.$dirty && sdForm.issDesc.$invalid">
-		    	 				<p>Issue description must be between 6 and 255 characters.</p>
-		     				</div>
+						<div class="center invalid-box">
+		               		<span ng-show="sdForm.issTitle.$dirty && sdForm.issTitle.$invalid">
+		    	 				<p class="invalid">Issue title must be between 6 and 42 characters.</p>
+		    		        </span>
+							<span ng-show="sdForm.issDesc.$dirty && sdForm.issDesc.$invalid">
+		    	 				<p class="invalid">Issue description must be between 6 and 255 characters.</p>
+		     				</span>
 		              	</div>
-	              	</div>
               	</div>
 			</div>
 
