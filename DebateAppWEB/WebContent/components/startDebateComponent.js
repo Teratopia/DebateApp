@@ -7,7 +7,7 @@ angular.module('ngDebate').component("startDebateComponent", {
 		<h2>Create a New Debate</h2>
 		<form id="new-quib" name="sdForm" novalidate>
 			<div>
-				<div ng-show="$ctrl.showDivs(1)" class="col-sm-12 col-md-7 noPadNoMorg-sm">
+				<div class="col-sm-12 col-md-7 noPadNoMorg-sm">
 				<h4>Issue</h4>
 					<div>
 						<input type="text" name="issTitle" ng-model="issTitle" required ng-minlength="6" ng-maxlength="41" class="light-theme" placeholder="Issue Title"/>
@@ -28,7 +28,9 @@ angular.module('ngDebate').component("startDebateComponent", {
 					</div>
 					<div class="settings-button-box inline-block hidden-sm hidden-xs">
 						<div class="inline-block">
-							<button class="btn btn-primary quibButton" ng-disabled="sdForm.$invalid" ng-click="$ctrl.instantiateIssue(issTitle, issDesc, issLink) ; $ctrl.instantiateRules(ruleApt, ruleCpt, tLimit, oStatements, refsEnabled, vtWin, vcsVisable, pDebate)">Post Issue</button>
+							<button class="btn btn-primary quibButton" ng-disabled="sdForm.$invalid" 
+							ng-click="$ctrl.instantiateDebate(issTitle, issDesc, issLink, ruleApt, $ctrl.ruleCpt, tLimit.val, oStatements, refsEnabled, vtWin, vcsVisable, pDebate)">
+							Create Debate</button>
 						</div>
 						<div class="inline-block invalid-box">
 		               		<span ng-show="sdForm.issTitle.$dirty && sdForm.issTitle.$invalid">
@@ -45,8 +47,14 @@ angular.module('ngDebate').component("startDebateComponent", {
 	              	</div>
 				</div>
 				<div ng-show="showSettings" class="col-sm-12 col-md-5 noPadNoMorg-sm">
-						<h4>Settings</h5>
-						
+						<div class="inline-block">
+							<div class="inline-block">
+								<h4>Settings</h5>
+							</div>
+							<div class="inline-block">	
+								<a href="" ng-show = "showSettings" ng-click="showSettings = !showSettings">hide settings</a>
+							</div>
+						</div>
 						<div class="settings-box">
 							<img class="settings-icon" src="./assets/img/argument-icon.png" ngclass="$root.bodylayout"></img>
 							<label class="settings-label">Arguments per Turn</label>
@@ -125,41 +133,31 @@ angular.module('ngDebate').component("startDebateComponent", {
 				</div>
 
 				<div class="col-sm-12 noPadNoMorg-sm hidden-md hidden-lg hidden-xl">
-						<div class="center settings-button-box">
-							<button class="btn btn-primary quibButton" ng-disabled="sdForm.$invalid" ng-click="$ctrl.instantiateIssue(issTitle, issDesc, issLink) ; $ctrl.instantiateRules(ruleApt, ruleCpt, tLimit, oStatements, refsEnabled, vtWin, vcsVisable, pDebate)">Post Issue</button>
-						</div>
-						<div class="center settings-button-box">
-							<a href="" ng-hide = "showSettings" ng-click="showSettings = !showSettings">show settings</a>
-							<a href="" ng-show = "showSettings" ng-click="showSettings = !showSettings">hide settings</a>
-						</div>
-						<div class="center invalid-box">
-		               		<span ng-show="sdForm.issTitle.$dirty && sdForm.issTitle.$invalid">
-		    	 				<p class="invalid">Issue title must be between 6 and 42 characters.</p>
-		    		        </span>
-							<span ng-show="sdForm.issDesc.$dirty && sdForm.issDesc.$invalid">
-		    	 				<p class="invalid">Issue description must be between 6 and 255 characters.</p>
-		     				</span>
-		              	</div>
+					<div class="center settings-button-box">
+						<button class="btn btn-primary quibButton" ng-disabled="sdForm.$invalid" 
+						ng-click="$ctrl.instantiateDebate(issTitle, issDesc, issLink, ruleApt, $ctrl.ruleCpt, tLimit.val, oStatements, refsEnabled, vtWin, vcsVisable, pDebate)">
+						Create Debate</button>
+					</div>
+					<div class="center settings-button-box">
+						<a href="" ng-hide = "showSettings" ng-click="showSettings = !showSettings">show settings</a>
+						<a href="" ng-show = "showSettings" ng-click="showSettings = !showSettings">hide settings</a>
+					</div>
+					<div class="center invalid-box">
+	               		<span ng-show="sdForm.issTitle.$dirty && sdForm.issTitle.$invalid">
+	    	 				<p class="invalid">Issue title must be between 6 and 42 characters.</p>
+	    		        </span>
+						<span ng-show="sdForm.issDesc.$dirty && sdForm.issDesc.$invalid">
+	    	 				<p class="invalid">Issue description must be between 6 and 255 characters.</p>
+	     				</span>
+	              	</div>
               	</div>
 			</div>
-
-			<div ng-show="$ctrl.showDivs(3)">
-				<h5>Your Team</h5>
-				<input type="text" ng-model="$ctrl.defaultTeamName"/><br>
-				<input type="text" placeholder="Your Stance on This Issue" ng-model="perfStance"/><br><br>
-				<button ng-click="$ctrl.instantiateTeam($ctrl.defaultTeamName); $ctrl.instantiateDebate()">Create Team</button>
-			</div>
-
-			<div ng-show="$ctrl.showDivs(4)">
-				<button ng-click="$ctrl.instantiatePerformanceMember(perfStance)"><a href="#!/debate/{{$ctrl.debate.id}}">Start Debate</a></button><br><br>
-			</div>
-
 		</form>
 		</div>
 
 	`,
 	controller : function(categoryService, authenticationService, issueService, debateService, teamService,
-			performanceService, pmService, rulesService, issCatService, $scope){
+			performanceService, pmService, rulesService, issCatService, $scope, $location){
 		var vm = this;
 		vm.ruleCpt = 315;
 		
@@ -171,9 +169,6 @@ angular.module('ngDebate').component("startDebateComponent", {
 		  }
 
 		categoryService.indexCategories().then(function(res) {
-//        	console.log("in perf promise");
-//        	console.log(res.data);
-//        	console.log(res);
         	vm.cats =  res.data;
 		}).then(function(res){
 			$scope.ruleApt = vm.aptOptions[0];
@@ -264,11 +259,8 @@ angular.module('ngDebate').component("startDebateComponent", {
 		vm.performance;
 		vm.performanceMember;
 		vm.catsBox = [];
-		vm.hideIndex = 1;
 
 		vm.addCat = function(cat){
-//			console.log("add cat 1:")
-//			console.log(cat);
 			var flag = false;
 			var index = 0;
 			var startSplice;
@@ -284,33 +276,11 @@ angular.module('ngDebate').component("startDebateComponent", {
 			} else {
 				vm.catsBox.splice(startSplice, 1);
 			}
-//			console.log("addCat -- CATS:");
-//			console.log(vm.catsBox);
-
 		}
 
-		vm.showDivs = function(q){
-			if(q === vm.hideIndex){
-				return true;
-			} else {
-				return false;
-			}
-		}
 
-//		vm.postDebate = function(issTitle, issDesc, issLink, ruleApt, ruleCpt, tLimit, vtWin, oStatements,
-//				refsEnabled, vcsVisable, pDebate, teamName, perfStance){
-//			vm.instantiateIssue(issTitle, issDesc, issLink);
-//			vm.instantiateRules(ruleApt, ruleCpt, tLimit, oStatements, refsEnabled, vtWin, vcsVisable, pDebate);
-//			vm.instantiateDebate();
-//			vm.instantiateTeam(teamName);
-//			vm.instantiatePerformance(perfStance);
-//			vm.instantiatePerformanceMember();
-//			vm.currentUser = authenticationService.currentUser();
-//
-//		}
-
-		vm.instantiateIssue = function(title, desc, link){
-
+		vm.instantiateDebate = function(title, desc, link, apt, cpa, tLimit, oStatements, refOn, winVal, commView, isPrivate){
+			// create and store issue
 			var iss = {
 					'title' : title,
 					'description': desc,
@@ -318,111 +288,52 @@ angular.module('ngDebate').component("startDebateComponent", {
 			}
 			console.log(iss);
 			issueService.createIssue(iss).then(function(res) {
-//            	console.log("in perf promise");
-//            	console.log(res.data);
-//            	console.log(res);
             	vm.issue =  res.data;
-			})
-			vm.hideIndex = 2;
-		}
-
-		vm.instantiateRules = function(apt, cpa, tLimit, oStatements, refOn, winVal, commView, isPrivate){
-			var rul = {
-					'argPerTurn' : apt,
-					'charsPerArg' : cpa,
-					'timeLimit' : tLimit,
-					'openingStatements' : oStatements,
-					'referencesOn' : refOn,
-					'winValue' : winVal,
-					'publicFlag' : commView,
-					'viewersFlag' : false,
-					'commentsView' : false,
-					'privateDebate' : isPrivate
-			}
-
-			rulesService.createRules(rul).then(function(res) {
-//            	console.log("in perf promise");
-//            	console.log(res.data);
-//            	console.log(res);
-            	vm.rules =  res.data;
-			})
-
-			vm.instantiateIssCats();
-
-			vm.hideIndex = 3;
-		}
-
-		vm.instantiateIssCats = function(){
-			vm.catsBox.forEach(function(cat){
-				var issCat = {
-						'category' : cat,
-						'issue' : vm.issue
+			
+				// create and store rules
+				var rul = {
+						'argPerTurn' : apt,
+						'charsPerArg' : cpa,
+						'timeLimit' : tLimit,
+						'openingStatements' : oStatements,
+						'referencesOn' : refOn,
+						'winValue' : winVal,
+						'publicFlag' : commView,
+						'viewersFlag' : false,
+						'commentsView' : false,
+						'privateDebate' : isPrivate
 				}
-
-				issCatService.createIssCat(issCat);
-			})
+	
+				rulesService.createRules(rul).then(function(res) {
+	            	vm.rules =  res.data;
+	
+					// assign categories tags to issue
+					vm.catsBox.forEach(function(cat){
+						var issCat = {
+								'category' : cat,
+								'issue' : vm.issue
+						}
+		
+						issCatService.createIssCat(issCat);
+					})
+					
+					// create and store debate
+					var deb = {
+							'issue' : vm.issue,
+							'rules' : vm.rules,
+							'timeStamp' : new Date()
+					}
+		
+					debateService.createDebate(deb).then(function(res) {
+		            	vm.debate =  res.data;
+		            	
+		            	// redirect to join debate page
+		            	console.log("going to /#!/join/" + vm.debate.id);
+		            	$location.path('/join/' + vm.debate.id);
+					})
+				});
+			});
 		}
-
-		vm.instantiateDebate = function(){
-//			console.log("inst debate, issue:");
-//			console.log(vm.issue);
-			var deb = {
-					'issue' : vm.issue,
-					'rules' : vm.rules,
-					'timeStamp' : new Date()
-			}
-
-			debateService.createDebate(deb).then(function(res) {
-//            	console.log("in perf promise");
-//            	console.log(res.data);
-//            	console.log(res);
-            	vm.debate =  res.data;
-			})
-		}
-
-		vm.instantiateTeam = function(name){
-			var t = {
-					'name': name
-			}
-
-			teamService.createTeam(t).then(function(res) {
-//            	console.log("in perf promise");
-//            	console.log(res.data);
-//            	console.log(res);
-            	vm.team =  res.data;
-			})
-			vm.hideIndex = 4;
-		}
-
-//		vm.instantiatePerformance = function(stance){
-//			var per = {
-//
-//					'debate' : vm.debate,
-//					'team' : vm.team,
-//					'stance' : stance
-//
-//			}
-//			vm.performance = performanceService.createPerformance(per);
-//		}
-
-		vm.instantiatePerformanceMember = function(stance){
-			var instPAM = {
-				'debateId' : vm.debate.id,
-				'teamId' : vm.team.id,
-				'stance' : stance,
-				'timeTotal' : 0,
-				'userId' : vm.currentUser.id,
-				'role' : null
-			}
-
-//			console.log('CURRENT USER: #################################');
-//			console.log(vm.currentUser);
-//			console.log('IPAM: #################################');
-//			console.log(instPAM);
-
-			performanceService.instPerformanceAndMember(instPAM);
-		}
-
 	}
 
 });
