@@ -22,7 +22,7 @@ angular.module('ngDebate').component("profileComponent", {
 		      <v-accordion class="vAccordion--default">
 						<div class="col-sm-12 col-md-6">
 							<v-pane ng-repeat="deb in $ctrl.debates" ng-if="$index<$ctrl.debates.length/2">
-								<v-pane-header ng-click="hideButtons = !hideButtons | " class="category-header" >
+								<v-pane-header ng-click="hideButtons = !hideButtons" class="category-header" >
 									<div class="cat-wrapper">
 										<div class="category-left">
 											<img src="assets/img/Quib-Logo-WHITE.png" ngclass="$root.bodylayout" class="quibPaneImage">
@@ -79,7 +79,7 @@ angular.module('ngDebate').component("profileComponent", {
 						 </div>
 	 						<div class="col-sm-12 col-md-6">
 	 							<v-pane ng-repeat="deb in $ctrl.debates" ng-if="$index>=$ctrl.debates.length/2">
-	 								<v-pane-header ng-click="hideButtons = !hideButtons | " class="category-header" >
+	 								<v-pane-header ng-click="hideButtons = !hideButtons" class="category-header" >
 	 									<div class="cat-wrapper">
 	 										<div class="category-left">
 	 											<img src="assets/img/Quib-Logo-WHITE.png" ngclass="$root.bodylayout" class="quibPaneImage">
