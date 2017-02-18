@@ -338,12 +338,23 @@ input:checked+.slider:before {
 }
 
 .light-theme {
-	color: #1e2021 !important;
+	color: #1e2021;
 	background-color: #ffffff !important;
 }
 
 .light-theme img {
 	filter: invert(100%);
+}
+
+
+@media ( max-width :767px) {
+	.navigation-clean.navbar-inverse .navbar-nav > li > a.light-theme{
+		color: #dfe8ee;
+	}
+}
+
+.navigation-clean.navbar-inverse .navbar-nav > li > a.light-theme{
+	color: #1e2021;
 }
 
 .light-theme.navigation-clean.navbar-inverse a:focus, .light-theme.navigation-clean.navbar-inverse a:hover
