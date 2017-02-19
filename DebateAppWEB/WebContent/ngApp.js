@@ -63,7 +63,7 @@ app.config(function($routeProvider){ // $routeProvider is an Angular service
 				   		         // if id is absent or NaN, redirect to not found
 				   		         $location.path('/_404');
 				   		       }
-				   		     }
+			   		     }
 
 			}
 

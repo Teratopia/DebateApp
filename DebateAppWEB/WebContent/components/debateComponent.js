@@ -6,6 +6,7 @@ function debateController(authenticationService, $timeout, $scope, debateService
   vm.currentUser = authenticationService.currentUser();
   vm.allComments;
   vm.ddLoaded = false;
+  vm.testval = "testval";
 
   vm.isInDebate = false;
 
@@ -69,7 +70,7 @@ app.component('debateComponent',{
                                        </div>
                                    </div>
                                </div>
-                               <debate-info-component debate="$ctrl.debateData.debate"></debate-info-component>
+                               <debate-info-component testval="$ctrl.testval" debate="$ctrl.debateData.debate"></debate-info-component>
                            </div>
                            <comment-master-component debate-data="$ctrl.debateData"></comment-master-component>
                        </div>
@@ -88,7 +89,7 @@ app.component('debateComponent',{
                </div>
            </div>`,
 
-  controller : debateController
+  controller : debateController,
 
 });
 

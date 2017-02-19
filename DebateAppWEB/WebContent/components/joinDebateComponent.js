@@ -9,7 +9,7 @@ angular.module('ngDebate').component("joinDebateComponent", {
 		<h2>Join Debate</h2>
 		<form name="sdForm" novalidate>
 		
-			<h5>{{$ctrl.debate.issue.title}}</h5>
+			<h5>{{$ctrl.debate.issue.title}}{{$ctrl.testval}}</h5>
 			<p><em>{{$ctrl.debate.issue.description}}</em></p>
 			<p ng-show="$ctrl.debate.issue.linkRef">Reference: <a href= "$ctrl.debate.issue.linkRef">{{$ctrl.debate.issue.linkRef}}</a></p>
 			<h5>Rules: </h5>
@@ -33,15 +33,10 @@ angular.module('ngDebate').component("joinDebateComponent", {
 		</form>
 	`,
 	
-	controller : function(debateService, authenticationService, teamService, performanceService, pmService){
-		console.log("in joinDebate");
-		console.log(authenticationService.currentUser());
-		
+	controller : function(debateService, authenticationService, teamService, performanceService, pmService, $scope){
 		var vm = this;
-	
+			
 		vm.defaultTeamName = authenticationService.currentUser().username + "'s Team";
-		
-		console.log(vm.defaultTeamName);
 		vm.stance = "";
 		vm.team = null;
 		vm.performance = null;

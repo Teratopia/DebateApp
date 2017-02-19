@@ -30,7 +30,7 @@ app.component('debateInfoComponent',{
                   Description
                 </v-pane-header>
                 <v-pane-content>
-                  <div>{{$ctrl.debate.issue.linkRef}}</div>
+                  <div>{{$ctrl.debate.issue.linkRef}} {{$ctrl.testval}}</div>
                   <div>{{$ctrl.debate.issue.description}}</div>
                   <div ng-repeat="category in popCategories($ctrl.debate.issue.id)">{{category}}</div>
                 </v-pane-content>
@@ -56,6 +56,7 @@ app.component('debateInfoComponent',{
   controller : debateInfoController,
 
   bindings : {
-	  			        debate: '<'
+	  			        debate: '<',
+	  			        testval: '='
               }
 });
