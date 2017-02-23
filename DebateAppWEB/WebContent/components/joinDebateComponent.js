@@ -9,22 +9,91 @@ angular.module('ngDebate').component("joinDebateComponent", {
 		<h2>Join Debate</h2>
 		<form name="sdForm" novalidate>
 		
-			<h5>{{$ctrl.debate.issue.title}}{{$ctrl.testval}}</h5>
-			<p><em>{{$ctrl.debate.issue.description}}</em></p>
+			<h3>Issue: {{$ctrl.debate.issue.title}}</h3>
+			<p><em> Description: {{$ctrl.debate.issue.description}}</em></p>
 			<p ng-show="$ctrl.debate.issue.linkRef">Reference: <a href= "$ctrl.debate.issue.linkRef">{{$ctrl.debate.issue.linkRef}}</a></p>
-			<h5>Rules: </h5>
-			<ul>
-				<li>Arguments per Turn: {{$ctrl.debate.rules.argPerTurn}}</li>
-				<li>Characters per Argument: {{$ctrl.debate.rules.charsPerArg}}</li>
-				<li>Time Limit: {{$ctrl.debate.rules.timeLimit}}</li>
-				<li>Opening Statments: {{$ctrl.debate.rules.openingStatements}}</li>
-				<li>References Enabled: {{$ctrl.debate.rules.referencesOn}}</li>
-				<li>Votes to Win: {{$ctrl.debate.rules.winValue}}</li>
-				<li>Viewer Comments Visable: {{$ctrl.debate.rules.commentsView}}</li>
-				<li>Private Debate: {{$ctrl.debate.rules.privateDebate}}</li>
-			</ul>
 			
-			<h5>Your Team:</h5>
+			
+			<div style="width:360px">
+						<div class="inline-block">
+							<div class="inline-block">
+								<h4>Settings</h5>
+							</div>
+							<div class="inline-block">	
+								<a href="" ng-show = "showSettings" ng-click="showSettings = !showSettings">hide settings</a>
+							</div>
+						</div>
+						<div class="settings-box">
+							<img class="settings-icon" src="./assets/img/argument-icon.png" ngclass="$root.bodylayout"></img>
+							<label class="settings-label">Arguments per Turn
+							<div style="float:right">{{$ctrl.debate.rules.argPerTurn}}</div>
+							</label>
+						</div>
+						
+						<div class="settings-box">
+							<img class="settings-icon" src="./assets/img/length-icon.png" ngclass="$root.bodylayout"></img>
+							<label class="settings-label">Max Characters / Argument
+							<div style="float:right">{{$ctrl.debate.rules.charsPerArg}}</div>
+							</label>
+						</div>
+						
+						<div class="settings-box">
+							<img class="settings-icon" src="./assets/img/stopwatch-icon.png" ngclass="$root.bodylayout"></img>
+							<label class="settings-label">Time limit
+							<div style="float:right">{{$ctrl.debate.rules.timeLimit}}</div>
+							</label>
+						</div>
+						
+						<div class="settings-box">
+							<img class="settings-icon" src="./assets/img/vote-icon.png" ngclass="$root.bodylayout"></img>
+							<label class="settings-label">Minimum Votes to Win
+							<div style="float:right">{{$ctrl.debate.rules.winValue}}</div>
+							</label>
+						</div>
+						
+						<div class="settings-box">
+							<img class="settings-icon" src="./assets/img/percentage-icon.png" ngclass="$root.bodylayout"></img>
+							<label class="settings-label">Minimum % to Win
+							<div style="float:right">N/A</div>
+							</label>
+						</div>
+						
+						<!-- commented out opening statements until determined whether to use -->
+						<!--<div>
+							Opening Statements Enabled <input type="checkbox" ng-model="oStatements"/>
+						</div>-->
+						
+						<div class="settings-box">
+							<img class="settings-icon" src="./assets/img/link-icon.png" ngclass="$root.bodylayout"></img>
+							<label class="settings-label">References Enabled
+							<div style="float:right">{{$ctrl.debate.rules.referencesOn}}</div>
+							</label>
+						</div>
+						
+						<div class="settings-box">
+							<img class="settings-icon" src="./assets/img/visable-icon.png" ngclass="$root.bodylayout"></img>
+							<label class="settings-label">Viewer Comments Visable
+							<div style="float:right">{{$ctrl.debate.rules.commentsView}}</div>
+							</label>
+						</div>
+						
+						<div class="settings-box">
+							<img class="settings-icon" src="./assets/img/privacy-icon.png" ngclass="$root.bodylayout"></img>
+							<label class="settings-label">Private Debate
+							<div style="float:right">{{$ctrl.debate.rules.privateDebate}}</div>
+							</label>
+						</div>
+					</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<h4>Enter your team name & stance:</h4>
 			<input type="text" ng-model="$ctrl.defaultTeamName"/><br><br>
 			<input type="text" placeholder="Your Stance on This Issue" ng-model="$ctrl.stance"/><br><br>
 			

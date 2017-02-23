@@ -5,10 +5,12 @@ angular.module('ngDebate').component("commentMasterComponent", {
 		<div class="col-md-12">
                <div class="row">
                    <div class="col-md-12">
-                       <p id="commentaryHeader">Commentary:</p>
+                       <p id="commentaryHeader">Commentary: {{$ctrl.interaction}}</p>
                        <div class="comments-display-screen">
 						<div ng-repeat="comment in $ctrl.allComments | orderBy:'timeStamp'">
-          				{{comment.user.username}} says: {{comment.text}}
+							<div>
+          						{{comment.user.username}} says: {{comment.text}}
+							</div>
 						</div>
 					</div>
                   </div>
@@ -33,23 +35,33 @@ angular.module('ngDebate').component("commentMasterComponent", {
 						</div>
                    </div>
                </div>
-           </div>
-
-	`,
+           </div>`,
+           
+	bindings : {
+		
+		interaction : "="
+	
+	},
 
 	controller : function(authenticationService, userService, formatService, commentService,
 			debateService, $location, $interval){
 
-		var vm = this;
+		  var vm = this;
 		  vm.classCode = null;
 		  vm.leftRight = null;
 		  vm.allComments;
+		  vm.$onInit = function(){
+				  vm.interaction = "Testing Interaction Variable Binding";
+		  };
+		  
+		  console.log(vm.interaction);
 
 		  vm.argumentText = 'type comment';
 		  vm.hrefText = 'insert URL';
 		  vm.userInfo = authenticationService.currentUser();
 		  vm.newText = "";
 		  vm.newRef = "";
+		  vm.comRef = "";
 		  vm.debate;
 
 		  var path = $location.path().split("/");
@@ -82,6 +94,7 @@ angular.module('ngDebate').component("commentMasterComponent", {
 					  'debate' : vm.debate,
 					  'text' : vm.newText,
 					  'linkRef' : vm.newRef,
+					  'comment' : vm.comRef,
 					  'timeStamp' : new Date()
 			  }
 

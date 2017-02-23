@@ -3,12 +3,15 @@ package entities;
 
 
 import java.sql.Timestamp;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 
 @Entity
 public class Comment {
@@ -25,6 +28,30 @@ public class Comment {
 	private Timestamp timeStamp;
 	@Column(name = "linkref")
 	private String linkRef;
+    @ManyToOne
+	@JoinColumn(name = "comref_id")
+    private Comment comment;
+	@OrderBy("time_stamp ASC")
+	@OneToMany(mappedBy = "comment")
+	private Set<Comment> comments;
+
+
+
+	public Comment getComment() {
+		return comment;
+	}
+
+	public void setComment(Comment comment) {
+		this.comment = comment;
+	}
+
+	public Set<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(Set<Comment> comments) {
+		this.comments = comments;
+	}
 
 	public Comment() {
 	}

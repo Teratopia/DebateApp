@@ -18,15 +18,6 @@ function argumentMasterController(authenticationService, userService, formatServ
   vm.leftRight = null;
   vm.debatefull = "";
 
-	// document.getElementById('arg-text').addEventListener('keydown', function(e) {
-	// 	if(e.keyCode == 13 && e.metaKey) {
-	// 		this.form.submit();
-	// 	}
-	// });
-
-	//compare to sort performances prior to submition to formatting to avoid O(n^2)
-
-
 	function compare(a,b) {
 		if (a.id < b.id)
 			return -1;
@@ -84,19 +75,9 @@ function argumentMasterController(authenticationService, userService, formatServ
 				  break;
 			  }
 		  }
-		 //  console.log("is participant:")
-// 		  console.log(participating)
 		  return participating;
 	  	}
 }
-
-//  var path = $location.path().split("/");
-//  debateService.indexDebateFull(path[path.length-1])
-//  	.then(function(res) {
-//  		vm.cUser = authenticationService.currentUser();
-//  		vm.debatefull = res.data;
-//  	});
-
 
 
   vm.instArg = function(){
@@ -111,13 +92,10 @@ function argumentMasterController(authenticationService, userService, formatServ
 			  'team' : vm.performance.team
 	  }
 
-//	  console.log(arg);
 	  argumentService.createArgument(arg)
 	  .then(function(res){
 		  vm.newText = null;
 		  vm.newRef = null;
-//		  console.log("in create arg, res.data = ")
-//		  console.log(res.data)
 		  vm.allArgs.push(res.data);
 	  });
   }
@@ -127,10 +105,6 @@ function argumentMasterController(authenticationService, userService, formatServ
   var turnCount = 0;
 
 
-//  vm.$onInit=function(){
-//	  turnCount = vm.debatefull.debate.turnCount;
-//	  };
-//  $timeout(function(){turnCount = vm.debatefull.debate.turnCount;},300);
 
   vm.turnId = "unknown";
   vm.turnCalc = function(roster){
@@ -182,10 +156,6 @@ function argumentMasterController(authenticationService, userService, formatServ
 	  })
   }
 
-//  vm.$onInit=function(){
-//	  vm.turnCalc(vm.debatefull.roster);
-//	  };
-
   vm.currentUser = function(){
     return authenticationService.currentUser()
   }
@@ -205,7 +175,9 @@ app.component('argumentMasterComponent',{
 
 		<div class="row">
     	<div class="col-md-12">
-				<div class="args-display-screen" scroll-glue>
+    	
+		<div>{{$ctrl.interaction}}</div>
+			<div class="args-display-screen" scroll-glue>
 		      <div ng-repeat="argument in $ctrl.allArgs | orderBy: 'timeStamp'">
 		        <div class="row arg-holder">
 		          <div ng-class="$ctrl.assignClass(argument, $ctrl.allperformances)">
@@ -236,12 +208,14 @@ app.component('argumentMasterComponent',{
         			</form>
       			</div>
     			</div>
-   			</div>
+   			</div>`,
 
-`,
-
-  controller : argumentMasterController
-
-//ng-disabled="$ctrl.turnId != $ctrl.currentUser.id"
+		controller : argumentMasterController,
+  
+		bindings : {
+			
+			interaction : "="
+		
+		}
 
 });

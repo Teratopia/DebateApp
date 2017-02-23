@@ -23,9 +23,9 @@ public class CommentDAO implements CommentDAOI {
 		String query = "Select c from Comment c";
 		return em.createQuery(query, Comment.class).getResultList();
 	}
-	
+
 	public Collection<Comment> indexByDebate(int debId) {
-		String query = "Select c from Comment c where c.debate = "+debId;
+		String query = "Select c from Comment c where c.debate = " + debId;
 		return em.createQuery(query, Comment.class).getResultList();
 	}
 
@@ -55,6 +55,8 @@ public class CommentDAO implements CommentDAOI {
 		oldComment.setText(updatedComment.getText());
 		oldComment.setTimeStamp(updatedComment.getTimeStamp());
 		oldComment.setLinkRef(updatedComment.getLinkRef());
+		oldComment.setComment(updatedComment.getComment());
+		oldComment.setComments(updatedComment.getComments());
 
 		em.flush();
 		return em.find(Comment.class, oldComment.getId());
@@ -73,10 +75,10 @@ public class CommentDAO implements CommentDAOI {
 
 		em.persist(newComment);
 		em.flush();
-		
+
 		String query = "select i from Comment i where i.id=(select max(id) from Comment)";
 		newComment = em.createQuery(query, Comment.class).getSingleResult();
-		
+
 		return newComment;
 	}
 

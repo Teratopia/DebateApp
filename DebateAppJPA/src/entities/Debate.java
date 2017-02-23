@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -48,6 +49,7 @@ public class Debate {
 	@OneToMany(mappedBy = "debate")
 	@JsonIgnore
 	private Set<Vote> votes;
+	@OrderBy("time_stamp ASC")
 	@OneToMany(mappedBy = "debate")
 	@JsonIgnore
 	private Set<Comment> comments;

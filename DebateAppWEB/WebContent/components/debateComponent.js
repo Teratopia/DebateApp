@@ -5,6 +5,7 @@ function debateController(authenticationService, $timeout, $scope, debateService
   var vm = this;
   vm.currentUser = authenticationService.currentUser();
   vm.allComments;
+	vm.interaction;
   vm.ddLoaded = false;
   vm.testval = "testval";
 
@@ -72,7 +73,7 @@ app.component('debateComponent',{
                                </div>
                                <debate-info-component testval="$ctrl.testval" debate="$ctrl.debateData.debate"></debate-info-component>
                            </div>
-                           <comment-master-component debate-data="$ctrl.debateData"></comment-master-component>
+                           <comment-master-component  interaction="$ctrl.interaction" debate-data="$ctrl.debateData"></comment-master-component>
                        </div>
                    </div>
                    <div class="col-lg-5 col-md-5">
@@ -84,38 +85,12 @@ app.component('debateComponent',{
 							   <ct-component debate-data="$ctrl.debateData"></ct-component>
                            </div>
                        </div>
-                     <argument-master-component></argument-master-component>
+                     <argument-master-component interaction="$ctrl.interaction"></argument-master-component>
                    </div>
                </div>
            </div>`,
 
-  controller : debateController,
+    controller : debateController
 
 });
 
-//<div class="col-md-12">
-//<div class="row">
-//    <div class="col-md-12">
-//        <p style="font-size:1em;">Commentary:</p>
-//        <debate-comment-component debatefull="$ctrl.debatefull" allComments="$ctrl.allComments"></debate-comment-component>
-//    </div>
-//</div>
-//<div class="row">
-//    <div class="col-md-12" ng-show="!$ctrl.isParticipant()" >
-//        <com-form-component ng-show="!$ctrl.isParticipant()" allComments="$ctrl.allComments" debatefull="$ctrl.debatefull"></com-form-component>
-//    </div>
-//</div>
-
-//
-//           ---
-//           <div class="row">
-//               <div class="col-md-12">
-//                    <debate-argument-component debatefull="$ctrl.debateData"></debate-argument-component>
-//               </div>
-//           </div>
-//           <div class="row">
-//               <div class="col-md-12">
-//                   <arg-form-component ng-show="$ctrl.isParticipant()" debatefull="$ctrl.debateData"></arg-form-component>
-//               </div>
-//           </div>
-//           ---
