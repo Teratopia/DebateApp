@@ -7,13 +7,14 @@ angular.module('ngDebate').component("commentMasterComponent", {
                    <div class="col-md-12">
                        <p id="commentaryHeader">Commentary: {{$ctrl.interaction}}</p>
                        <div class="comments-display-screen">
-						<div ng-repeat="comment in $ctrl.allComments | orderBy:'timeStamp'">
+						<!--<div ng-repeat="comment in $ctrl.allComments | orderBy:'timeStamp'">
 							<div>
           						{{comment.user.username}} says: {{comment.text}}
 							</div>
+						</div>-->
+							<comment-component depth="$ctrl.depth" comref="$ctrl.comref" comments="$ctrl.allComments"></comment-component>
 						</div>
-					</div>
-                  </div>
+                  	</div>
                </div>
                <div class="row">
                    <div class="col-md-12" ng-hide="$ctrl.isParticipant()" >
@@ -21,7 +22,7 @@ angular.module('ngDebate').component("commentMasterComponent", {
 							<form>
 								<div>
 									<textarea id="arg-text" placeholder="{{$ctrl.argumentText}}"
-									ng-model="$ctrl.newText" class="arg-text-form"></textarea>
+									ng-model="$ctrl.newText" class="arg-text-form">{{$ctrl.comref}}</textarea>
 								</div>
 								<div>
   									<input id="args-submit" ng-click="$ctrl.instCom()" type="submit"
@@ -47,6 +48,7 @@ angular.module('ngDebate').component("commentMasterComponent", {
 			debateService, $location, $interval){
 
 		  var vm = this;
+		  vm.depth=0;
 		  vm.classCode = null;
 		  vm.leftRight = null;
 		  vm.allComments;
@@ -61,7 +63,7 @@ angular.module('ngDebate').component("commentMasterComponent", {
 		  vm.userInfo = authenticationService.currentUser();
 		  vm.newText = "";
 		  vm.newRef = "";
-		  vm.comRef = "";
+		  vm.comref = null;
 		  vm.debate;
 
 		  var path = $location.path().split("/");
@@ -79,8 +81,9 @@ angular.module('ngDebate').component("commentMasterComponent", {
 		  function updateComs(){
 			  commentService.indexCommentsByDebate(vm.debateData.debate.id).then(function(res){
 				  vm.allComments = res.data;
-				  console.log("all comments:")
-				  console.log(vm.allComments)
+				  console.log("all comments:");
+				  console.log(vm.allComments);
+				  console.log(vm.comref);
 			  })
 		  }
 		  
@@ -94,7 +97,7 @@ angular.module('ngDebate').component("commentMasterComponent", {
 					  'debate' : vm.debate,
 					  'text' : vm.newText,
 					  'linkRef' : vm.newRef,
-					  'comment' : vm.comRef,
+					  'comment' : vm.comref,
 					  'timeStamp' : new Date()
 			  }
 

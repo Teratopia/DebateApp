@@ -9,9 +9,9 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import entities.Comment;
-import entities.Team;
 
 @Repository
 @Transactional
@@ -25,7 +25,7 @@ public class CommentDAO implements CommentDAOI {
 	}
 
 	public Collection<Comment> indexByDebate(int debId) {
-		String query = "Select c from Comment c where c.debate = " + debId;
+		String query = "Select c from Comment c where c.debate = " + debId + " AND c.comment = null";
 		return em.createQuery(query, Comment.class).getResultList();
 	}
 
@@ -66,7 +66,11 @@ public class CommentDAO implements CommentDAOI {
 		ObjectMapper mapper = new ObjectMapper();
 		Comment newComment = null;
 		try {
+			ObjectNode node = new ObjectMapper().readValue(commentJson, ObjectNode.class);
 			newComment = mapper.readValue(commentJson, Comment.class);
+			if (node.has("comment")) {
+			    newComment.setComment(em.find(Comment.class, Integer.parseInt(node.get("comment")+"")));
+			}   
 			System.out.println(commentJson);
 			System.out.println(newComment);
 		} catch (Exception e) {

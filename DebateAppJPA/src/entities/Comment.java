@@ -5,15 +5,20 @@ package entities;
 import java.sql.Timestamp;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
+@JsonIgnoreProperties({"comment"})
 public class Comment {
 	@Id
 	private int id;
@@ -32,7 +37,7 @@ public class Comment {
 	@JoinColumn(name = "comref_id")
     private Comment comment;
 	@OrderBy("time_stamp ASC")
-	@OneToMany(mappedBy = "comment")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "comment", cascade = CascadeType.ALL)
 	private Set<Comment> comments;
 
 
