@@ -5,7 +5,6 @@ function debateController(authenticationService, $timeout, $scope, debateService
   var vm = this;
   vm.currentUser = authenticationService.currentUser();
   vm.allComments;
-	vm.interaction;
   vm.ddLoaded = false;
   vm.testval = "testval";
 

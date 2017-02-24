@@ -5,7 +5,7 @@ angular.module('ngDebate').component("commentMasterComponent", {
 		<div class="col-md-12">
                <div class="row">
                    <div class="col-md-12">
-                       <p id="commentaryHeader">Commentary: {{$ctrl.interaction}}</p>
+                       <p id="commentaryHeader">Commentary:</p>
                        <div class="comments-display-screen">
 						<!--<div ng-repeat="comment in $ctrl.allComments | orderBy:'timeStamp'">
 							<div>
@@ -39,8 +39,6 @@ angular.module('ngDebate').component("commentMasterComponent", {
            </div>`,
            
 	bindings : {
-		
-		interaction : "="
 	
 	},
 
@@ -52,11 +50,7 @@ angular.module('ngDebate').component("commentMasterComponent", {
 		  vm.classCode = null;
 		  vm.leftRight = null;
 		  vm.allComments;
-		  vm.$onInit = function(){
-				  vm.interaction = "Testing Interaction Variable Binding";
-		  };
 		  
-		  console.log(vm.interaction);
 
 		  vm.argumentText = 'type comment';
 		  vm.hrefText = 'insert URL';

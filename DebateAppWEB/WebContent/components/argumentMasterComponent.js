@@ -176,7 +176,6 @@ app.component('argumentMasterComponent',{
 		<div class="row">
     	<div class="col-md-12">
     	
-		<div>{{$ctrl.interaction}}</div>
 			<div class="args-display-screen" scroll-glue>
 		      <div ng-repeat="argument in $ctrl.allArgs | orderBy: 'timeStamp'">
 		        <div class="row arg-holder">
@@ -213,8 +212,6 @@ app.component('argumentMasterComponent',{
 		controller : argumentMasterController,
   
 		bindings : {
-			
-			interaction : "="
 		
 		}
 
