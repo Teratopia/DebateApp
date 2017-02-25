@@ -19,7 +19,7 @@ angular.module('ngDebate').component("commentMasterComponent", {
 							<form>
 								<div>
 									<textarea id="arg-text" placeholder="{{$ctrl.argumentText}}"
-									ng-model="$ctrl.newText" class="arg-text-form">{{$ctrl.comref}}</textarea>
+									ng-model="$ctrl.newText" class="arg-text-form"></textarea>
 								</div>
 								<div>
   									<input id="args-submit" ng-click="$ctrl.instCom()" type="submit"
@@ -56,7 +56,7 @@ angular.module('ngDebate').component("commentMasterComponent", {
 		  vm.newRef = "";
 		  vm.comref = null;
 		  vm.debate;
-
+		  
 		  var path = $location.path().split("/");
 		  debateService.indexDebateFull(path[path.length-1])
 		  	.then(function(res) {
@@ -81,7 +81,6 @@ angular.module('ngDebate').component("commentMasterComponent", {
 		  $interval(updateComs, 5000);
 
 		  vm.instCom = function(){
-			  console.log("in instCom. com = ")
 
 			  var com = {
 					  'user' : vm.userInfo,
@@ -92,12 +91,14 @@ angular.module('ngDebate').component("commentMasterComponent", {
 					  'timeStamp' : new Date()
 			  }
 
-			  console.log(com);
+			  
 			  commentService.createComment(com).then(function(res){
 				  vm.newText = null;
 				  vm.newRef = null;
 				  vm.allComments.push(res.data);
 			  })
+
+			  vm.comref=null;
 		  }
 
 		  vm.assignClass = function(arg, performances){

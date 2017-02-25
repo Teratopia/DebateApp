@@ -41,7 +41,7 @@
 	padding-bottom: 10px;
 	overflow: hidden;
 	margin: 5px;
-	height: 375px;
+	height: 374px;
 	overflow-y: scroll;
 	background: -webkit-linear-gradient(top, rgba(127, 127, 127, 0.35) 0%,
 		rgba(127, 127, 127, 0.35) 98.5%, rgba(0, 102, 96, 0.5) 100%);
@@ -686,4 +686,22 @@ md-slider {
 
 .center {
 	text-align: center;
+}
+
+.padComment {
+	margin: 0px 0px 0px 20px;
+}
+
+.nopadComment {
+	margin: 0px 0px 0px 5px;
+}
+
+.light-theme.comment-text {
+	color: #374f50 !important;
+	background: none !important;
+}
+
+.dark-theme.comment-text {
+	color: #7ebbbd !important;
+	background: none !important;
 }
