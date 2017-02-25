@@ -6,7 +6,6 @@ function debateController(authenticationService, $timeout, $scope, debateService
   vm.currentUser = authenticationService.currentUser();
   vm.allComments;
   vm.ddLoaded = false;
-  vm.testval = "testval";
 
   vm.isInDebate = false;
 
@@ -59,35 +58,23 @@ function debateController(authenticationService, $timeout, $scope, debateService
 app.component('debateComponent',{
   template: `<nav-component></nav-component>
             <div class="container-fluid" ng-if="$ctrl.ddLoaded === true">
-               <div class="row">
-                   <div class="col-lg-7 col-md-7" style="padding:0px;">
-                       <div style="overflow-y:auto;">
-                           <div class="col-md-12">
-                               <div class="row">
-                                   <div class="col-md-12">
-                                       <div style="height:2.54em">
-                                           <p style="font-size:1.5em">{{$ctrl.debateData.debate.issue.title}}</p>
-                                       </div>
-                                   </div>
-                               </div>
-                               <debate-info-component testval="$ctrl.testval" debate="$ctrl.debateData.debate"></debate-info-component>
-                           </div>
-                           <comment-master-component  interaction="$ctrl.interaction" debate-data="$ctrl.debateData"></comment-master-component>
-                       </div>
-                   </div>
-                   <div class="col-lg-5 col-md-5">
-                       <div class="row">
-                           <div class="col-md-12">
-                               <p style="font-size:1.5em;">Live Debate Feed (viewing as {{$ctrl.guest()}}):</p>
-                           </div>
-                           <div class="col-md-12">
-							   <ct-component debate-data="$ctrl.debateData"></ct-component>
-                           </div>
-                       </div>
-                     <argument-master-component interaction="$ctrl.interaction"></argument-master-component>
-                   </div>
-               </div>
-           </div>`,
+	  			<div class="row">
+	  				<div class="col-lg-5 col-md-5">
+	  					<div class="col-md-12 hidden-md hidden-lg hidden-xl">
+	  						<debate-info-component title="$ctrl.debateData.debate.issue.title" debate="$ctrl.debateData.debate"></debate-info-component>
+	  					</div>
+	  					<argument-master-component></argument-master-component>
+	  				</div>
+                    <div class="col-lg-7 col-md-7" style="padding:0px;">
+                        <div style="overflow-y:auto;">
+                       		<div class="col-md-12 hidden-xs hidden-sm">
+	  							<debate-info-component title="$ctrl.debateData.debate.issue.title" debate="$ctrl.debateData.debate"></debate-info-component>
+                           	</div>
+                           	<comment-master-component debate-data="$ctrl.debateData"></comment-master-component>
+                       	</div>
+                   	</div>
+               	</div>
+           	</div>`,
 
     controller : debateController
 

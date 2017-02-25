@@ -5,13 +5,10 @@ angular.module('ngDebate').component("commentMasterComponent", {
 		<div class="col-md-12">
                <div class="row">
                    <div class="col-md-12">
-                       <p id="commentaryHeader">Commentary:</p>
+                       <div style="height:2.54em">
+                       		<p style="font-size:1.5em" id="commentaryHeader">Commentary:</p>
+                   		</div>
                        <div class="comments-display-screen">
-						<!--<div ng-repeat="comment in $ctrl.allComments | orderBy:'timeStamp'">
-							<div>
-          						{{comment.user.username}} says: {{comment.text}}
-							</div>
-						</div>-->
 							<comment-component depth="$ctrl.depth" comref="$ctrl.comref" comments="$ctrl.allComments"></comment-component>
 						</div>
                   	</div>

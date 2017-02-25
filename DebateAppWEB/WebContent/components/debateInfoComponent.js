@@ -24,13 +24,20 @@ function debateInfoController(authenticationService, issueService, formatService
 }
 
 app.component('debateInfoComponent',{
-  template: `<v-accordion class="vAccordion--default" multiple>
+  template: ` <div class="row">
+                   <div class="col-md-12">
+                       <div style="height:2.54em">
+                           <p style="font-size:1.5em">{{$ctrl.title}}</p>
+                       </div>
+                   </div>
+               </div>
+               <v-accordion class="vAccordion--default" multiple>
               <v-pane expanded>
                 <v-pane-header>
                   Description
                 </v-pane-header>
                 <v-pane-content>
-                  <div>{{$ctrl.debate.issue.linkRef}} {{$ctrl.testval}}</div>
+                  <div>{{$ctrl.debate.issue.linkRef}}</div>
                   <div>{{$ctrl.debate.issue.description}}</div>
                   <div ng-repeat="category in popCategories($ctrl.debate.issue.id)">{{category}}</div>
                 </v-pane-content>
@@ -57,6 +64,6 @@ app.component('debateInfoComponent',{
 
   bindings : {
 	  			        debate: '<',
-	  			        testval: '='
+	  			        title: '='
               }
 });

@@ -95,17 +95,18 @@ angular.module('ngDebate').component("ctComponent", {
 			if(authenticationService.isLoggedIn() === false){
 				return true;
 			} else {
-
 					var flag = false;
-				vm.debateData.performance_members.forEach(function(pm){
-						try{
-							if(pm.user.id === vm.user.id){
-								flag = true
+					if (vm.debateData!== undefined){
+						vm.debateData.performance_members.forEach(function(pm){
+							try{
+								if(pm.user.id === vm.user.id){
+									flag = true
+								}
+							} catch(e){
+								console.error(e + ": likely cause is that no user is logged in and page is being viewed as a guest.");
 							}
-						} catch(e){
-							console.error(e + ": likely cause is that no user is logged in and page is being viewed as a guest.");
-						}
-				})
+						})
+					}
 				if(flag === true){
 					return true;
 				} else {

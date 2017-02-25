@@ -174,8 +174,13 @@ app.component('argumentMasterComponent',{
   template: `
 
 		<div class="row">
+           <div class="col-md-12">
+               <p style="font-size:1.5em;">Live Debate Feed (viewing as {{$ctrl.guest()}}):</p>
+           </div>
+           <div class="col-md-12">
+			   <ct-component debate-data="$ctrl.debateData"></ct-component>
+           </div>
     	<div class="col-md-12">
-    	
 			<div class="args-display-screen" scroll-glue>
 		      <div ng-repeat="argument in $ctrl.allArgs | orderBy: 'timeStamp'">
 		        <div class="row arg-holder">
