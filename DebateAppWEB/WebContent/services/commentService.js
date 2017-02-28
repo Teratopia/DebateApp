@@ -78,5 +78,7 @@ angular.module('ngDebate').factory('commentService', function($http, authenticat
 	  
   }
 
+
+  
   return service;
 });
