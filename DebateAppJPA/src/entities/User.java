@@ -40,7 +40,7 @@ public class User {
 	private Set<Argument> arguments;
 	@OneToMany(mappedBy = "user")
 	@JsonIgnore
-	private Set<PerformanceMember> perfMember;
+	private Set<PerformanceMember> perfMembers;
 	@ManyToMany
 	@JoinTable(name = "team_roster", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "team_id"))
 	@JsonIgnore
@@ -48,14 +48,36 @@ public class User {
 	@OneToMany(mappedBy = "user")
 	@JsonIgnore
 	private Set<Comment> comments;
-	public Set<PerformanceMember> getPerfMember() {
-		return perfMember;
-	}
-
 	private String type;
 
-	public void setPerfMember(Set<PerformanceMember> perfMember) {
-		this.perfMember = perfMember;
+
+	
+	public Set<PerformanceMember> getPerfMembers() {
+		return perfMembers;
+	}
+	
+	public void setPerfMembers(Set<PerformanceMember> perfMembers) {
+		this.perfMembers = perfMembers;
+	}
+
+	public void addPerfMember(PerformanceMember perfMember) {
+		if (perfMembers == null) {
+			perfMembers = new HashSet<>();
+		}
+		if (!perfMembers.contains(perfMember)) {
+			perfMembers.add(perfMember);
+			if (perfMember.getUser() != null) {
+				perfMember.getUser().getPerfMembers().remove(perfMember);
+			}
+			perfMember.setUser(this);
+		}
+	}
+
+	public void removePerformanceMember(PerformanceMember perfMember) {
+		perfMember.setUser(null);
+		if (perfMembers != null) {
+			perfMembers.remove(perfMember);
+		}
 	}
 
 	public void addTeam(Team team) {

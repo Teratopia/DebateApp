@@ -21,6 +21,7 @@ public class PerformanceMember {
 	private int id;
 	@ManyToOne
 	@JoinColumn(name = "performance_id")
+	@JsonIgnore
 	private Performance performance;
 	@ManyToOne
 	@JoinColumn(name = "user_id")

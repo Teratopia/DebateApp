@@ -9,6 +9,19 @@ function navController(authenticationService, formatService, $rootScope) {
   vm.logout = function(){
 	  authenticationService.logout();
   }
+  
+  // handling for touch start over using click for mobile devices
+  window.onload = function() {
+	  document.getElementById('themeswitch').addEventListener('touchstart click', function(e){
+		  document.getElementById('themecheckbox').checked = !document.getElementById('themecheckbox').checked;
+		  console.log("clicked", $rootScope.bodylayout, document.getElementById('themecheckbox').checked);
+		  if($rootScope.bodylayout === "dark-theme"){
+			  $rootScope.bodylayout = 'light-theme';
+		  } else{
+			  $rootScope.bodylayout = 'dark-theme';
+		  }
+	    });
+	}
 
 }
 
@@ -18,8 +31,8 @@ app.component('navComponent',{
                       <div class="container-fluid" >
                           <div class="navbar-header">
                               <a class="navbar-brand navbar-link" href="#!/categories"><img src="assets/img/Quib-Logo-WHITE.png" ngclass="$root.bodylayout"></a>
-                                      <label class="switch">
-									    <input type="checkbox" ng-model="$root.bodylayout" ng-true-value="'dark-theme'" ng-false-value="'light-theme'">
+                                      <label id="themeswitch" class="switch">
+									    <input id="themecheckbox" type="checkbox" ng-model="$root.bodylayout" ng-true-value="'dark-theme'" ng-false-value="'light-theme'">
 									    <div class="slider round"></div>
 									  </label>
                               <button class="navbar-toggle collapsed" ng-click="$ctrl.isCollapsed = !$ctrl.isCollapsed"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>

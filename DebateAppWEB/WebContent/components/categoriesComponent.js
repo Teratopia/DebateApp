@@ -30,7 +30,7 @@ angular.module('ngDebate').component("categoriesComponent", {
 								</v-pane-header>
 								<v-pane-content>
 									<div class="vPaneContentWrapper">
-										<span ng-show="{{deb.performances.length}} < 2 && $ctrl.logged()">
+										<span ng-show="{{deb.performances.length}} < 2 && $ctrl.logged() && $ctrl.isNotParticipant(deb.performances.perfMembers)">
 											<a href="#!/join/{{deb.id}}"><button class="quibButton">Join</button></a>
 										</span>
 										<a href="#!/debate/{{deb.id}}">
@@ -87,7 +87,7 @@ angular.module('ngDebate').component("categoriesComponent", {
 									</v-pane-header>
 									<v-pane-content>
 										<div class="vPaneContentWrapper">
-											<span ng-show="{{deb.performances.length}} < 2 && $ctrl.logged()">
+										<span ng-show="{{deb.performances.length}} < 2 && $ctrl.logged() && $ctrl.isNotParticipant(deb.performances)">
 												<a href="#!/join/{{deb.id}}"><button class="quibButton">Join</button></a>
 											</span>
 											<a href="#!/debate/{{deb.id}}">
@@ -141,9 +141,9 @@ angular.module('ngDebate').component("categoriesComponent", {
 		}
 		vm.cats;
 		vm.issues;
-		vm.allDebates;
 		vm.debates;
 		vm.filterCats = [];
+		  vm.userinfo = authenticationService.currentUser();
 
 
 		categoryService.indexCategories()
@@ -163,7 +163,6 @@ angular.module('ngDebate').component("categoriesComponent", {
 		debateService.indexDebates()
 			.then(function(res) {
 				    console.log("IN .THEN");
-				    vm.allDebates = res.data;
 				    vm.debates = res.data;
 				    console.log(vm.debates);
 				})
@@ -207,7 +206,7 @@ angular.module('ngDebate').component("categoriesComponent", {
 
 			var filteredDebates = [];
 
-			vm.allDebates.forEach(function(deb){
+			vm.debates.forEach(function(deb){
 				var there = false;
 				if(there === false){
 					deb.issue.issCats.forEach(function(ic1){
@@ -228,68 +227,6 @@ angular.module('ngDebate').component("categoriesComponent", {
 			})
 			vm.debates = filteredDebates;
 
-//			if(vm.filterCats.length === 0) { vm.debates = vm.allDebates; }
-// vm.allDebates.forEach(
-// function(deb){ var there = false;
-									// if(there === false && deb.issue.issCats
-									// !== unde
-// fined &&
-																// deb.issue.issCats
-// .length
-																							// >
-																							// 0){
-																							// console.log("1a");
-// deb.issue.issCats.forEach(fun
-// ction(ic){ if(there
-// === false){ console.log("2a");
-// vm.filterIds.forEach(funct
-// ion(id){ if(there ==
-// = false){ console.
-// log("3a"); consol
-// e.log(deb); console.log(ic)
-// ; if(ic.category.id ===
-													// id
-// ){
-															// console.log("4a
-// there!")
-														// console.log(deb);
-// filteredDebat
-// es.push(deb);
-
-//									// there = tru
-// e;
-// }
-// }
-//							// }) } }) } })
-// vm.allDebates.forEach(
-// function(deb){ var there = false;
-									// if(there === false && deb.issue !==
-									// undefined
-// &&
-																// deb.issue.categories
-																// !==
-																// undefined){
-																// deb.
-// issue.categories.forEach(fun
-// ction(cat){ if(there ===
-												// false){
-// vm.filterIds.forEach(fun
-// ction(id){ if(there
-// === false){ if(cat.id === id
-// ){ filteredDeb
-// ates.push(d
-// eb);
-// there
-// = true; /
-// / }
-//						// }
-//});
-//					}
-//				});
-//				}
-//			});
-
-
 		}
 
 		vm.joinDebate = function(){
@@ -303,5 +240,23 @@ angular.module('ngDebate').component("categoriesComponent", {
 		vm.createDebate = function(){
 			console.log("createDebate");
 		}
+		
+		  vm.isNotParticipant = function(performances){
+			  
+			  if (vm.userinfo) {
+				  var notParticipating = true;
+				  console.log("debate performance members: " + i + " ", performances.Object.perfMembers[0].id);
+				  console.log("debate performance members: " + i + " ", JSON.stringify(performances));
+				  var l = performances.perfMembers.length;
+				  for (var i = 0 ; i < l ; i++) {
+					  if (performances.perfMembers[i].includes(vm.userinfo.id)) {
+						  notParticipating = false;
+						  break;
+					  }
+				  }
+				  console.log(notParticipating)
+				  return notParticipating;
+			  	}
+		  }
 	 }
  });
